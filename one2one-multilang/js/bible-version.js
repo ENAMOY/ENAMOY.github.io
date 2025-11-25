@@ -4,7 +4,12 @@
  */
 class BibleVersionManager {
     constructor() {
-        this.currentVersion = localStorage.getItem('bibleVersion') || 'cuv';
+        // 从 localStorage 加载选中的版本，默认为 ['cuv']
+        const saved = localStorage.getItem('bibleVersions');
+        this.selectedVersions = saved ? JSON.parse(saved) : ['cuv'];
+        if (!Array.isArray(this.selectedVersions) || this.selectedVersions.length === 0) {
+            this.selectedVersions = ['cuv'];
+        }
         this.versions = {};
         this.verseData = {};
     }
@@ -33,10 +38,9 @@ class BibleVersionManager {
             // 3. 初始化UI
             this.createVersionSelector();
             
-            // 4. 如果不是默认版本，立即更新页面
-            if (this.currentVersion !== 'cuv') {
-                this.updatePageVerses();
-            }
+            // 4. 立即更新页面以匹配选中的版本
+            this.updatePageVerses();
+            
         } catch (error) {
             console.error('Failed to init bible manager:', error);
         }
@@ -52,30 +56,62 @@ class BibleVersionManager {
         const selectorContainer = document.createElement('div');
         selectorContainer.className = 'version-selector';
         
-        const select = document.createElement('select');
-        select.className = 'version-select';
+        // 添加提示文本
+        const hint = document.createElement('div');
+        hint.className = 'version-selector-hint';
+        hint.textContent = '选择版本 (可多选):';
+        selectorContainer.appendChild(hint);
         
         Object.values(this.versions).forEach(ver => {
-            const option = document.createElement('option');
-            option.value = ver.id;
-            option.textContent = `${ver.name} (${ver.abbreviation})`;
-            if (ver.id === this.currentVersion) {
-                option.selected = true;
-            }
-            select.appendChild(option);
+            const label = document.createElement('label');
+            label.className = 'version-checkbox-label';
+            
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = ver.id;
+            checkbox.checked = this.selectedVersions.includes(ver.id);
+            
+            checkbox.addEventListener('change', (e) => {
+                this.handleVersionChange(e.target);
+            });
+
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(ver.abbreviation));
+            selectorContainer.appendChild(label);
         });
 
-        select.addEventListener('change', (e) => {
-            this.changeVersion(e.target.value);
-        });
-
-        selectorContainer.appendChild(select);
         header.appendChild(selectorContainer);
     }
 
-    changeVersion(versionId) {
-        this.currentVersion = versionId;
-        localStorage.setItem('bibleVersion', versionId);
+    handleVersionChange(checkbox) {
+        const verId = checkbox.value;
+        
+        if (checkbox.checked) {
+            // 添加版本
+            if (this.selectedVersions.length >= 3) {
+                alert('最多只能同时显示3个版本');
+                checkbox.checked = false;
+                return;
+            }
+            if (!this.selectedVersions.includes(verId)) {
+                this.selectedVersions.push(verId);
+            }
+        } else {
+            // 移除版本
+            if (this.selectedVersions.length <= 1) {
+                alert('至少需要显示一个版本');
+                checkbox.checked = true;
+                return;
+            }
+            this.selectedVersions = this.selectedVersions.filter(id => id !== verId);
+        }
+
+        // 保存并更新
+        // 保持版本顺序：cuv, ccb, esv (根据 versions 定义的顺序或固定顺序)
+        const order = ['cuv', 'ccb', 'esv']; 
+        this.selectedVersions.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+        
+        localStorage.setItem('bibleVersions', JSON.stringify(this.selectedVersions));
         this.updatePageVerses();
     }
 
@@ -87,24 +123,48 @@ class BibleVersionManager {
             const data = this.verseData[id];
             
             if (data && data.versions) {
-                const content = data.versions[this.currentVersion] || data.versions['cuv'];
-                const verInfo = this.versions[this.currentVersion];
-                
-                // 更新经文文本
-                const textDiv = div.querySelector('.scripture-text');
-                if (textDiv) textDiv.textContent = content;
-                
-                // 更新引用
-                const refDiv = div.querySelector('.scripture-ref');
-                if (refDiv) {
-                    // 保持引用格式 (书卷章节 版本)
-                    // 简单的替换策略：如果引用里有"和合本"，替换为当前版本名
-                    // 或者直接重构引用字符串
-                    let refText = data.ref;
-                    // 移除旧的版本标记（如果有）
-                    refText = refText.replace(/\s*和合本\s*/, ''); 
-                    refDiv.textContent = `(${refText} ${verInfo.name})`;
-                }
+                // 清空当前内容
+                div.innerHTML = '';
+
+                this.selectedVersions.forEach(verId => {
+                    const content = data.versions[verId];
+                    const verInfo = this.versions[verId];
+                    
+                    if (content) {
+                        const block = document.createElement('div');
+                        block.className = 'version-block';
+                        
+                        // 如果显示多个版本，添加版本标签
+                        if (this.selectedVersions.length > 1) {
+                            const label = document.createElement('div');
+                            label.className = 'version-label';
+                            label.textContent = verInfo.name;
+                            block.appendChild(label);
+                        }
+
+                        const textDiv = document.createElement('div');
+                        textDiv.className = 'scripture-text';
+                        textDiv.textContent = content;
+                        block.appendChild(textDiv);
+
+                        const refDiv = document.createElement('div');
+                        refDiv.className = 'scripture-ref';
+                        
+                        // 处理引用格式
+                        let refText = data.ref;
+                        refText = refText.replace(/\s*和合本\s*/, '');
+                        // 如果只有一个版本，显示在引用里；如果有多个版本，引用里就不需要重复版本名了，因为上面有label
+                        // 但为了清晰，还是保持引用纯净，版本名在label或引用后
+                        if (this.selectedVersions.length === 1) {
+                             refDiv.textContent = `(${refText} ${verInfo.name})`;
+                        } else {
+                             refDiv.textContent = `(${refText})`;
+                        }
+                        
+                        block.appendChild(refDiv);
+                        div.appendChild(block);
+                    }
+                });
             }
         });
     }
