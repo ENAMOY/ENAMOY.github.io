@@ -15,10 +15,10 @@
 }
 
 .version-selector-hint {
-    color: #555;
+    color: #333;
     font-size: 0.9em;
     margin-right: 10px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .version-checkbox-label {
@@ -34,9 +34,10 @@
 .version-checkbox-label input {
     margin-right: 6px;
     accent-color: #667eea;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     vertical-align: middle;
+    margin-top: -1px;
 }
 
 .version-checkbox-label:hover {
