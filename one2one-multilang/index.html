@@ -2,6 +2,7 @@
 
 <html lang="zh-CN">
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>一对一门徒训练课程</title>
@@ -110,11 +111,29 @@
                 font-size: 1.1em;
             }
         }
-    </style>
+    
+        .home-btn {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+        }
+        .home-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+</style>
 <link href="css/multilang.css" rel="stylesheet"/></head>
 <body>
 <div class="container">
 <header>
+<a href="../index.html" class="home-btn"><i class="fas fa-home"></i> 返回主页</a>
 <h1>📖 一对一</h1>
 <div class="subtitle">个人跟进及带门徒</div>
 </header>
