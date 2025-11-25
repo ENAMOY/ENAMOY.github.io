@@ -1,0 +1,25 @@
+{
+  "versions": {
+    "cuv": {
+      "id": "cuv",
+      "name": "和合本",
+      "fullName": "Chinese Union Version",
+      "language": "zh-CN",
+      "abbreviation": "CUV"
+    },
+    "ccb": {
+      "id": "ccb",
+      "name": "当代译本",
+      "fullName": "Chinese Contemporary Bible",
+      "language": "zh-CN",
+      "abbreviation": "CCB"
+    },
+    "esv": {
+      "id": "esv",
+      "name": "ESV",
+      "fullName": "English Standard Version",
+      "language": "en",
+      "abbreviation": "ESV"
+    }
+  }
+}
