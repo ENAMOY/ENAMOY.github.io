@@ -145,6 +145,9 @@
     function setupColumnScroll() {
         if (scrollHandler) return;
         
+        const content = document.querySelector('.content-wrapper');
+        if (!content) return;
+
         let isScrolling = false;
         scrollHandler = (e) => {
             if (isScrolling) return;
@@ -152,13 +155,13 @@
             // Simple snap to nearest page width
             clearTimeout(isScrolling);
             isScrolling = setTimeout(() => {
-                const pageWidth = window.innerWidth;
-                const scrollLeft = window.scrollX;
+                const pageWidth = window.innerWidth; // Or content.clientWidth
+                const scrollLeft = content.scrollLeft;
                 const pageIndex = Math.round(scrollLeft / pageWidth);
                 const targetScroll = pageIndex * pageWidth;
                 
                 if (Math.abs(scrollLeft - targetScroll) > 10) {
-                    window.scrollTo({
+                    content.scrollTo({
                         left: targetScroll,
                         behavior: 'smooth'
                     });
@@ -167,12 +170,13 @@
             }, 150); // Debounce time
         };
         
-        window.addEventListener('scroll', scrollHandler);
+        content.addEventListener('scroll', scrollHandler);
     }
 
     function removeColumnScroll() {
-        if (scrollHandler) {
-            window.removeEventListener('scroll', scrollHandler);
+        const content = document.querySelector('.content-wrapper');
+        if (scrollHandler && content) {
+            content.removeEventListener('scroll', scrollHandler);
             scrollHandler = null;
         }
     }
