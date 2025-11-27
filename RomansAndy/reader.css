@@ -5,6 +5,19 @@
     --reader-card-bg: #ffffff;
     --reader-primary: #7030A0;
     --reader-border: #eee;
+    
+    /* Fonts */
+    --font-song: "Songti SC", "SimSun", "STSong", "Times New Roman", serif;
+    --font-hei: "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+    --font-kai: "Kaiti SC", "KaiTi", "STKaiti", serif;
+    --font-fang: "FangSong", "STFangsong", serif;
+    --font-li: "LiSu", "STLiti", serif;
+    --font-yuan: "Yuanti SC", "YouYuan", sans-serif;
+    --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body.dark-mode {
@@ -17,16 +30,27 @@ body.dark-mode {
     color: var(--reader-text) !important;
 }
 
+.content-wrapper {
+    font-size: var(--base-font-size, 19px);
+    line-height: 1.8;
+    transition: font-size 0.2s;
+}
+
 body.dark-mode .content-wrapper {
     background-color: var(--reader-card-bg) !important;
     color: var(--reader-text) !important;
     box-shadow: none !important;
 }
 
+/* Hide original navigation elements when Reader is active */
+.home-link, .nav {
+    display: none !important;
+}
+
 /* Reader Toolbar */
 .reader-toolbar {
     position: fixed;
-    right: 20px;
+    left: 20px; /* Moved to left as requested */
     bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -193,36 +217,21 @@ body.dark-mode .highlight {
     background: rgba(255, 255, 0, 0.2);
 }
 
-/* Settings Modal */
-.settings-modal {
-    position: fixed;
-    bottom: -300px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 400px;
-    background: var(--reader-card-bg);
-    border-radius: 12px 12px 0 0;
+/* Settings in Sidebar */
+.settings-panel {
     padding: 20px;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
-    z-index: 1001;
-    transition: bottom 0.3s ease;
-    color: var(--reader-text);
-}
-
-.settings-modal.active {
-    bottom: 0;
 }
 
 .setting-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .setting-label {
     display: block;
     margin-bottom: 10px;
     font-size: 14px;
-    opacity: 0.8;
+    font-weight: bold;
+    color: var(--reader-primary);
 }
 
 .theme-options {
@@ -237,6 +246,7 @@ body.dark-mode .highlight {
     border: 1px solid var(--reader-border);
     border-radius: 6px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .theme-btn.active {
@@ -252,6 +262,7 @@ body.dark-mode .highlight {
     background: var(--reader-bg);
     border-radius: 6px;
     padding: 5px;
+    border: 1px solid var(--reader-border);
 }
 
 .font-btn {
@@ -262,6 +273,27 @@ body.dark-mode .highlight {
     cursor: pointer;
     color: var(--reader-text);
     font-size: 16px;
+}
+
+.font-family-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.font-option {
+    padding: 8px;
+    border: 1px solid var(--reader-border);
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.font-option.active {
+    border-color: var(--reader-primary);
+    color: var(--reader-primary);
+    background: rgba(112, 48, 160, 0.05);
 }
 
 /* Overlay */

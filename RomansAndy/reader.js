@@ -24,8 +24,7 @@
         const toolbar = document.createElement('div');
         toolbar.className = 'reader-toolbar';
         toolbar.innerHTML = `
-            <div class="reader-btn" id="btn-toc" title="目录"><i class="fas fa-list"></i></div>
-            <div class="reader-btn" id="btn-settings" title="设置"><i class="fas fa-font"></i></div>
+            <div class="reader-btn" id="btn-menu" title="菜单"><i class="fas fa-bars"></i></div>
             <div class="reader-btn" id="btn-mode" title="模式"><i class="fas fa-columns"></i></div>
             <div class="reader-btn" id="btn-home" title="返回主页" onclick="window.location.href='../index.html'"><i class="fas fa-home"></i></div>
         `;
@@ -36,12 +35,13 @@
         sidebar.className = 'reader-sidebar';
         sidebar.innerHTML = `
             <div class="sidebar-header">
-                <h3>目录</h3>
+                <h3>阅读助手</h3>
                 <div style="cursor:pointer" id="btn-close-sidebar"><i class="fas fa-times"></i></div>
             </div>
             <div class="sidebar-tabs">
                 <div class="sidebar-tab active" data-tab="toc">目录</div>
                 <div class="sidebar-tab" data-tab="search">搜索</div>
+                <div class="sidebar-tab" data-tab="settings">设置</div>
             </div>
             <div class="search-box" style="display:none">
                 <input type="text" class="search-input" placeholder="搜索全书内容...">
@@ -49,37 +49,37 @@
             <div class="sidebar-content" id="sidebar-content">
                 <!-- Content goes here -->
             </div>
+            <div class="settings-panel" id="settings-panel" style="display:none">
+                <div class="setting-group">
+                    <span class="setting-label">主题模式</span>
+                    <div class="theme-options">
+                        <div class="theme-btn light" data-theme="light">浅色</div>
+                        <div class="theme-btn dark" data-theme="dark">深色</div>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <span class="setting-label">字体大小</span>
+                    <div class="font-size-controls">
+                        <button class="font-btn" id="font-decrease"><i class="fas fa-minus"></i></button>
+                        <span id="font-size-display">${state.fontSize}</span>
+                        <button class="font-btn" id="font-increase"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <span class="setting-label">字体选择</span>
+                    <div class="font-family-grid">
+                        <div class="font-option" data-font="song">宋体</div>
+                        <div class="font-option" data-font="hei">黑体</div>
+                        <div class="font-option" data-font="kai">楷体</div>
+                        <div class="font-option" data-font="fang">仿宋</div>
+                        <div class="font-option" data-font="li">隶书</div>
+                        <div class="font-option" data-font="yuan">圆体</div>
+                        <div class="font-option" data-font="system">系统</div>
+                    </div>
+                </div>
+            </div>
         `;
         body.appendChild(sidebar);
-
-        // Settings Modal
-        const modal = document.createElement('div');
-        modal.className = 'settings-modal';
-        modal.innerHTML = `
-            <div class="setting-group">
-                <span class="setting-label">主题</span>
-                <div class="theme-options">
-                    <div class="theme-btn light" data-theme="light">浅色</div>
-                    <div class="theme-btn dark" data-theme="dark">深色</div>
-                </div>
-            </div>
-            <div class="setting-group">
-                <span class="setting-label">字号</span>
-                <div class="font-size-controls">
-                    <button class="font-btn" id="font-decrease"><i class="fas fa-minus"></i></button>
-                    <span id="font-size-display">${state.fontSize}</span>
-                    <button class="font-btn" id="font-increase"><i class="fas fa-plus"></i></button>
-                </div>
-            </div>
-            <div class="setting-group">
-                <span class="setting-label">字体</span>
-                <select id="font-family-select" style="width:100%; padding:5px;">
-                    <option value="serif">宋体 / Serif</option>
-                    <option value="sans">黑体 / Sans</option>
-                </select>
-            </div>
-        `;
-        body.appendChild(modal);
 
         // Overlay
         const overlay = document.createElement('div');
@@ -89,7 +89,6 @@
 
     function applyState() {
         const body = document.body;
-        const content = document.querySelector('.content-wrapper');
         
         // Theme
         if (state.theme === 'dark') {
@@ -103,27 +102,78 @@
 
         // Font Size
         document.documentElement.style.setProperty('--base-font-size', `${state.fontSize}px`);
-        document.getElementById('font-size-display').textContent = state.fontSize;
+        const display = document.getElementById('font-size-display');
+        if(display) display.textContent = state.fontSize;
 
         // Font Family
-        if (state.fontFamily === 'sans') {
-            body.style.fontFamily = 'var(--font-sans)';
-        } else {
-            body.style.fontFamily = 'var(--font-serif)';
-        }
-        document.getElementById('font-family-select').value = state.fontFamily;
+        const fontMap = {
+            'song': 'var(--font-song)',
+            'hei': 'var(--font-hei)',
+            'kai': 'var(--font-kai)',
+            'fang': 'var(--font-fang)',
+            'li': 'var(--font-li)',
+            'yuan': 'var(--font-yuan)',
+            'system': 'var(--font-system)'
+        };
+        
+        // Default to song if invalid
+        const fontVar = fontMap[state.fontFamily] || fontMap['song'];
+        body.style.fontFamily = fontVar;
+        
+        document.querySelectorAll('.font-option').forEach(opt => {
+            opt.classList.toggle('active', opt.dataset.font === state.fontFamily);
+        });
 
         // Layout
         if (state.layout === 'columns' && window.innerWidth > 768) {
             body.classList.add('column-mode');
+            setupColumnScroll();
         } else {
             body.classList.remove('column-mode');
+            removeColumnScroll();
         }
         
         // Update Mode Icon
         const modeIcon = document.querySelector('#btn-mode i');
         if (modeIcon) {
             modeIcon.className = state.layout === 'columns' ? 'fas fa-scroll' : 'fas fa-columns';
+        }
+    }
+
+    // Column Scroll Snap Logic
+    let scrollHandler = null;
+    function setupColumnScroll() {
+        if (scrollHandler) return;
+        
+        let isScrolling = false;
+        scrollHandler = (e) => {
+            if (isScrolling) return;
+            
+            // Simple snap to nearest page width
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(() => {
+                const pageWidth = window.innerWidth;
+                const scrollLeft = window.scrollX;
+                const pageIndex = Math.round(scrollLeft / pageWidth);
+                const targetScroll = pageIndex * pageWidth;
+                
+                if (Math.abs(scrollLeft - targetScroll) > 10) {
+                    window.scrollTo({
+                        left: targetScroll,
+                        behavior: 'smooth'
+                    });
+                }
+                isScrolling = false;
+            }, 150); // Debounce time
+        };
+        
+        window.addEventListener('scroll', scrollHandler);
+    }
+
+    function removeColumnScroll() {
+        if (scrollHandler) {
+            window.removeEventListener('scroll', scrollHandler);
+            scrollHandler = null;
         }
     }
 
@@ -229,18 +279,10 @@
 
     function initEvents() {
         // Toolbar Buttons
-        document.getElementById('btn-toc').addEventListener('click', () => {
+        document.getElementById('btn-menu').addEventListener('click', () => {
             state.sidebarOpen = true;
             document.querySelector('.reader-sidebar').classList.add('active');
             document.querySelector('.reader-overlay').classList.add('active');
-            // Reset to TOC tab
-            document.querySelector('.sidebar-tab[data-tab="toc"]').click();
-        });
-
-        document.getElementById('btn-settings').addEventListener('click', () => {
-            state.settingsOpen = !state.settingsOpen;
-            document.querySelector('.settings-modal').classList.toggle('active');
-            document.querySelector('.reader-overlay').classList.toggle('active', state.settingsOpen);
         });
 
         document.getElementById('btn-mode').addEventListener('click', () => {
@@ -259,9 +301,7 @@
         // Overlay Click
         document.querySelector('.reader-overlay').addEventListener('click', () => {
             state.sidebarOpen = false;
-            state.settingsOpen = false;
             document.querySelector('.reader-sidebar').classList.remove('active');
-            document.querySelector('.settings-modal').classList.remove('active');
             document.querySelector('.reader-overlay').classList.remove('active');
         });
 
@@ -273,13 +313,22 @@
                 
                 const tabName = e.target.dataset.tab;
                 const searchBox = document.querySelector('.search-box');
+                const sidebarContent = document.getElementById('sidebar-content');
+                const settingsPanel = document.getElementById('settings-panel');
                 
+                // Reset visibility
+                searchBox.style.display = 'none';
+                sidebarContent.style.display = 'block';
+                settingsPanel.style.display = 'none';
+
                 if (tabName === 'search') {
                     searchBox.style.display = 'block';
-                    document.getElementById('sidebar-content').innerHTML = '';
+                    sidebarContent.innerHTML = '';
                     document.querySelector('.search-input').focus();
+                } else if (tabName === 'settings') {
+                    sidebarContent.style.display = 'none';
+                    settingsPanel.style.display = 'block';
                 } else {
-                    searchBox.style.display = 'none';
                     renderTOC();
                 }
             });
@@ -298,6 +347,31 @@
                 applyState();
             });
         });
+
+        document.getElementById('font-increase').addEventListener('click', () => {
+            if (state.fontSize < 32) {
+                state.fontSize++;
+                localStorage.setItem('reader_fontSize', state.fontSize);
+                applyState();
+            }
+        });
+
+        document.getElementById('font-decrease').addEventListener('click', () => {
+            if (state.fontSize > 12) {
+                state.fontSize--;
+                localStorage.setItem('reader_fontSize', state.fontSize);
+                applyState();
+            }
+        });
+
+        document.querySelectorAll('.font-option').forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                state.fontFamily = e.target.dataset.font;
+                localStorage.setItem('reader_fontFamily', state.fontFamily);
+                applyState();
+            });
+        });
+    }
 
         document.getElementById('font-increase').addEventListener('click', () => {
             if (state.fontSize < 32) {
