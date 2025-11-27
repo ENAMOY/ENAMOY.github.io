@@ -373,29 +373,6 @@
         });
     }
 
-        document.getElementById('font-increase').addEventListener('click', () => {
-            if (state.fontSize < 32) {
-                state.fontSize += 1;
-                localStorage.setItem('reader_fontSize', state.fontSize);
-                applyState();
-            }
-        });
-
-        document.getElementById('font-decrease').addEventListener('click', () => {
-            if (state.fontSize > 12) {
-                state.fontSize -= 1;
-                localStorage.setItem('reader_fontSize', state.fontSize);
-                applyState();
-            }
-        });
-
-        document.getElementById('font-family-select').addEventListener('change', (e) => {
-            state.fontFamily = e.target.value;
-            localStorage.setItem('reader_fontFamily', state.fontFamily);
-            applyState();
-        });
-    }
-
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
         injectUI();
