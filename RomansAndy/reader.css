@@ -426,7 +426,7 @@ body.column-mode .content-wrapper {
     border-radius: 0;
     
     /* CSS Columns Configuration */
-    column-width: calc(100vw - 120px); 
+    column-width: 35em; /* Desktop default: allow multi-column */
     column-gap: 80px;
     column-fill: auto;
     column-rule: 1px solid var(--reader-border);
@@ -492,12 +492,5 @@ body.column-mode .content-wrapper {
 @media (max-width: 768px) {
     .reader-sidebar {
         width: 85%;
-    }
-    
-    /* Disable column mode on mobile as it's tricky with small screens */
-    body.column-mode .content-wrapper {
-        column-width: auto;
-        height: auto;
-        overflow: visible;
     }
 }
