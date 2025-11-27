@@ -1,5 +1,29 @@
+/* Variables */
+:root {
+    --reader-bg: #f9f7f1;
+    --reader-text: #2c3e50;
+    --reader-card-bg: #ffffff;
+    --reader-primary: #7030A0;
+    --reader-border: #eee;
+}
 
-/* Reader Toolbar (Right Side) */
+body.dark-mode {
+    --reader-bg: #1a1a1a;
+    --reader-text: #c0c0c0;
+    --reader-card-bg: #2d2d2d;
+    --reader-primary: #9d5bce;
+    --reader-border: #444;
+    background-color: var(--reader-bg) !important;
+    color: var(--reader-text) !important;
+}
+
+body.dark-mode .content-wrapper {
+    background-color: var(--reader-card-bg) !important;
+    color: var(--reader-text) !important;
+    box-shadow: none !important;
+}
+
+/* Reader Toolbar */
 .reader-toolbar {
     position: fixed;
     right: 20px;
@@ -14,14 +38,14 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: var(--card-bg, #fff);
-    border: 1px solid #eee;
+    background: var(--reader-card-bg);
+    border: 1px solid var(--reader-border);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: var(--text-color, #333);
+    color: var(--reader-text);
     font-size: 18px;
     transition: all 0.2s;
 }
@@ -29,22 +53,23 @@
 .reader-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    color: var(--primary-color, #7030A0);
+    color: var(--reader-primary);
 }
 
-/* Sidebar (TOC & Search) */
+/* Sidebar */
 .reader-sidebar {
     position: fixed;
     top: 0;
     left: -320px;
     width: 300px;
     height: 100vh;
-    background: var(--card-bg, #fff);
+    background: var(--reader-card-bg);
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
     z-index: 1001;
     transition: left 0.3s ease;
     display: flex;
     flex-direction: column;
+    color: var(--reader-text);
 }
 
 .reader-sidebar.active {
@@ -53,29 +78,51 @@
 
 .sidebar-header {
     padding: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--reader-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
 .sidebar-tabs {
     display: flex;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--reader-border);
 }
 
 .sidebar-tab {
     flex: 1;
-    padding: 15px;
     text-align: center;
+    padding: 12px;
     cursor: pointer;
-    font-weight: bold;
-    color: #999;
+    font-size: 14px;
+    color: var(--reader-text);
+    opacity: 0.7;
 }
 
 .sidebar-tab.active {
-    color: var(--primary-color, #7030A0);
-    border-bottom: 2px solid var(--primary-color, #7030A0);
+    opacity: 1;
+    color: var(--reader-primary);
+    border-bottom: 2px solid var(--reader-primary);
+}
+
+.search-box {
+    padding: 15px;
+    border-bottom: 1px solid var(--reader-border);
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--reader-border);
+    border-radius: 4px;
+    background: var(--reader-bg);
+    color: var(--reader-text);
+    outline: none;
 }
 
 .sidebar-content {
@@ -84,79 +131,87 @@
     padding: 0;
 }
 
-.toc-item {
+.reader-toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.reader-toc-list li a {
     display: block;
     padding: 12px 20px;
     text-decoration: none;
-    color: var(--text-color, #333);
-    border-bottom: 1px solid #f5f5f5;
+    color: var(--reader-text);
+    border-bottom: 1px solid var(--reader-border);
     font-size: 14px;
+    transition: background 0.2s;
 }
 
-.toc-item:hover {
-    background: rgba(0,0,0,0.02);
-    color: var(--primary-color, #7030A0);
+.reader-toc-list li a:hover {
+    background: var(--reader-bg);
+    color: var(--reader-primary);
 }
 
-.toc-item.active {
-    color: var(--primary-color, #7030A0);
-    background: rgba(112, 48, 160, 0.05);
-    border-left: 3px solid var(--primary-color, #7030A0);
+.reader-toc-list li a.active {
+    color: var(--reader-primary);
+    font-weight: bold;
+    background: var(--reader-bg);
+    border-left: 4px solid var(--reader-primary);
 }
 
-/* Search */
-.search-box {
+/* Search Results */
+.search-item {
     padding: 15px;
-    border-bottom: 1px solid #eee;
-}
-
-.search-input {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.search-result {
-    padding: 15px 20px;
-    border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid var(--reader-border);
     cursor: pointer;
 }
 
-.search-result:hover {
-    background: rgba(0,0,0,0.02);
+.search-item:hover {
+    background: var(--reader-bg);
 }
 
-.result-title {
+.search-title {
     font-weight: bold;
-    font-size: 14px;
     margin-bottom: 5px;
-    color: var(--primary-color, #7030A0);
+    font-size: 14px;
+    color: var(--reader-primary);
 }
 
-.result-snippet {
+.search-snippet {
     font-size: 12px;
-    color: #666;
+    color: var(--reader-text);
+    opacity: 0.8;
     line-height: 1.4;
+}
+
+.highlight {
+    background: rgba(255, 255, 0, 0.3);
+    color: inherit;
+}
+
+body.dark-mode .highlight {
+    background: rgba(255, 255, 0, 0.2);
 }
 
 /* Settings Modal */
 .settings-modal {
     position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 300px;
-    background: var(--card-bg, #fff);
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    bottom: -300px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    background: var(--reader-card-bg);
+    border-radius: 12px 12px 0 0;
     padding: 20px;
-    z-index: 1000;
-    display: none;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    z-index: 1001;
+    transition: bottom 0.3s ease;
+    color: var(--reader-text);
 }
 
 .settings-modal.active {
-    display: block;
+    bottom: 0;
 }
 
 .setting-group {
@@ -164,10 +219,10 @@
 }
 
 .setting-label {
-    font-size: 12px;
-    color: #999;
-    margin-bottom: 10px;
     display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    opacity: 0.8;
 }
 
 .theme-options {
@@ -177,123 +232,36 @@
 
 .theme-btn {
     flex: 1;
-    padding: 8px;
-    border: 1px solid #eee;
-    border-radius: 4px;
-    background: #fff;
-    cursor: pointer;
+    padding: 10px;
     text-align: center;
-    font-size: 14px;
-}
-
-.theme-btn.dark {
-    background: #333;
-    color: #fff;
-    border-color: #333;
-}
-
-.theme-btn.light {
-    background: #f9f7f1;
-    color: #333;
+    border: 1px solid var(--reader-border);
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 .theme-btn.active {
-    border-color: var(--primary-color, #7030A0);
-    box-shadow: 0 0 0 2px rgba(112, 48, 160, 0.2);
+    border-color: var(--reader-primary);
+    color: var(--reader-primary);
+    background: rgba(112, 48, 160, 0.05);
 }
 
 .font-size-controls {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #f5f5f5;
-    border-radius: 20px;
-    padding: 5px 15px;
+    background: var(--reader-bg);
+    border-radius: 6px;
+    padding: 5px;
 }
 
 .font-btn {
-    background: none;
+    width: 40px;
+    height: 40px;
     border: none;
-    font-size: 18px;
+    background: transparent;
     cursor: pointer;
-    padding: 5px 10px;
-}
-
-/* Dark Mode */
-body.dark-mode {
-    --bg-color: #1a1a1a;
-    --card-bg: #252525;
-    --text-color: #e0e0e0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-}
-
-body.dark-mode .content-wrapper {
-    background-color: var(--card-bg);
-    box-shadow: none;
-}
-
-body.dark-mode .reader-btn,
-body.dark-mode .settings-modal,
-body.dark-mode .reader-sidebar {
-    background-color: var(--card-bg);
-    border-color: #333;
-    color: var(--text-color);
-}
-
-body.dark-mode .toc-item {
-    border-color: #333;
-    color: #ccc;
-}
-
-body.dark-mode .toc-item:hover {
-    background: rgba(255,255,255,0.05);
-}
-
-/* Two Column Mode */
-.two-column-mode {
-    overflow: hidden; /* Prevent body scroll */
-    height: 100vh;
-}
-
-.two-column-mode .content-wrapper {
-    max-width: none !important;
-    height: calc(100vh - 120px); /* Leave space for header/footer if any, or margins */
-    margin: 60px 40px !important;
-    padding: 0 !important;
-    
-    column-fill: auto;
-    column-width: calc(50vw - 80px);
-    column-gap: 60px;
-    column-rule: 1px solid #eee;
-    
-    overflow-x: auto;
-    overflow-y: hidden;
-    
-    /* Typography adjustments for columns */
-    text-align: justify;
-}
-
-.two-column-mode h1 {
-    column-span: all; /* Title spans across */
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-@media (max-width: 768px) {
-    .two-column-mode .content-wrapper {
-        column-width: auto;
-        column-count: 1;
-        height: auto;
-        overflow-y: auto;
-        overflow-x: hidden;
-        margin: 20px !important;
-    }
-    
-    .two-column-mode {
-        overflow: auto;
-        height: auto;
-    }
+    color: var(--reader-text);
+    font-size: 16px;
 }
 
 /* Overlay */
@@ -305,9 +273,74 @@ body.dark-mode .toc-item:hover {
     height: 100%;
     background: rgba(0,0,0,0.5);
     z-index: 1000;
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
 }
 
 .reader-overlay.active {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Column Mode (Pagination) */
+body.column-mode {
+    height: 100vh;
+    overflow: hidden;
+    background: var(--reader-bg);
+}
+
+body.column-mode .content-wrapper {
+    height: 100vh;
+    width: 100vw;
+    max-width: none;
+    margin: 0;
+    padding: 40px 60px;
+    box-sizing: border-box;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    
+    /* CSS Columns - Auto layout based on width */
+    column-width: 35em; 
+    column-gap: 80px;
+    column-fill: auto;
+    column-rule: 1px solid var(--reader-border);
+    
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Ensure paragraphs don't break awkwardly */
+body.column-mode p {
+    break-inside: avoid;
+    text-align: justify;
+}
+
+body.column-mode h1 {
+    break-before: always; /* Start title on new column/page if needed, or avoid break after */
+    break-after: avoid;
+}
+
+/* Hide scrollbar in column mode but allow scrolling */
+body.column-mode .content-wrapper::-webkit-scrollbar {
+    display: none;
+}
+body.column-mode .content-wrapper {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .reader-sidebar {
+        width: 85%;
+    }
+    
+    /* Disable column mode on mobile as it's tricky with small screens */
+    body.column-mode .content-wrapper {
+        column-width: auto;
+        height: auto;
+        overflow: visible;
+    }
 }

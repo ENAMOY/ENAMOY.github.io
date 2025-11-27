@@ -1,13 +1,12 @@
-
 (function() {
     // State
     const state = {
         theme: localStorage.getItem('reader_theme') || 'light',
         fontSize: parseInt(localStorage.getItem('reader_fontSize')) || 19,
+        fontFamily: localStorage.getItem('reader_fontFamily') || 'serif',
         layout: localStorage.getItem('reader_layout') || 'scroll',
         sidebarOpen: false,
-        settingsOpen: false,
-        searchQuery: ''
+        settingsOpen: false
     };
 
     // Ensure FontAwesome
@@ -28,7 +27,7 @@
             <div class="reader-btn" id="btn-toc" title="目录"><i class="fas fa-list"></i></div>
             <div class="reader-btn" id="btn-settings" title="设置"><i class="fas fa-font"></i></div>
             <div class="reader-btn" id="btn-mode" title="模式"><i class="fas fa-columns"></i></div>
-            <div class="reader-btn" id="btn-home" title="首页" onclick="window.location.href='index.html'"><i class="fas fa-home"></i></div>
+            <div class="reader-btn" id="btn-home" title="返回主页" onclick="window.location.href='../index.html'"><i class="fas fa-home"></i></div>
         `;
         body.appendChild(toolbar);
 
@@ -90,6 +89,7 @@
 
     function applyState() {
         const body = document.body;
+        const content = document.querySelector('.content-wrapper');
         
         // Theme
         if (state.theme === 'dark') {
@@ -102,196 +102,233 @@
         });
 
         // Font Size
-        body.style.fontSize = `${state.fontSize}px`;
-        const display = document.getElementById('font-size-display');
-        if(display) display.textContent = state.fontSize;
+        document.documentElement.style.setProperty('--base-font-size', `${state.fontSize}px`);
+        document.getElementById('font-size-display').textContent = state.fontSize;
+
+        // Font Family
+        if (state.fontFamily === 'sans') {
+            body.style.fontFamily = 'var(--font-sans)';
+        } else {
+            body.style.fontFamily = 'var(--font-serif)';
+        }
+        document.getElementById('font-family-select').value = state.fontFamily;
 
         // Layout
-        if (state.layout === 'columns') {
-            body.classList.add('two-column-mode');
+        if (state.layout === 'columns' && window.innerWidth > 768) {
+            body.classList.add('column-mode');
         } else {
-            body.classList.remove('two-column-mode');
+            body.classList.remove('column-mode');
         }
-    }
-
-    function bindEvents() {
-        // Toolbar
-        document.getElementById('btn-toc').onclick = () => toggleSidebar(true);
-        document.getElementById('btn-settings').onclick = () => toggleSettings();
-        document.getElementById('btn-mode').onclick = () => toggleLayout();
         
-        // Sidebar
-        document.getElementById('btn-close-sidebar').onclick = () => toggleSidebar(false);
-        document.querySelector('.reader-overlay').onclick = () => {
-            toggleSidebar(false);
-            toggleSettings(false);
-        };
-
-        // Tabs
-        document.querySelectorAll('.sidebar-tab').forEach(tab => {
-            tab.onclick = (e) => {
-                document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
-                e.target.classList.add('active');
-                const mode = e.target.dataset.tab;
-                if (mode === 'toc') {
-                    document.querySelector('.search-box').style.display = 'none';
-                    renderTOC();
-                } else {
-                    document.querySelector('.search-box').style.display = 'block';
-                    document.querySelector('.search-input').focus();
-                    renderSearchResults(); // Render empty or previous results
-                }
-            };
-        });
-
-        // Search
-        const searchInput = document.querySelector('.search-input');
-        let debounceTimer;
-        searchInput.oninput = (e) => {
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                state.searchQuery = e.target.value;
-                renderSearchResults();
-            }, 300);
-        };
-
-        // Settings
-        document.querySelectorAll('.theme-btn').forEach(btn => {
-            btn.onclick = () => {
-                state.theme = btn.dataset.theme;
-                localStorage.setItem('reader_theme', state.theme);
-                applyState();
-            };
-        });
-
-        document.getElementById('font-increase').onclick = () => {
-            state.fontSize = Math.min(state.fontSize + 2, 32);
-            localStorage.setItem('reader_fontSize', state.fontSize);
-            applyState();
-        };
-
-        document.getElementById('font-decrease').onclick = () => {
-            state.fontSize = Math.max(state.fontSize - 2, 12);
-            localStorage.setItem('reader_fontSize', state.fontSize);
-            applyState();
-        };
-        
-        document.getElementById('font-family-select').onchange = (e) => {
-            const val = e.target.value;
-            if(val === 'sans') {
-                document.body.style.fontFamily = 'var(--font-sans)';
-            } else {
-                document.body.style.fontFamily = 'var(--font-serif)';
-            }
-        };
-    }
-
-    function toggleSidebar(show) {
-        state.sidebarOpen = show !== undefined ? show : !state.sidebarOpen;
-        document.querySelector('.reader-sidebar').classList.toggle('active', state.sidebarOpen);
-        document.querySelector('.reader-overlay').classList.toggle('active', state.sidebarOpen);
-        if (state.sidebarOpen) {
-            toggleSettings(false);
-            if (!document.getElementById('sidebar-content').hasChildNodes()) {
-                renderTOC();
-            }
+        // Update Mode Icon
+        const modeIcon = document.querySelector('#btn-mode i');
+        if (modeIcon) {
+            modeIcon.className = state.layout === 'columns' ? 'fas fa-scroll' : 'fas fa-columns';
         }
-    }
-
-    function toggleSettings(show) {
-        state.settingsOpen = show !== undefined ? show : !state.settingsOpen;
-        document.querySelector('.settings-modal').classList.toggle('active', state.settingsOpen);
-        if (state.settingsOpen) {
-            // toggleSidebar(false); // Optional: close sidebar when settings open
-        }
-    }
-
-    function toggleLayout() {
-        state.layout = state.layout === 'scroll' ? 'columns' : 'scroll';
-        localStorage.setItem('reader_layout', state.layout);
-        applyState();
-    }
-
-    function loadData() {
-        // Check if BOOK_DATA is loaded
-        if (window.BOOK_DATA) {
-            // Data already loaded via script tag
-            return;
-        }
-        // If not, maybe fetch it? But we are using script tag injection.
-        // Just in case, we can try to fetch reader_data.js
     }
 
     function renderTOC() {
         const container = document.getElementById('sidebar-content');
-        container.innerHTML = '';
-        if (!window.BOOK_DATA || !window.BOOK_DATA.toc) return;
+        if (!readerData || !readerData.toc) return;
 
-        const currentPath = window.location.pathname.split('/').pop();
-
-        window.BOOK_DATA.toc.forEach(item => {
-            const a = document.createElement('a');
-            a.className = 'toc-item';
-            a.href = item.url;
-            a.textContent = item.title;
-            if (item.url === currentPath) {
-                a.classList.add('active');
-            }
-            container.appendChild(a);
+        const currentFile = window.location.pathname.split('/').pop();
+        
+        let html = '<ul class="reader-toc-list">';
+        readerData.toc.forEach(item => {
+            const isActive = item.link === currentFile ? 'active' : '';
+            html += `<li><a href="${item.link}" class="${isActive}">${item.title}</a></li>`;
         });
+        html += '</ul>';
+        container.innerHTML = html;
     }
 
-    function renderSearchResults() {
+    function performSearch(query) {
         const container = document.getElementById('sidebar-content');
-        container.innerHTML = '';
-        const query = state.searchQuery.toLowerCase();
-        
-        if (!query) {
-            container.innerHTML = '<div style="padding:20px;color:#999;text-align:center">输入关键词搜索</div>';
+        if (!query.trim()) {
+            container.innerHTML = '<div style="padding:20px;text-align:center;color:#999">请输入关键词搜索</div>';
             return;
         }
 
-        if (!window.BOOK_DATA || !window.BOOK_DATA.search_index) return;
-
-        const results = window.BOOK_DATA.search_index.filter(item => {
-            return item.title.toLowerCase().includes(query) || item.content.toLowerCase().includes(query);
-        });
+        const results = readerData.searchIndex.filter(item => 
+            item.content.includes(query) || item.title.includes(query)
+        );
 
         if (results.length === 0) {
-            container.innerHTML = '<div style="padding:20px;color:#999;text-align:center">未找到相关内容</div>';
+            container.innerHTML = '<div style="padding:20px;text-align:center;color:#999">未找到相关内容</div>';
             return;
         }
 
+        let html = '<div class="search-results">';
         results.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'search-result';
-            div.onclick = () => window.location.href = item.url;
-            
             // Create snippet
+            const idx = item.content.indexOf(query);
             let snippet = '';
-            const contentLower = item.content.toLowerCase();
-            const idx = contentLower.indexOf(query);
-            if (idx > -1) {
+            if (idx !== -1) {
                 const start = Math.max(0, idx - 20);
-                const end = Math.min(item.content.length, idx + 40);
-                snippet = '...' + item.content.substring(start, end) + '...';
+                const end = Math.min(item.content.length, idx + query.length + 40);
+                snippet = item.content.substring(start, end);
+                snippet = snippet.replace(query, `<span class="highlight">${query}</span>`);
             } else {
-                snippet = item.content.substring(0, 60) + '...';
+                snippet = item.content.substring(0, 60);
             }
 
-            div.innerHTML = `
-                <div class="result-title">${item.title}</div>
-                <div class="result-snippet">${snippet}</div>
+            html += `
+                <div class="search-item" onclick="window.location.href='${item.link}?q=${encodeURIComponent(query)}'">
+                    <div class="search-title">${item.title}</div>
+                    <div class="search-snippet">...${snippet}...</div>
+                </div>
             `;
-            container.appendChild(div);
+        });
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    function handleHighlight() {
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get('q');
+        if (query) {
+            // Simple highlight implementation
+            // Note: This is destructive to HTML structure if not careful. 
+            // Ideally use a library like Mark.js, but for now simple replacement in text nodes.
+            
+            const content = document.querySelector('.content-wrapper');
+            if (!content) return;
+
+            // Remove existing highlights if any (though page reload clears them)
+            
+            // We need to be careful not to break HTML tags.
+            // A safe way is to use TreeWalker
+            
+            const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, null, false);
+            const nodes = [];
+            while(walker.nextNode()) nodes.push(walker.currentNode);
+            
+            let found = false;
+            for (const node of nodes) {
+                if (node.nodeValue.includes(query)) {
+                    const span = document.createElement('span');
+                    span.innerHTML = node.nodeValue.replace(
+                        new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), 
+                        `<span class="highlight-match" style="background:yellow;color:black">${query}</span>`
+                    );
+                    node.parentNode.replaceChild(span, node);
+                    found = true;
+                }
+            }
+            
+            if (found) {
+                setTimeout(() => {
+                    const firstMatch = document.querySelector('.highlight-match');
+                    if (firstMatch) {
+                        firstMatch.scrollIntoView({behavior: 'smooth', block: 'center'});
+                    }
+                }, 500);
+            }
+        }
+    }
+
+    function initEvents() {
+        // Toolbar Buttons
+        document.getElementById('btn-toc').addEventListener('click', () => {
+            state.sidebarOpen = true;
+            document.querySelector('.reader-sidebar').classList.add('active');
+            document.querySelector('.reader-overlay').classList.add('active');
+            // Reset to TOC tab
+            document.querySelector('.sidebar-tab[data-tab="toc"]').click();
+        });
+
+        document.getElementById('btn-settings').addEventListener('click', () => {
+            state.settingsOpen = !state.settingsOpen;
+            document.querySelector('.settings-modal').classList.toggle('active');
+            document.querySelector('.reader-overlay').classList.toggle('active', state.settingsOpen);
+        });
+
+        document.getElementById('btn-mode').addEventListener('click', () => {
+            state.layout = state.layout === 'scroll' ? 'columns' : 'scroll';
+            localStorage.setItem('reader_layout', state.layout);
+            applyState();
+        });
+
+        // Sidebar Close
+        document.getElementById('btn-close-sidebar').addEventListener('click', () => {
+            state.sidebarOpen = false;
+            document.querySelector('.reader-sidebar').classList.remove('active');
+            document.querySelector('.reader-overlay').classList.remove('active');
+        });
+
+        // Overlay Click
+        document.querySelector('.reader-overlay').addEventListener('click', () => {
+            state.sidebarOpen = false;
+            state.settingsOpen = false;
+            document.querySelector('.reader-sidebar').classList.remove('active');
+            document.querySelector('.settings-modal').classList.remove('active');
+            document.querySelector('.reader-overlay').classList.remove('active');
+        });
+
+        // Tabs
+        document.querySelectorAll('.sidebar-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                const tabName = e.target.dataset.tab;
+                const searchBox = document.querySelector('.search-box');
+                
+                if (tabName === 'search') {
+                    searchBox.style.display = 'block';
+                    document.getElementById('sidebar-content').innerHTML = '';
+                    document.querySelector('.search-input').focus();
+                } else {
+                    searchBox.style.display = 'none';
+                    renderTOC();
+                }
+            });
+        });
+
+        // Search Input
+        document.querySelector('.search-input').addEventListener('input', (e) => {
+            performSearch(e.target.value);
+        });
+
+        // Settings Controls
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                state.theme = e.target.dataset.theme;
+                localStorage.setItem('reader_theme', state.theme);
+                applyState();
+            });
+        });
+
+        document.getElementById('font-increase').addEventListener('click', () => {
+            if (state.fontSize < 32) {
+                state.fontSize += 1;
+                localStorage.setItem('reader_fontSize', state.fontSize);
+                applyState();
+            }
+        });
+
+        document.getElementById('font-decrease').addEventListener('click', () => {
+            if (state.fontSize > 12) {
+                state.fontSize -= 1;
+                localStorage.setItem('reader_fontSize', state.fontSize);
+                applyState();
+            }
+        });
+
+        document.getElementById('font-family-select').addEventListener('change', (e) => {
+            state.fontFamily = e.target.value;
+            localStorage.setItem('reader_fontFamily', state.fontFamily);
+            applyState();
         });
     }
 
     // Initialize
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+        injectUI();
+        initEvents();
+        applyState();
+        renderTOC();
+        handleHighlight();
+    });
 
 })();
