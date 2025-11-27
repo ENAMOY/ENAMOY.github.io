@@ -36,7 +36,7 @@
         sidebar.innerHTML = `
             <div class="sidebar-header">
                 <h3>阅读助手</h3>
-                <div style="cursor:pointer" id="btn-close-sidebar"><i class="fas fa-times"></i></div>
+                <div style="cursor:pointer; width:40px; height:40px; display:flex; align-items:center; justify-content:center;" id="btn-close-sidebar"><i class="fas fa-times"></i></div>
             </div>
             <div class="sidebar-tabs">
                 <div class="sidebar-tab active" data-tab="toc">目录</div>
@@ -282,40 +282,49 @@
     }
 
     function initEvents() {
+        // Helper to safely add listener
+        const safeAdd = (id, event, handler) => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener(event, handler);
+        };
+
         // Toggle UI on content click
-        document.querySelector('.content-wrapper').addEventListener('click', (e) => {
-            // Don't toggle if clicking links or selecting text
-            if (e.target.tagName === 'A' || window.getSelection().toString().length > 0) return;
-            
-            document.body.classList.toggle('ui-hidden');
-        });
+        const contentWrapper = document.querySelector('.content-wrapper');
+        if (contentWrapper) {
+            contentWrapper.addEventListener('click', (e) => {
+                // Don't toggle if clicking links or selecting text
+                if (e.target.tagName === 'A' || window.getSelection().toString().length > 0) return;
+                
+                document.body.classList.toggle('ui-hidden');
+            });
+        }
 
         // Toolbar Buttons
-        document.getElementById('btn-menu').addEventListener('click', () => {
+        safeAdd('btn-menu', 'click', () => {
             state.sidebarOpen = true;
             document.querySelector('.reader-sidebar').classList.add('active');
             document.querySelector('.reader-overlay').classList.add('active');
         });
 
-        document.getElementById('btn-mode').addEventListener('click', () => {
+        safeAdd('btn-mode', 'click', () => {
             state.layout = state.layout === 'scroll' ? 'columns' : 'scroll';
             localStorage.setItem('reader_layout', state.layout);
             applyState();
         });
 
         // Sidebar Close
-        document.getElementById('btn-close-sidebar').addEventListener('click', () => {
+        const closeSidebar = () => {
             state.sidebarOpen = false;
             document.querySelector('.reader-sidebar').classList.remove('active');
             document.querySelector('.reader-overlay').classList.remove('active');
-        });
+        };
+        safeAdd('btn-close-sidebar', 'click', closeSidebar);
 
         // Overlay Click
-        document.querySelector('.reader-overlay').addEventListener('click', () => {
-            state.sidebarOpen = false;
-            document.querySelector('.reader-sidebar').classList.remove('active');
-            document.querySelector('.reader-overlay').classList.remove('active');
-        });
+        const overlay = document.querySelector('.reader-overlay');
+        if (overlay) {
+            overlay.addEventListener('click', closeSidebar);
+        }
 
         // Tabs
         document.querySelectorAll('.sidebar-tab').forEach(tab => {
@@ -329,17 +338,18 @@
                 const settingsPanel = document.getElementById('settings-panel');
                 
                 // Reset visibility
-                searchBox.style.display = 'none';
-                sidebarContent.style.display = 'block';
-                settingsPanel.style.display = 'none';
+                if(searchBox) searchBox.style.display = 'none';
+                if(sidebarContent) sidebarContent.style.display = 'block';
+                if(settingsPanel) settingsPanel.style.display = 'none';
 
                 if (tabName === 'search') {
-                    searchBox.style.display = 'block';
-                    sidebarContent.innerHTML = '';
-                    document.querySelector('.search-input').focus();
+                    if(searchBox) searchBox.style.display = 'block';
+                    if(sidebarContent) sidebarContent.innerHTML = '';
+                    const input = document.querySelector('.search-input');
+                    if(input) input.focus();
                 } else if (tabName === 'settings') {
-                    sidebarContent.style.display = 'none';
-                    settingsPanel.style.display = 'block';
+                    if(sidebarContent) sidebarContent.style.display = 'none';
+                    if(settingsPanel) settingsPanel.style.display = 'block';
                 } else {
                     renderTOC();
                 }
@@ -347,9 +357,12 @@
         });
 
         // Search Input
-        document.querySelector('.search-input').addEventListener('input', (e) => {
-            performSearch(e.target.value);
-        });
+        const searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                performSearch(e.target.value);
+            });
+        }
 
         // Settings Controls
         document.querySelectorAll('.theme-btn').forEach(btn => {
@@ -360,7 +373,7 @@
             });
         });
 
-        document.getElementById('font-increase').addEventListener('click', () => {
+        safeAdd('font-increase', 'click', () => {
             if (state.fontSize < 32) {
                 state.fontSize++;
                 localStorage.setItem('reader_fontSize', state.fontSize);
@@ -368,7 +381,7 @@
             }
         });
 
-        document.getElementById('font-decrease').addEventListener('click', () => {
+        safeAdd('font-decrease', 'click', () => {
             if (state.fontSize > 12) {
                 state.fontSize--;
                 localStorage.setItem('reader_fontSize', state.fontSize);
