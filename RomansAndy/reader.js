@@ -125,7 +125,7 @@
         });
 
         // Layout
-        if (state.layout === 'columns' && window.innerWidth > 768) {
+        if (state.layout === 'columns') {
             body.classList.add('column-mode');
             setupColumnScroll();
         } else {
@@ -282,6 +282,14 @@
     }
 
     function initEvents() {
+        // Toggle UI on content click
+        document.querySelector('.content-wrapper').addEventListener('click', (e) => {
+            // Don't toggle if clicking links or selecting text
+            if (e.target.tagName === 'A' || window.getSelection().toString().length > 0) return;
+            
+            document.body.classList.toggle('ui-hidden');
+        });
+
         // Toolbar Buttons
         document.getElementById('btn-menu').addEventListener('click', () => {
             state.sidebarOpen = true;
