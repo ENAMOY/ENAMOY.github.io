@@ -399,9 +399,9 @@ body.dark-mode .highlight {
     visibility: visible;
 }
 
-/* Column Mode (Pagination) */
+/* Column Mode (Pagination) - REFACTORED */
 body.column-mode {
-    position: fixed; /* Fix body to prevent bounce/scroll issues */
+    position: fixed;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -409,37 +409,45 @@ body.column-mode {
 }
 
 body.column-mode .content-wrapper {
+    /* Use viewport units strictly */
     height: 100vh;
     height: 100dvh;
     width: 100vw;
-    max-width: none;
     margin: 0;
-    padding: 40px 60px;
+    
+    /* Padding inside the scrollable area */
+    padding: 40px 60px; 
     box-sizing: border-box;
+    
     background: transparent;
     box-shadow: none;
     border-radius: 0;
     
-    /* CSS Columns */
-    column-width: 35em; 
+    /* CSS Columns Configuration */
+    column-width: calc(100vw - 120px); /* Account for padding */
     column-gap: 80px;
     column-fill: auto;
     column-rule: 1px solid var(--reader-border);
     
+    /* Scrolling */
     overflow-x: auto;
     overflow-y: hidden;
     
-    /* Critical for mobile scroll */
+    /* Mobile Scroll Physics */
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x;
+    scroll-behavior: smooth;
 }
 
-/* Mobile Column Mode Fix */
+/* Mobile Column Mode Specifics */
 @media (max-width: 768px) {
     body.column-mode .content-wrapper {
-        column-width: 100vw; /* Full width columns */
-        column-gap: 20px; /* Smaller gap */
-        padding: 20px 20px 60px 20px !important; 
+        padding: 20px !important;
+        /* On mobile, we want exactly one page width per column */
+        column-width: calc(100vw - 40px); 
+        column-gap: 40px;
+        
+        /* Ensure height handles browser bars */
         height: 100dvh;
         width: 100vw;
     }

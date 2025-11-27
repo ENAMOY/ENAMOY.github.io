@@ -127,10 +127,10 @@
         // Layout
         if (state.layout === 'columns') {
             body.classList.add('column-mode');
-            setupColumnScroll();
+            enableColumnMode();
         } else {
             body.classList.remove('column-mode');
-            removeColumnScroll();
+            disableColumnMode();
         }
         
         // Update Mode Icon
@@ -140,72 +140,107 @@
         }
     }
 
-    // Column Scroll Snap Logic
-    let scrollHandler = null;
-    let touchStartHandler = null;
-    let touchEndHandler = null;
-    let isTouching = false;
+    // --- REFACTORED COLUMN MODE LOGIC ---
+    
+    let columnState = {
+        isActive: false,
+        isInteracting: false,
+        scrollTimer: null,
+        contentEl: null
+    };
 
-    function setupColumnScroll() {
-        if (scrollHandler) return;
+    function enableColumnMode() {
+        if (columnState.isActive) return;
         
         const content = document.querySelector('.content-wrapper');
         if (!content) return;
 
-        // Touch handling to prevent snapping while dragging
-        touchStartHandler = () => { isTouching = true; };
-        touchEndHandler = () => { 
-            isTouching = false; 
-            // Trigger snap check immediately after release
-            snapToPage();
-        };
-
-        content.addEventListener('touchstart', touchStartHandler, {passive: true});
-        content.addEventListener('touchend', touchEndHandler, {passive: true});
-
-        let isScrolling = false;
+        columnState.isActive = true;
+        columnState.contentEl = content;
         
-        const snapToPage = () => {
-            if (isTouching) return; // Don't snap while user is touching
-
-            const pageWidth = window.innerWidth;
-            const scrollLeft = content.scrollLeft;
-            const pageIndex = Math.round(scrollLeft / pageWidth);
-            const targetScroll = pageIndex * pageWidth;
-            
-            if (Math.abs(scrollLeft - targetScroll) > 5) { // Lower threshold
-                content.scrollTo({
-                    left: targetScroll,
-                    behavior: 'smooth'
-                });
-            }
-        };
-
-        scrollHandler = () => {
-            if (isScrolling) return;
-            if (isTouching) return; // Ignore scroll events during touch drag
-            
-            clearTimeout(isScrolling);
-            isScrolling = setTimeout(() => {
-                snapToPage();
-                isScrolling = false;
-            }, 100); // Faster debounce
-        };
+        // Add listeners
+        content.addEventListener('touchstart', handleTouchStart, {passive: true});
+        content.addEventListener('touchend', handleTouchEnd, {passive: true});
+        content.addEventListener('scroll', handleScroll, {passive: true});
         
-        content.addEventListener('scroll', scrollHandler);
+        // Initial snap check
+        setTimeout(snapToNearestPage, 100);
     }
 
-    function removeColumnScroll() {
-        const content = document.querySelector('.content-wrapper');
+    function disableColumnMode() {
+        if (!columnState.isActive) return;
+        
+        const content = columnState.contentEl;
         if (content) {
-            if (scrollHandler) content.removeEventListener('scroll', scrollHandler);
-            if (touchStartHandler) content.removeEventListener('touchstart', touchStartHandler);
-            if (touchEndHandler) content.removeEventListener('touchend', touchEndHandler);
+            content.removeEventListener('touchstart', handleTouchStart);
+            content.removeEventListener('touchend', handleTouchEnd);
+            content.removeEventListener('scroll', handleScroll);
         }
-        scrollHandler = null;
-        touchStartHandler = null;
-        touchEndHandler = null;
+        
+        columnState.isActive = false;
+        columnState.contentEl = null;
+        columnState.isInteracting = false;
+        if (columnState.scrollTimer) clearTimeout(columnState.scrollTimer);
     }
+
+    function handleTouchStart() {
+        columnState.isInteracting = true;
+        if (columnState.scrollTimer) clearTimeout(columnState.scrollTimer);
+    }
+
+    function handleTouchEnd() {
+        columnState.isInteracting = false;
+        // Wait a bit for momentum scroll to settle, then snap
+        // If momentum is strong, 'scroll' events will keep firing and reset the timer
+        // If momentum is weak/stopped, this timer will fire
+        startSnapTimer(300); 
+    }
+
+    function handleScroll() {
+        if (!columnState.isActive) return;
+        
+        // If user is touching, do nothing (let them drag)
+        if (columnState.isInteracting) return;
+
+        // If scrolling (momentum), reset timer
+        startSnapTimer(200);
+    }
+
+    function startSnapTimer(delay) {
+        if (columnState.scrollTimer) clearTimeout(columnState.scrollTimer);
+        columnState.scrollTimer = setTimeout(() => {
+            if (!columnState.isInteracting) {
+                snapToNearestPage();
+            }
+        }, delay);
+    }
+
+    function snapToNearestPage() {
+        if (!columnState.isActive || !columnState.contentEl) return;
+        
+        const content = columnState.contentEl;
+        const scrollLeft = content.scrollLeft;
+        const pageWidth = content.clientWidth + 40; // Approximate gap, or just use clientWidth if gap is handled
+        // Better calculation:
+        // In CSS we set column-gap. We need to account for it.
+        // However, clientWidth includes padding but not the gap between columns visually if we are just looking at the viewport.
+        // Actually, scrollWidth is the total.
+        // Let's assume page width is roughly window.innerWidth.
+        
+        const viewportWidth = window.innerWidth;
+        const currentPage = Math.round(scrollLeft / viewportWidth);
+        const targetScroll = currentPage * viewportWidth;
+
+        // Only snap if we are not already there (with small tolerance)
+        if (Math.abs(scrollLeft - targetScroll) > 5) {
+            content.scrollTo({
+                left: targetScroll,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    // --- END REFACTORED LOGIC ---
 
     function renderTOC() {
         const container = document.getElementById('sidebar-content');
