@@ -71,6 +71,13 @@ body.ui-hidden .reader-toolbar {
     pointer-events: none;
 }
 
+/* Hide toolbar when sidebar is active */
+body.sidebar-active .reader-toolbar {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(100px); /* Move down */
+}
+
 /* Mobile Toolbar Adjustment */
 @media (max-width: 768px) {
     .reader-toolbar {
@@ -88,10 +95,17 @@ body.ui-hidden .reader-toolbar {
         border-radius: 30px; /* Pill shape */
         box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         gap: 15px;
+        transition: all 0.3s ease; /* Smooth transition */
     }
 
     body.ui-hidden .reader-toolbar {
         transform: translate(-50%, 100px); /* Keep centered X when hiding */
+        opacity: 0;
+    }
+    
+    /* When sidebar is active on mobile, also hide toolbar */
+    body.sidebar-active .reader-toolbar {
+        transform: translate(-50%, 100px);
     }
 
     .reader-btn {
@@ -387,8 +401,9 @@ body.dark-mode .highlight {
 
 /* Column Mode (Pagination) */
 body.column-mode {
-    height: 100vh;
-    height: 100dvh; /* Use dynamic viewport height for mobile */
+    position: fixed; /* Fix body to prevent bounce/scroll issues */
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     background: var(--reader-bg);
 }
@@ -405,7 +420,7 @@ body.column-mode .content-wrapper {
     box-shadow: none;
     border-radius: 0;
     
-    /* CSS Columns - Auto layout based on width */
+    /* CSS Columns */
     column-width: 35em; 
     column-gap: 80px;
     column-fill: auto;
@@ -413,15 +428,18 @@ body.column-mode .content-wrapper {
     
     overflow-x: auto;
     overflow-y: hidden;
+    
+    /* Critical for mobile scroll */
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
 }
 
 /* Mobile Column Mode Fix */
 @media (max-width: 768px) {
     body.column-mode .content-wrapper {
-        column-width: 85vw; /* Slightly less than 90 to ensure gap visibility */
-        column-gap: 40px;
+        column-width: 100vw; /* Full width columns */
+        column-gap: 20px; /* Smaller gap */
         padding: 20px 20px 60px 20px !important; 
-        height: 100vh;
         height: 100dvh;
         width: 100vw;
     }

@@ -142,32 +142,54 @@
 
     // Column Scroll Snap Logic
     let scrollHandler = null;
+    let touchStartHandler = null;
+    let touchEndHandler = null;
+    let isTouching = false;
+
     function setupColumnScroll() {
         if (scrollHandler) return;
         
         const content = document.querySelector('.content-wrapper');
         if (!content) return;
 
+        // Touch handling to prevent snapping while dragging
+        touchStartHandler = () => { isTouching = true; };
+        touchEndHandler = () => { 
+            isTouching = false; 
+            // Trigger snap check immediately after release
+            snapToPage();
+        };
+
+        content.addEventListener('touchstart', touchStartHandler, {passive: true});
+        content.addEventListener('touchend', touchEndHandler, {passive: true});
+
         let isScrolling = false;
-        scrollHandler = (e) => {
-            if (isScrolling) return;
+        
+        const snapToPage = () => {
+            if (isTouching) return; // Don't snap while user is touching
+
+            const pageWidth = window.innerWidth;
+            const scrollLeft = content.scrollLeft;
+            const pageIndex = Math.round(scrollLeft / pageWidth);
+            const targetScroll = pageIndex * pageWidth;
             
-            // Simple snap to nearest page width
+            if (Math.abs(scrollLeft - targetScroll) > 5) { // Lower threshold
+                content.scrollTo({
+                    left: targetScroll,
+                    behavior: 'smooth'
+                });
+            }
+        };
+
+        scrollHandler = () => {
+            if (isScrolling) return;
+            if (isTouching) return; // Ignore scroll events during touch drag
+            
             clearTimeout(isScrolling);
             isScrolling = setTimeout(() => {
-                const pageWidth = window.innerWidth; // Or content.clientWidth
-                const scrollLeft = content.scrollLeft;
-                const pageIndex = Math.round(scrollLeft / pageWidth);
-                const targetScroll = pageIndex * pageWidth;
-                
-                if (Math.abs(scrollLeft - targetScroll) > 10) {
-                    content.scrollTo({
-                        left: targetScroll,
-                        behavior: 'smooth'
-                    });
-                }
+                snapToPage();
                 isScrolling = false;
-            }, 150); // Debounce time
+            }, 100); // Faster debounce
         };
         
         content.addEventListener('scroll', scrollHandler);
@@ -175,10 +197,14 @@
 
     function removeColumnScroll() {
         const content = document.querySelector('.content-wrapper');
-        if (scrollHandler && content) {
-            content.removeEventListener('scroll', scrollHandler);
-            scrollHandler = null;
+        if (content) {
+            if (scrollHandler) content.removeEventListener('scroll', scrollHandler);
+            if (touchStartHandler) content.removeEventListener('touchstart', touchStartHandler);
+            if (touchEndHandler) content.removeEventListener('touchend', touchEndHandler);
         }
+        scrollHandler = null;
+        touchStartHandler = null;
+        touchEndHandler = null;
     }
 
     function renderTOC() {
@@ -302,6 +328,7 @@
         // Toolbar Buttons
         safeAdd('btn-menu', 'click', () => {
             state.sidebarOpen = true;
+            document.body.classList.add('sidebar-active'); // Add class for CSS
             document.querySelector('.reader-sidebar').classList.add('active');
             document.querySelector('.reader-overlay').classList.add('active');
         });
@@ -315,6 +342,7 @@
         // Sidebar Close
         const closeSidebar = () => {
             state.sidebarOpen = false;
+            document.body.classList.remove('sidebar-active'); // Remove class
             document.querySelector('.reader-sidebar').classList.remove('active');
             document.querySelector('.reader-overlay').classList.remove('active');
         };
