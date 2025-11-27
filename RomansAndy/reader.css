@@ -24,10 +24,15 @@ body.dark-mode {
     --reader-bg: #1a1a1a;
     --reader-text: #c0c0c0;
     --reader-card-bg: #2d2d2d;
-    --reader-primary: #9d5bce;
+    --reader-primary: #d4a5ff; /* Lighter purple for better contrast */
     --reader-border: #444;
     background-color: var(--reader-bg) !important;
     color: var(--reader-text) !important;
+}
+
+/* Legacy support: Hide old modal if cached JS is used with new CSS */
+.settings-modal {
+    display: none !important;
 }
 
 .content-wrapper {
@@ -50,12 +55,49 @@ body.dark-mode .content-wrapper {
 /* Reader Toolbar */
 .reader-toolbar {
     position: fixed;
-    left: 20px; /* Moved to left as requested */
+    left: 20px;
     bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     z-index: 1000;
+}
+
+/* Mobile Toolbar Adjustment */
+@media (max-width: 768px) {
+    .reader-toolbar {
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px 0;
+        background: var(--reader-card-bg);
+        border-top: 1px solid var(--reader-border);
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        gap: 0;
+    }
+
+    .reader-btn {
+        width: auto;
+        height: auto;
+        padding: 10px;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        flex: 1;
+        border-radius: 0;
+    }
+    
+    .reader-btn:hover {
+        transform: none;
+        background: rgba(0,0,0,0.05);
+    }
+
+    /* Add padding to bottom of content so toolbar doesn't cover text */
+    .content-wrapper {
+        padding-bottom: 80px !important;
+    }
 }
 
 .reader-btn {
@@ -147,6 +189,7 @@ body.dark-mode .content-wrapper {
     background: var(--reader-bg);
     color: var(--reader-text);
     outline: none;
+    font-size: 16px; /* Prevent iOS zoom */
 }
 
 .sidebar-content {
