@@ -220,19 +220,17 @@
         
         const content = columnState.contentEl;
         const scrollLeft = content.scrollLeft;
-        const pageWidth = content.clientWidth + 40; // Approximate gap, or just use clientWidth if gap is handled
-        // Better calculation:
-        // In CSS we set column-gap. We need to account for it.
-        // However, clientWidth includes padding but not the gap between columns visually if we are just looking at the viewport.
-        // Actually, scrollWidth is the total.
-        // Let's assume page width is roughly window.innerWidth.
         
+        // Use window.innerWidth as the stride because:
+        // Mobile: column-width (100vw - 40px) + gap (40px) = 100vw
+        // Desktop: similar logic applies if we want full page snaps
         const viewportWidth = window.innerWidth;
+        
         const currentPage = Math.round(scrollLeft / viewportWidth);
         const targetScroll = currentPage * viewportWidth;
 
         // Only snap if we are not already there (with small tolerance)
-        if (Math.abs(scrollLeft - targetScroll) > 5) {
+        if (Math.abs(scrollLeft - targetScroll) > 10) {
             content.scrollTo({
                 left: targetScroll,
                 behavior: 'smooth'

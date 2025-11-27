@@ -401,18 +401,20 @@ body.dark-mode .highlight {
 
 /* Column Mode (Pagination) - REFACTORED */
 body.column-mode {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    /* Remove position: fixed to prevent iOS scroll locking */
+    position: relative; 
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden; /* Prevent body scroll */
     background: var(--reader-bg);
+    margin: 0;
 }
 
 body.column-mode .content-wrapper {
     /* Use viewport units strictly */
-    height: 100vh;
-    height: 100dvh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     margin: 0;
     
     /* Padding inside the scrollable area */
@@ -424,19 +426,23 @@ body.column-mode .content-wrapper {
     border-radius: 0;
     
     /* CSS Columns Configuration */
-    column-width: calc(100vw - 120px); /* Account for padding */
+    column-width: calc(100vw - 120px); 
     column-gap: 80px;
     column-fill: auto;
     column-rule: 1px solid var(--reader-border);
     
     /* Scrolling */
-    overflow-x: auto;
+    overflow-x: scroll; /* Force scrollbar to ensure scrollability */
     overflow-y: hidden;
     
     /* Mobile Scroll Physics */
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x;
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* Disable native smooth scroll to prevent conflict with JS snap */
+    
+    /* Ensure it's on top of static background */
+    position: relative;
+    z-index: 1;
 }
 
 /* Mobile Column Mode Specifics */
@@ -448,8 +454,8 @@ body.column-mode .content-wrapper {
         column-gap: 40px;
         
         /* Ensure height handles browser bars */
-        height: 100dvh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
     }
 }
 
