@@ -30,3 +30,4 @@ data/bible_esv.json
 *~
 *.log
 dump.rdb
+_legacy/chrome-devtools-mcp/
