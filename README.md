@@ -199,6 +199,5 @@ python3 -m http.server 8080
 
 ## 📞 联系信息
 
-项目地址: `/Users/andyshengruilee/Documents/website/web2Lord/`  
 技术栈: HTML5 + CSS3 + JavaScript + JSON  
 许可证: 为了神的荣耀而建 🙏

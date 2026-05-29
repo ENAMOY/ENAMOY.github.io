@@ -1,0 +1,32 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Config (contains tokens)
+.mcp.config.json
+chrome-dev-performance.json
+
+# Source documents
+*.pdf
+*.doc
+*.docx
+*.pages
+*.fld/
+
+# Large Bible source files (> 5MB are served from bolls API)
+data/bible_cunps.json
+data/bible_esv.json
+
+# IDE
+.vscode/
+.idea/
+
+# Temp files
+*~
+*.log
+dump.rdb

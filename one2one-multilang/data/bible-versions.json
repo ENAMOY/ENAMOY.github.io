@@ -1,18 +1,18 @@
 {
   "versions": {
-    "cuv": {
-      "id": "cuv",
-      "name": "和合本",
-      "fullName": "Chinese Union Version",
+    "cunps": {
+      "id": "cunps",
+      "name": "新标点和合本",
+      "fullName": "Chinese Union New Punctuation (Simplified)",
       "language": "zh-CN",
-      "abbreviation": "CUV"
+      "abbreviation": "CUNPS"
     },
-    "ccb": {
-      "id": "ccb",
-      "name": "当代译本",
-      "fullName": "Chinese Contemporary Bible",
+    "csb": {
+      "id": "csb",
+      "name": "中文标准译本",
+      "fullName": "Chinese Standard Bible (Simplified)",
       "language": "zh-CN",
-      "abbreviation": "CCB"
+      "abbreviation": "CSB"
     },
     "esv": {
       "id": "esv",

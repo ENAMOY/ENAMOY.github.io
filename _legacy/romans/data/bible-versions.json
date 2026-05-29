@@ -1,0 +1,19 @@
+{
+    "versions": {
+        "cuv": {
+            "id": "cuv",
+            "name": "和合本",
+            "abbreviation": "CUV"
+        },
+        "ccb": {
+            "id": "ccb",
+            "name": "当代译本",
+            "abbreviation": "CCB"
+        },
+        "esv": {
+            "id": "esv",
+            "name": "English Standard Version",
+            "abbreviation": "ESV"
+        }
+    }
+}

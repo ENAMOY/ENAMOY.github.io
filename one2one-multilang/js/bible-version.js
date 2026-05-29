@@ -4,11 +4,11 @@
  */
 class BibleVersionManager {
     constructor() {
-        // 从 localStorage 加载选中的版本，默认为 ['cuv']
+        // 从 localStorage 加载选中的版本，默认为 ['cunps']
         const saved = localStorage.getItem('bibleVersions');
-        this.selectedVersions = saved ? JSON.parse(saved) : ['cuv'];
+        this.selectedVersions = saved ? JSON.parse(saved) : ['cunps'];
         if (!Array.isArray(this.selectedVersions) || this.selectedVersions.length === 0) {
-            this.selectedVersions = ['cuv'];
+            this.selectedVersions = ['cunps'];
         }
         this.versions = {};
         this.verseData = {};
@@ -107,8 +107,8 @@ class BibleVersionManager {
         }
 
         // 保存并更新
-        // 保持版本顺序：cuv, ccb, esv (根据 versions 定义的顺序或固定顺序)
-        const order = ['cuv', 'ccb', 'esv']; 
+        // 保持版本顺序：cunps, csb, esv
+        const order = ['cunps', 'csb', 'esv']; 
         this.selectedVersions.sort((a, b) => order.indexOf(a) - order.indexOf(b));
         
         localStorage.setItem('bibleVersions', JSON.stringify(this.selectedVersions));
