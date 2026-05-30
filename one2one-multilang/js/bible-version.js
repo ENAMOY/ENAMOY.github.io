@@ -20,7 +20,17 @@ class BibleVersionManager {
             const vResponse = await fetch('data/bible-versions.json');
             const vData = await vResponse.json();
             this.versions = vData.versions;
-            
+
+            // 过滤掉 localStorage 中已不存在的版本（如旧版 'cuv'/'ccb'）
+            var validIds = Object.keys(this.versions);
+            this.selectedVersions = this.selectedVersions.filter(function(id) {
+                return validIds.indexOf(id) !== -1;
+            });
+            if (this.selectedVersions.length === 0) {
+                this.selectedVersions = [validIds[0]];
+            }
+            localStorage.setItem('bibleVersions', JSON.stringify(this.selectedVersions));
+
             // 2. 加载当前页面的经文数据
             if (pageId) {
                 try {
@@ -89,7 +99,7 @@ class BibleVersionManager {
         if (checkbox.checked) {
             // 添加版本
             if (this.selectedVersions.length >= 3) {
-                alert('最多只能同时显示3个版本');
+                this.showToast('最多同时显示3个版本');
                 checkbox.checked = false;
                 return;
             }
@@ -99,7 +109,7 @@ class BibleVersionManager {
         } else {
             // 移除版本
             if (this.selectedVersions.length <= 1) {
-                alert('至少需要显示一个版本');
+                this.showToast('至少保留一个版本');
                 checkbox.checked = true;
                 return;
             }
@@ -144,7 +154,7 @@ class BibleVersionManager {
 
                         const textDiv = document.createElement('div');
                         textDiv.className = 'scripture-text';
-                        textDiv.textContent = content;
+                        textDiv.innerHTML = content;
                         block.appendChild(textDiv);
 
                         const refDiv = document.createElement('div');
@@ -167,6 +177,21 @@ class BibleVersionManager {
                 });
             }
         });
+    }
+}
+
+    showToast(msg) {
+        var existing = document.querySelector('.bible-toast');
+        if (existing) existing.remove();
+        var toast = document.createElement('div');
+        toast.className = 'bible-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        setTimeout(function() { toast.classList.add('show'); }, 10);
+        setTimeout(function() {
+            toast.classList.remove('show');
+            setTimeout(function() { toast.remove(); }, 300);
+        }, 2000);
     }
 }
 

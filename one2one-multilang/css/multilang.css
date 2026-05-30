@@ -133,3 +133,23 @@ header {
         border-color: #667eea;
     }
 }
+
+/* Toast notification */
+.bible-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+.bible-toast.show {
+    opacity: 1;
+}
