@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开始作门徒 | 一对一门徒训练</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .breadcrumb {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #667eea;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .content h3 {
+            color: #333;
+            margin: 35px 0 20px 0;
+            font-size: 1.4em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .content h4 {
+            color: #555;
+            margin: 25px 0 15px 0;
+            font-size: 1.2em;
+        }
+
+        .content p {
+            color: #444;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .content strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .content ul, .content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .content li {
+            margin-bottom: 12px;
+            color: #444;
+        }
+
+        .content hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 40px 0;
+        }
+
+        /* 圣经经文样式 */
+        .scripture {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6f7ed 100%);
+            border-left: 5px solid #27ae60;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
+        }
+
+        .scripture-text {
+            color: #2c3e50;
+            font-size: 1.05em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .scripture-ref {
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-align: right;
+        }
+
+        /* 导航 */
+        .navigation {
+            background: #f8f9fa;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            padding: 12px 28px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-btn.home {
+            background: #667eea;
+            color: white;
+        }
+
+        .nav-btn.home:hover {
+            background: #5a67d8;
+        }
+
+        .nav-btn:disabled,
+        .nav-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .content h3 {
+                font-size: 1.2em;
+            }
+
+            .scripture {
+                padding: 20px;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="breadcrumb">
+                <a href="index.html">一对一</a> &gt; 开始作门徒
+            </div>
+            <h1>开始作门徒</h1>
+            <div class="subtitle">作门徒就是三关系</div>
+        </header>
+
+        <div class="content">
+            <div class="scripture"><div class="scripture-text">耶稣对他们说：“来跟从我，我要叫你们得人如得鱼一样。”</div><div class="scripture-ref">(马可福音 1:17)</div></div>
+<p>耶稣呼召门徒，"来跟从我"，这是一个关系的邀请——与他建立紧密的关系，并且一生不断成长。
+    在这条门徒之路上，有三种核心关系需要我们不断去建立和深化：</p>
+<hr>
+<h4>1. 跟随耶稣（与神的关系）</h4>
+<ul>
+<li><strong>相信并接受耶稣基督成为你的救主和生命的主</strong>。放下自我、好行为和靠自己得救的想法，单单信靠基督。</li>
+</ul>
+<div class="scripture"><div class="scripture-text">你们得救是本乎恩，也因着信；这并不是出于自己，而是神所赐的；也不是出于行为，免得有人自夸。</div><div class="scripture-ref">(以弗所书 2:8-9 和合本)</div></div>
+<ul>
+<li><strong>悔改并离弃一切罪，追求圣洁的生活</strong>。不断地调整自己的心思意念和生活，让神的话语来更新你。</li>
+</ul>
+<div class="scripture"><div class="scripture-text">凡称呼主名的人总要离开不义。</div><div class="scripture-ref">(提摩太后书 2:19)</div></div>
+<ul>
+<li><strong>养成灵修习惯</strong>：每日读经、默想、祷告，保持与神持续亲密的交通。</li>
+</ul>
+<div class="scripture"><div class="scripture-text">这律法书不可离开你的口，总要昼夜思想，好使你谨守遵行这书上所写的一切话。如此，你的道路就可以亨通，凡事顺利。</div><div class="scripture-ref">(约书亚记 1:8)</div></div>
+<hr>
+<h4>2. 得人如鱼（与未信之人的关系）</h4>
+<ul>
+<li><strong>回应耶稣"得人如得鱼"的呼召</strong>：靠着圣灵的能力，主动向身边的人传扬福音，分享神的爱与救恩。用生命见证基督，以神的话语和真实的生命经历，带领人认识救主。</li>
+<li><strong>积极参与大使命</strong>：不仅自己做主的门徒，也要回应主的托付，带领他人成为门徒。</li>
+</ul>
+<div class="scripture"><div class="scripture-text">天上地下所有的权柄都赐给我了，所以你们要去使万民作我的门徒，奉父、子、圣灵的名给他们施洗，凡我所吩咐你们的，都教训他们遵守。我就常与你们同在，直到世界的末了。</div><div class="scripture-ref">(马太福音 28:18-20)</div></div>
+<p>这是主耶稣升天前给门徒的大使命。作为跟随基督的人，我们不仅自己活出门徒的生命,更要承接这份使命,帮助更多人认识主、跟随主,使他们也成为主的门徒。</p>
+<hr>
+<h4>3. 团契相交（与信徒的关系）</h4>
+<ul>
+<li><strong>积极参加教会聚会、主日敬拜和团契</strong>，活在神家中，与其他信徒建立真实的关系，彼此相助、彼此勉励。</li>
+</ul>
+<div class="scripture"><div class="scripture-text">又要彼此相顾，激发爱心，勉励行善。你们不可停止聚会，好像那些停止惯了的人，倒要彼此劝勉。</div><div class="scripture-ref">(希伯来书 10:24-25)</div></div>
+<ul>
+<li><strong>与教会分享自己的生命</strong>：在主内的安全与接纳中，彼此分享、代祷、承担与服侍，共同在基督里深化联系。</li>
+</ul>
+<div class="scripture"><div class="scripture-text">你们要彼此认罪，互相代求，使你们可以得医治。义人祈祷所发的力量是大有功效的。</div><div class="scripture-ref">(雅各书 5:16 和合本)</div></div>
+<div class="scripture"><div class="scripture-text">各人要照所得的恩赐彼此服侍，作神百般恩赐的好管家。</div><div class="scripture-ref">(彼得前书 4:10 和合本)</div></div>
+<hr>
+<p><strong>耶稣的呼召包含三层关系：</strong></p>
+<ul>
+<li>跟随耶稣（与神的关系）：引导人真实信靠、亲近、跟随主，持续悔改与更新；</li>
+<li>得人如鱼（与未信之人的关系）：鼓励门徒回应主的呼召，积极向人分享福音，活出"得人如得鱼"的生命；</li>
+<li>团契相交（与信徒的关系）：帮助门徒委身教会生活，在肢体相连、彼此扶持中成长成为基督的身体。</li>
+</ul>
+<p>带门徒，就是帮助人从这三大关系持续扎根、成长，成为跟随基督、荣耀基督、影响他人的主门徒！</p>
+<hr>
+        </div>
+
+        <div class="navigation">
+            <div>
+                <a href="preface.html" class="nav-btn">← 上一课</a>
+            </div>
+            <div>
+                <a href="index.html" class="nav-btn home">📚 目录</a>
+            </div>
+            <div>
+                <a href="chapter_1.html" class="nav-btn">下一课 →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

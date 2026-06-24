@@ -1,0 +1,415 @@
+/* 圣经解经大全 - 优化版样式表 */
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #8e44ad;
+    --accent-color: #e74c3c;
+    --bg-color: #fdfdfd;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --border-color: #e0e0e0;
+    --sidebar-width: 280px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
+    line-height: 1.9;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+/* 主容器 */
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 30px;
+}
+
+/* 导航栏 */
+.nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.nav-bar a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background 0.3s;
+    font-size: 0.9em;
+}
+
+.nav-bar a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.nav-bar .title {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+/* 内容区域 */
+.content {
+    margin-top: 70px;
+}
+
+/* 标题样式 */
+h1 {
+    font-size: 2.2em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid var(--secondary-color);
+    line-height: 1.4;
+}
+
+h2 {
+    font-size: 1.6em;
+    color: var(--primary-color);
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    border-left: 4px solid var(--secondary-color);
+}
+
+h3 {
+    font-size: 1.3em;
+    color: var(--secondary-color);
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+h4 {
+    font-size: 1.1em;
+    color: var(--primary-color);
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* 段落 */
+p {
+    margin-bottom: 18px;
+    text-align: justify;
+}
+
+/* 引用块 */
+blockquote {
+    background-color: #f9f3ff;
+    border-left: 4px solid var(--secondary-color);
+    padding: 20px 25px;
+    margin: 25px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+}
+
+blockquote p {
+    margin-bottom: 0;
+}
+
+/* 经文区域 */
+.scripture {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+    border: 1px solid #c5cae9;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+}
+
+.scripture p {
+    font-size: 1.1em;
+    line-height: 2.2;
+}
+
+/* 解经区域 */
+.commentary {
+    background: #fff8f0;
+    border: 1px solid #ffe0b2;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 20px 0;
+}
+
+.commentary h4 {
+    color: #e65100;
+    margin-top: 0;
+}
+
+/* 要点区域 */
+.key-point {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border: 1px solid #a5d6a7;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+}
+
+.key-point h3 {
+    color: #2e7d32;
+    margin-top: 0;
+}
+
+/* 应用区域 */
+.application {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    border: 1px solid #ffcc80;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+}
+
+.application h3 {
+    color: #e65100;
+    margin-top: 0;
+}
+
+/* 默想区域 */
+.meditation {
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+    border: 1px solid #f48fb1;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+}
+
+.meditation h3 {
+    color: #c2185b;
+    margin-top: 0;
+}
+
+/* 希腊文/希伯来文 */
+.foreign {
+    font-family: 'GFS Didot', 'Times New Roman', serif;
+    font-style: italic;
+    color: #555;
+}
+
+/* 列表 */
+ul, ol {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* 水平线 */
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 40px 0;
+}
+
+/* 表格 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f0f0f0;
+}
+
+/* 前后导航 */
+.page-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 2px solid var(--border-color);
+}
+
+.page-nav a {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: all 0.3s;
+    max-width: 45%;
+}
+
+.page-nav a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.page-nav .prev::before {
+    content: "← ";
+    font-size: 1.2em;
+}
+
+.page-nav .next::after {
+    content: " →";
+    font-size: 1.2em;
+}
+
+.page-nav .next {
+    margin-left: auto;
+    text-align: right;
+}
+
+/* 目录侧边栏 */
+.toc-sidebar {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    width: 250px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    z-index: 100;
+    display: none;
+}
+
+.toc-sidebar h3 {
+    font-size: 1em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.toc-sidebar a {
+    display: block;
+    padding: 8px 0;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9em;
+    border-bottom: 1px solid #f0f0f0;
+    transition: color 0.3s;
+}
+
+.toc-sidebar a:hover {
+    color: var(--secondary-color);
+}
+
+/* 页脚 */
+footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 2px solid var(--border-color);
+    color: #777;
+    font-size: 0.9em;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .toc-sidebar {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 20px 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    .page-nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .page-nav a {
+        max-width: 100%;
+    }
+
+    .page-nav .next {
+        margin-left: 0;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    .nav-bar,
+    .toc-sidebar,
+    .page-nav {
+        display: none !important;
+    }
+
+    .main-container {
+        max-width: 100%;
+        padding: 0;
+        margin-top: 0;
+    }
+
+    .content {
+        margin-top: 0;
+    }
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

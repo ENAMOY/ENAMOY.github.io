@@ -1,0 +1,43 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Config (contains tokens)
+.mcp.config.json
+chrome-dev-performance.json
+
+# Source documents
+*.pdf
+*.doc
+*.docx
+*.pages
+*.fld/
+
+# Large Bible source files (> 5MB are served from bolls API)
+data/bible_cunps.json
+data/bible_esv.json
+
+# IDE
+.vscode/
+.idea/
+
+# Temp files
+*~
+*.log
+dump.rdb
+# Legacy archive (reorganized temp files)
+_legacy/
+
+# 解经大全MD源文件
+*.md
+
+# 旧版解经大全
+圣经解经大全/*_旧版/
+
+# 旧版解经大全归档（含失效链接的遗留草稿）
+圣经解经大全/解经大全1.0/

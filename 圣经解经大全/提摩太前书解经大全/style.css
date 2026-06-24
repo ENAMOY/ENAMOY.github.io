@@ -1,0 +1,265 @@
+/* 提摩太前书解经大全 - 样式表 */
+
+:root {
+  --primary-color: #1a5276;
+  --secondary-color: #b7950b;
+  --accent-color: #c0392b;
+  --background-color: #fdfdfd;
+  --text-color: #333;
+  --light-gray: #f5f5f5;
+  --border-color: #ddd;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
+  line-height: 1.8;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 2.2em;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 3px solid var(--secondary-color);
+  padding-bottom: 15px;
+}
+
+h2 {
+  font-size: 1.6em;
+  color: var(--primary-color);
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--secondary-color);
+  padding-left: 15px;
+}
+
+h3 {
+  font-size: 1.3em;
+  color: var(--secondary-color);
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+h4 {
+  font-size: 1.1em;
+  color: var(--primary-color);
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+blockquote {
+  background-color: var(--light-gray);
+  border-left: 4px solid var(--secondary-color);
+  padding: 15px 20px;
+  margin: 20px 0;
+  font-style: italic;
+}
+
+blockquote p {
+  margin-bottom: 0;
+}
+
+.scripture {
+  background-color: #eef6fb;
+  border: 1px solid #aed6f1;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 25px 0;
+}
+
+.scripture p {
+  font-size: 1.1em;
+  line-height: 2;
+}
+
+.commentary {
+  background-color: #fff8f0;
+  border: 1px solid #ffd4a8;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.commentary h4 {
+  color: #d35400;
+  margin-top: 0;
+}
+
+.key-point {
+  background-color: #e8f5e9;
+  border: 1px solid #81c784;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 25px 0;
+}
+
+.key-point h3 {
+  color: #2e7d32;
+  margin-top: 0;
+}
+
+.application {
+  background-color: #fef9e7;
+  border: 1px solid #f9e79f;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 25px 0;
+}
+
+.application h3 {
+  color: #b7950b;
+  margin-top: 0;
+}
+
+.greek {
+  font-family: 'GFS Didot', 'Times New Roman', serif;
+  font-style: italic;
+  color: #555;
+}
+
+ul, ol {
+  margin: 15px 0;
+  padding-left: 30px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 10px 12px;
+  text-align: left;
+}
+
+th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: var(--light-gray);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 30px 0;
+}
+
+.toc {
+  background-color: var(--light-gray);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 30px 0;
+}
+
+.toc h2 {
+  border-left: none;
+  padding-left: 0;
+  text-align: center;
+}
+
+.toc ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.toc li {
+  margin-bottom: 8px;
+}
+
+.toc a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+}
+
+nav {
+  background-color: var(--primary-color);
+  padding: 15px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  color: #777;
+  font-size: 0.9em;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 15px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    font-size: 1.4em;
+  }
+
+  h3 {
+    font-size: 1.2em;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  body {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .scripture, .commentary, .key-point, .application {
+    break-inside: avoid;
+  }
+}

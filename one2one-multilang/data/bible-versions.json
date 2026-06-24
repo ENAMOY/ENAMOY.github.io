@@ -1,0 +1,25 @@
+{
+  "versions": {
+    "cunps": {
+      "id": "cunps",
+      "name": "新标点和合本",
+      "fullName": "Chinese Union New Punctuation (Simplified)",
+      "language": "zh-CN",
+      "abbreviation": "CUNPS"
+    },
+    "csb": {
+      "id": "csb",
+      "name": "中文标准译本",
+      "fullName": "Chinese Standard Bible (Simplified)",
+      "language": "zh-CN",
+      "abbreviation": "CSB"
+    },
+    "esv": {
+      "id": "esv",
+      "name": "ESV",
+      "fullName": "English Standard Version",
+      "language": "en",
+      "abbreviation": "ESV"
+    }
+  }
+}
