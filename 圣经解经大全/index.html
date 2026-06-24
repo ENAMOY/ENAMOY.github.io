@@ -352,9 +352,21 @@
                     const match = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
                     if (match) {
                         let bodyHtml = match[1];
-                        // 注入<base>标签使所有相对链接正确解析到书卷目录
+                        // 修复相对链接：注入到modal后浏览器以主页面为基准解析URL，
+                        // 需将所有相对链接重写为正确路径
                         const bookPrefix = bookName + '解经大全/';
-                        bodyHtml = '<base href="' + bookPrefix + '">' + bodyHtml;
+                        bodyHtml = bodyHtml.replace(
+                            /(href|src)\s*=\s*"((?!https?:\/\/|\/\/|#|javascript:|mailto:|data:)[^"]+)"/gi,
+                            function(match, attr, url) {
+                                if (url.indexOf('../') === 0) {
+                                    // ../style.css → style.css (相对于圣经解经大全/)
+                                    return attr + '="' + url.substring(3) + '"';
+                                } else {
+                                    // 02_xxx/解经.html → 约翰福音解经大全/02_xxx/解经.html
+                                    return attr + '="' + bookPrefix + url + '"';
+                                }
+                            }
+                        );
                         modalBody.innerHTML = bodyHtml;
                     } else {
                         modalBody.innerHTML = html;
