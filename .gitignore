@@ -32,3 +32,9 @@ data/bible_esv.json
 dump.rdb
 # Legacy archive (reorganized temp files)
 _legacy/
+
+# 解经大全MD源文件
+*.md
+
+# 旧版解经大全
+圣经解经大全/*_旧版/
