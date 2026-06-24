@@ -351,7 +351,11 @@
                     // 提取body内容
                     const match = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
                     if (match) {
-                        modalBody.innerHTML = match[1];
+                        let bodyHtml = match[1];
+                        // 注入<base>标签使所有相对链接正确解析到书卷目录
+                        const bookPrefix = bookName + '解经大全/';
+                        bodyHtml = '<base href="' + bookPrefix + '">' + bodyHtml;
+                        modalBody.innerHTML = bodyHtml;
                     } else {
                         modalBody.innerHTML = html;
                     }
