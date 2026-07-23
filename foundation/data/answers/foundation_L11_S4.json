@@ -7,38 +7,80 @@
     "q1_徒 2:43": {
       "reference": "徒 2:43",
       "text": "众人都惧怕；使徒又行了许多奇事神迹。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "大家都满心敬畏上帝。使徒又行了很多神迹奇事。",
+      "has_ccb": true,
+      "csb": "每个人 都起了敬畏之心。使徒们又行了很多奇事和神迹 。",
+      "has_csb": true,
+      "esv": "And awe came upon every soul, and many wonders and signs were being done through the apostles.",
+      "has_esv": true
     },
     "q1_徒 3:16": {
       "reference": "徒 3:16",
       "text": "我们因信他的名，他的名便叫你们所看见所认识的这人健壮了；正是他所赐的信心，叫这人在你们众人面前全然好了。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "你们认识的这个乞丐因为相信耶稣的名，得到了医治。你们都看见了，他能痊愈是因为他信耶稣。",
+      "has_ccb": true,
+      "csb": "现在，基于对他名的信心，他的名就使你们所看见所认识的这个人健壮了；这由耶稣而来的信心，使他在你们众人面前完全康复了。",
+      "has_csb": true,
+      "esv": "And his name—by faith in his name—has made this man strong whom you see and know, and the faith that is through Jesus has given the man this perfect health i...",
+      "has_esv": true
     },
     "q2_徒 8:5-8": {
       "reference": "徒 8:5-8",
       "text": "腓利下撒马利亚城去，宣讲基督。 众人听见了，又看见腓利所行的神迹，就同心合意地听从他的话。 因为有许多人被污鬼附着，那些鬼大声呼叫，从他们身上出来。还有许多瘫痪的，瘸腿的，都得了医治。 在那城里大有欢喜。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "腓利来到撒玛利亚城宣讲基督。城里的人耳闻目睹他所行的神迹，都聚精会神地听他讲道。当时有许多人被污鬼附身，那些污鬼大声喊叫着被赶了出来。许多瘫痪的和瘸腿的也被治好了。城里欢天喜地。",
+      "has_ccb": true,
+      "csb": "腓利下到撒玛利亚的一个城 ，向那里的人传讲基督。当众人听见又看见腓利所行的神迹，就同心合意，专心听他所说的话。那时，有许多人被污灵附身，那些污灵大声喊叫着从他们身上出来了；许多瘫痪的和瘸腿的，也得了痊愈。所以那城里，有极大的喜乐。",
+      "has_csb": true,
+      "esv": "Philip went down to the city of Samaria and proclaimed to them the Christ.And the crowds with one accord paid attention to what was being said by Philip, when they heard him and saw the signs that he did.For unclean spirits, crying out with a loud voice, came out of many who had them, and many who were paralyzed or lame were healed.So there was much joy in that city.",
+      "has_esv": true
     },
     "q3_徒 14:6-10": {
       "reference": "徒 14:6-10",
       "text": "使徒知道了，就逃往吕高尼的路司得、特庇两个城和周围地方去。 在那里传福音。 路司得城里坐着一个两脚无力的人，生来是瘸腿的，从来没有走过。 他听保罗讲道，保罗定睛看他，见他有信心，可得痊愈， 就大声说：你起来，两脚站直。他就跳起来而且行走。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "保罗和巴拿巴得知后，就逃往吕高尼的路司得和特庇二城并周围的地区，在那里继续传扬福音。路司得城里坐着一个生来瘸腿的，他双脚无力，不能走路。他在听保罗讲道。保罗定睛看他，见这个人有信心，可以得医治，就高声对他说：“起来，两脚站直！”那人就跳了起来，开始行走。",
+      "has_ccb": true,
+      "csb": "两个人知道了，就逃往利考尼亚地区的路司得和代尔贝两个城以及周围地区，在那里继续传福音。在路司得城里坐着一个双脚残废的人，他生来 就瘸腿，从来没有走过路；这个人听保罗讲道。保罗注视着他，见他存着信可得救治，就大声说：“你起来，用你的两脚站直！”那个人就跳起来，开始走路了。",
+      "has_csb": true,
+      "esv": "they learned of it and fled to Lystra and Derbe, cities of Lycaonia, and to the surrounding country,and there they continued to preach the gospel.Now at Lystra there was a man sitting who could not use his feet. He was crippled from birth and had never walked.He listened to Paul speaking. And Paul, looking intently at him and seeing that he had faith to be made well,said in a loud voice, “Stand upright on your feet.” And he sprang up and began walking.",
+      "has_esv": true
     },
     "q4_雅 5:14,15": {
       "reference": "雅 5:14,15",
       "text": "你们中间有病了的呢，他就该请教会的长老来；他们可以奉主的名用油抹他，为他祷告。出于信心的祈祷要救那病人，主必叫他起来；他若犯了罪，也必蒙赦免。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "生病的人应该请教会的长老来，奉主的名用油抹他的身体并为他祷告。出于信心的祷告必能使病人痊愈，主必使他康复。倘若他犯了罪，也必得到赦免。",
+      "has_ccb": true,
+      "csb": "你们中间谁患病 ，就应该请教会的长老们来，让他们奉主的名用油来膏抹他、为他祷告。出于信的祈求，将会救那病人 ；主将使他起来；即使他犯了罪，也将被赦免。",
+      "has_csb": true,
+      "esv": "Is anyone among you sick? Let him call for the elders of the church, and let them pray over him, anointing him with oil in the name of the Lord.And the prayer of faith will save the one who is sick, and the Lord will raise him up. And if he has committed sins, he will be forgiven.",
+      "has_esv": true
     },
     "q5_约 14:12": {
       "reference": "约 14:12",
       "text": "我实实在在地告诉你们，我所作的事，信我的人也要作，并且要作比这更大的事，因为我往父那里去。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "我实实在在地告诉你们，我所做的事，信我的人也要做，并且要做比这更大的事，因为我往父那里去。",
+      "has_ccb": true,
+      "csb": "“Truly I tell you, the one who believes in me will also do the works that I do. And he will do even greater works than these, because I am going to the Father.",
+      "has_csb": true,
+      "esv": "Very truly I tell you, whoever believes in me will do the works I have been doing, and they will do even greater things than these, because I am going to the Father.",
+      "has_esv": true
     },
     "q6_约 14:12-14": {
       "reference": "约 14:12-14",
       "text": "我实实在在地告诉你们，我所作的事，信我的人也要作，并且要作比这更大的事，因为我往父那里去。 你们奉我的名无论求什么，我必成就，叫父因儿子得荣耀。 你们若奉我的名求什么，我必成就。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "我实实在在地告诉你们，我所做的事，信我的人也要做，而且要做更大的事，因为我要回到父那里。你们奉我的名无论求什么，我必应允，好让父在子身上得荣耀。你们若奉我的名向我求什么，我必应允。",
+      "has_ccb": true,
+      "csb": "“我确确实实地告诉你们：我所做的事，信我的人也要做，而且要做比这些更大的事。这是因为我就要到父那里去了。你们奉我的名无论求什么，我将行这事，好使父藉着子得荣耀。如果你们奉我的名向我 求什么，我将成就。",
+      "has_csb": true,
+      "esv": "“Truly, truly, I say to you, whoever believes in me will also do the works that I do; and greater works than these will he do, because I am going to the Father.Whatever you ask in my name, this I will do, that the Father may be glorified in the Son.If you ask me anything in my name, I will do it.",
+      "has_esv": true
     },
     "q7_徒 3:6,7,16": {
       "reference": "徒 3:6,7,16",
@@ -48,28 +90,58 @@
     "q8_太 28:18": {
       "reference": "太 28:18",
       "text": "耶稣进前来，对他们说：天上地下所有的权柄都赐给我了。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "耶稣进前来，对他们说：“天上地下所有的权柄都赐给我了。",
+      "has_ccb": true,
+      "csb": "Jesus came near and said to them, “All authority has been given to me in heaven and on earth.",
+      "has_csb": true,
+      "esv": "Jesus came to them and spoke to them, saying,\n“All authority has been given to me in heaven and on earth.",
+      "has_esv": true
     },
     "q9_腓 2:10,11": {
       "reference": "腓 2:10,11",
       "text": "叫一切在天上的、地上的，和地底下的，因耶稣的名无不屈膝， 一切舌头都必承认耶稣基督是主，使荣耀归与父神。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "使一切天上的、 地上的和地底下的， 无不屈膝跪拜在耶稣的名下，无不口称耶稣基督是主， 将荣耀归于父上帝。",
+      "has_ccb": true,
+      "csb": "好使天上、地上和地底下的一切， 因耶稣的名都屈膝，万口为了父神的荣耀 要承认耶稣基督是主。",
+      "has_csb": true,
+      "esv": "so that at the name of Jesus every knee should bow, in heaven and on earth and under the earth,and every tongue confess that Jesus Christ is Lord, to the glory of God the Father.",
+      "has_esv": true
     },
     "q10_可 11:23,24": {
       "reference": "可 11:23,24",
       "text": "我实在告诉你们，无论何人对这座山说：你挚起来，投在海里！他若心里不疑惑，只信他所说的必成，就必给他成了。 所以我告诉你们：凡你们祷告祈求的，无论是什么，只要信是得着的，就必得着。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "我实在告诉你们，不论何人，只要有信心，毫不疑惑，就是对这座山说，‘从这里挪开，投进大海里！’也必定为他成就。所以我告诉你们，你们无论祷告求什么，只要相信已经得到了，就必得到。",
+      "has_ccb": true,
+      "csb": "我确实地告诉你们：无论谁对这座山说‘愿你被挪开，被丢进海里去！’只要他心里不疑惑，相信自己所说的会成就，事情 就将为他成就。所以，我告诉你们：凡是你们所祷告和祈求的，当相信已经得着了 。这样，事情就将为你们成就。",
+      "has_csb": true,
+      "esv": "Truly, I say to you, whoever says to this mountain, ‘Be taken up and thrown into the sea,’ and does not doubt in his heart, but believes that what he says wi...Therefore I tell you, whatever you ask in prayer, believe that you have received it, and it will be yours.",
+      "has_esv": true
     },
     "q11_可 9:23": {
       "reference": "可 9:23",
       "text": "耶稣对他说：你若能信，在信的人，凡事都能。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "耶稣说：“如果你能？对于相信的人，凡事都有可能！”",
+      "has_ccb": true,
+      "csb": "耶稣对他说：“‘如果你能’？ ——对信的人，一切都能。”",
+      "has_csb": true,
+      "esv": "And Jesus said to him, “‘If you can’! All things are possible for one who believes.”",
+      "has_esv": true
     },
     "q12_来 11:6": {
       "reference": "来 11:6",
       "text": "人非有信，就不能得　神的喜悦；因为到　神面前来的人必须信有　神，且信他赏赐那寻求他的人。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "没有信心的人得不到上帝的喜悦，因为来到上帝面前的人必须相信上帝存在，并相信祂会赏赐一切寻求祂的人。",
+      "has_ccb": true,
+      "csb": "没有信，就不可能蒙神喜悦，因为来到神面前的人，必须相信神存在，并且相信他报偿那些寻求他的人。",
+      "has_csb": true,
+      "esv": "And without faith it is impossible to please him, for whoever would draw near to God must believe that he exists and that he rewards those who seek him.",
+      "has_esv": true
     }
   }
 }

@@ -550,6 +550,46 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
+
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        .btn-verse { padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.8em; margin-left: 4px; }
+        .btn-verse:hover { background: #667eea; color: white; border-color: #667eea; }
+
     </style>
 </head>
 <body>
@@ -566,6 +606,15 @@
             </div>
         </header>
 
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+
         <div class="content">
             
             <div class="question-block" data-question-id="1">
@@ -577,7 +626,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">来 11:1</span>
+                        <span class="reference-text">来 11:1 <button class="btn-verse" onclick="showVerseDisplay('来 11:1')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('1', '来 11:1')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('1', '来 11:1')" title="显示完整答案">👁️ 答案</button>
@@ -602,7 +651,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">罗 10:17</span>
+                        <span class="reference-text">罗 10:17 <button class="btn-verse" onclick="showVerseDisplay('罗 10:17')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('2', '罗 10:17')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('2', '罗 10:17')" title="显示完整答案">👁️ 答案</button>
@@ -627,7 +676,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">加 5:6</span>
+                        <span class="reference-text">加 5:6 <button class="btn-verse" onclick="showVerseDisplay('加 5:6')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('3', '加 5:6')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('3', '加 5:6')" title="显示完整答案">👁️ 答案</button>
@@ -656,7 +705,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">加 2:16</span>
+                        <span class="reference-text">加 2:16 <button class="btn-verse" onclick="showVerseDisplay('加 2:16')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('4', '加 2:16')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('4', '加 2:16')" title="显示完整答案">👁️ 答案</button>
@@ -675,7 +724,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">加 3:11</span>
+                        <span class="reference-text">加 3:11 <button class="btn-verse" onclick="showVerseDisplay('加 3:11')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('4', '加 3:11')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('4', '加 3:11')" title="显示完整答案">👁️ 答案</button>
@@ -694,7 +743,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">加 3:26</span>
+                        <span class="reference-text">加 3:26 <button class="btn-verse" onclick="showVerseDisplay('加 3:26')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('4', '加 3:26')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('4', '加 3:26')" title="显示完整答案">👁️ 答案</button>
@@ -723,7 +772,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">来 6:1,2</span>
+                        <span class="reference-text">来 6:1,2 <button class="btn-verse" onclick="showVerseDisplay('来 6:1,2')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('5', '来 6:1,2')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('5', '来 6:1,2')" title="显示完整答案">👁️ 答案</button>
@@ -748,7 +797,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">加 2:16</span>
+                        <span class="reference-text">加 2:16 <button class="btn-verse" onclick="showVerseDisplay('加 2:16')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('6', '加 2:16')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('6', '加 2:16')" title="显示完整答案">👁️ 答案</button>
@@ -777,7 +826,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">约 20:29</span>
+                        <span class="reference-text">约 20:29 <button class="btn-verse" onclick="showVerseDisplay('约 20:29')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '约 20:29')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '约 20:29')" title="显示完整答案">👁️ 答案</button>
@@ -806,7 +855,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林后 5:7</span>
+                        <span class="reference-text">林后 5:7 <button class="btn-verse" onclick="showVerseDisplay('林后 5:7')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('8', '林后 5:7')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('8', '林后 5:7')" title="显示完整答案">👁️ 答案</button>
@@ -1273,7 +1322,97 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }        // ====== 多译本支持 ======
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        const VERSE_DATA = {"加 3:11": {"text": "没有一个人靠着律法在神面前称义，这是明显的；因为经上说：义人必因信得生。", "ccb": "非常明显，没有人能靠遵行律法在上帝面前被称为义人，因为圣经上说：“义人必靠信心而活。”", "csb": "所以，明显地没有人能藉着律法在神面前被称为义，因为经上说：“义人将因信而活。”", "esv": "Now it is evident that no one is justified before God by the law, for “The righteous shall live by faith.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "加 2:16": {"text": "既知道人称义不是因行律法，乃是因信耶稣基督，连我们也信了基督耶稣，使我们因信基督称义，不因行律法称义；因为凡有血气的，没有一人因行律法称义。", "ccb": "但我们知道人被称为义人不是靠遵行律法，而是靠信耶稣基督。所以我们信了基督耶稣，以便因信基督被称为义人，而不是靠遵行律法，因为无人能够靠遵行律法被称为义人。", "csb": "不过我们知道：人被称为义不是本于律法上的行为，而是藉着信耶稣基督。于是我们信了基督耶稣，为要因信基督称义，而不是本于律法上的行为，因为没有一个人 本于律法上的行为会被称为义。", "esv": "yet we know that a person is not justified by works of the law but through faith in Jesus Christ, so we also have believed in Christ Jesus, in order to be ju...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "加 5:6": {"text": "因为在基督耶稣里，受割礼不受割礼全无功效，惟独使人生发仁爱的信心才有功效。", "ccb": "因为在基督耶稣里，受不受割礼根本无关紧要，借着爱表现出来的信心才至关重要。", "csb": "因为在基督耶稣里，受割礼或不受割礼都没有用处，只有藉着爱行出来的信仰才有用处。", "esv": "For in Christ Jesus neither circumcision nor uncircumcision counts for anything, but only faith working through love.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "约 20:29": {"text": "耶稣对他说：你因看见了我才信；那没有看见就信的有福了。", "ccb": "耶稣说：“你看见我才信，那些没有看见就信的人有福了。”", "csb": "耶稣对他说：“你因为看到了我才信吗？那没有看到就信的人，是蒙福的。”", "esv": "Jesus said to him, “Have you believed because you have seen me? Blessed are those who have not seen and yet have believed.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "罗 10:17": {"text": "可见信道是从听道来的，听道是从基督的话来的。", "ccb": "由此可见，听了道，才会信道；有了基督的话，才有道可听。", "csb": "因此，信是由听而来，听是藉着基督 的话而来。", "esv": "So faith comes from hearing, and hearing through the word of Christ.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "来 11:1": {"text": "信就是所望之事的实底，是未见之事的确据。", "ccb": "信心是对盼望的事有把握，对还没看见的事很确定。", "csb": "信，是对所盼望的事有把握，对看不见的事有确据。", "esv": "Now faith is the assurance of things hoped for, the conviction of things not seen.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林后 5:7": {"text": "因我们行事为人是凭着信心，不是凭着眼见。", "ccb": "因为我们行事为人是凭信心，不是凭眼见。", "csb": "原来我们行事是藉着信，不是藉着眼见。", "esv": "5:7 for we walk by faith, not by sight.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "来 6:1,2": {"text": "所以，我们应当离开基督道理的开端，竭力进到完全的地步，不必再立根基，就如那懊悔死行，信靠神，各样洗礼、按手之礼、死人复活，以及永远审判各等教训。", "ccb": "所以我们要离开有关基督的初级道理，努力迈向成熟，而不是再次打基础：教导为致死的行为悔改、信靠上帝、各种洗礼、按手礼、死人复活、永远的审判等道理。", "csb": "所以，让我们从基督话语的基本原则出发 ，被神 带到那成熟的境界；而不用重新打基础，就如悔改那些致死的行为、对神的信仰、各样的洗净礼、按手礼、死人复活、永远的惩罚等教导上。", "esv": "Therefore let us leave the elementary doctrine of Christ and go on to maturity, not laying again a foundation of repentance from dead works and of faith towa...and of instruction about washings, the laying on of hands, the resurrection of the dead, and eternal judgment.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "加 3:26": {"text": "所以，你们因信基督耶稣，都是神的儿子。", "ccb": "你们都借着信基督耶稣而成为上帝的儿女，", "csb": "因为你们藉着信，在基督耶稣里，都是神的儿女。", "esv": "for in Christ Jesus you are all sons of God, through faith.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        let currentTranslation = localStorage.getItem('foundation_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = VERSE_DATA[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text || null;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
         }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('foundation_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { alert('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        // Init after DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+        });
+
+        // Modify showFullHint to use selected translation
+        const _origShowFullHint = showFullHint;
+        showFullHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const standardAnswerDiv = document.querySelector('.standard-answer[data-ref="' + ref + '"]');
+            if (standardAnswerDiv) {
+                if (standardAnswerDiv.classList.contains('show')) {
+                    standardAnswerDiv.classList.remove('show');
+                } else {
+                    const text = getVerseText(ref, currentTranslation) || answerInfo.text;
+                    standardAnswerDiv.innerHTML = '<strong>📖 标准答案:</strong> ' + text;
+                    standardAnswerDiv.classList.add('show');
+                }
+            }
+        };
+
+        // Modify showPartialHint to use selected translation
+        const _origShowPartialHint = showPartialHint;
+        showPartialHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const input = document.querySelector('textarea[data-question="' + questionId + '"][data-reference="' + ref + '"]');
+            if (!input) return;
+            const standardText = getVerseText(ref, currentTranslation) || answerInfo.text;
+            const currentProgress = parseInt(input.dataset.hintProgress || '0');
+            const fillPercentage = Math.min(currentProgress + 20, 100);
+            const fillLength = Math.floor((standardText.length * fillPercentage) / 100);
+            input.value = standardText.substring(0, fillLength);
+            input.dataset.hintProgress = fillPercentage;
+            if (fillPercentage >= 100) { showToast('💡 答案已全部填充'); }
+            else { showToast('💡 已填充 ' + fillPercentage + '% 的答案'); }
+            updateProgress();
+        };
     </script>
+
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
+        </div>
+    </div>
+
 </body>
 </html>

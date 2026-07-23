@@ -550,6 +550,46 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
+
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        .btn-verse { padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.8em; margin-left: 4px; }
+        .btn-verse:hover { background: #667eea; color: white; border-color: #667eea; }
+
     </style>
 </head>
 <body>
@@ -566,6 +606,15 @@
             </div>
         </header>
 
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+
         <div class="content">
             
             <div class="question-block" data-question-id="1">
@@ -577,7 +626,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">约壹 1:5</span>
+                        <span class="reference-text">约壹 1:5 <button class="btn-verse" onclick="showVerseDisplay('约壹 1:5')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('1', '约壹 1:5')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('1', '约壹 1:5')" title="显示完整答案">👁️ 答案</button>
@@ -602,7 +651,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">约壹 1:6</span>
+                        <span class="reference-text">约壹 1:6 <button class="btn-verse" onclick="showVerseDisplay('约壹 1:6')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('2', '约壹 1:6')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('2', '约壹 1:6')" title="显示完整答案">👁️ 答案</button>
@@ -627,7 +676,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">约壹 2:3,4</span>
+                        <span class="reference-text">约壹 2:3,4 <button class="btn-verse" onclick="showVerseDisplay('约壹 2:3,4')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('3', '约壹 2:3,4')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('3', '约壹 2:3,4')" title="显示完整答案">👁️ 答案</button>
@@ -652,7 +701,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">约壹 3:11</span>
+                        <span class="reference-text">约壹 3:11 <button class="btn-verse" onclick="showVerseDisplay('约壹 3:11')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('4', '约壹 3:11')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('4', '约壹 3:11')" title="显示完整答案">👁️ 答案</button>
@@ -667,7 +716,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">太 22:34-40</span>
+                        <span class="reference-text">太 22:34-40 <button class="btn-verse" onclick="showVerseDisplay('太 22:34-40')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('4', '太 22:34-40')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('4', '太 22:34-40')" title="显示完整答案">👁️ 答案</button>
@@ -696,7 +745,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">约壹 2:9-11</span>
+                        <span class="reference-text">约壹 2:9-11 <button class="btn-verse" onclick="showVerseDisplay('约壹 2:9-11')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('5', '约壹 2:9-11')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('5', '约壹 2:9-11')" title="显示完整答案">👁️ 答案</button>
@@ -721,7 +770,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">约壹 3:7-10</span>
+                        <span class="reference-text">约壹 3:7-10 <button class="btn-verse" onclick="showVerseDisplay('约壹 3:7-10')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('6', '约壹 3:7-10')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('6', '约壹 3:7-10')" title="显示完整答案">👁️ 答案</button>
@@ -746,7 +795,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">约壹 4:20</span>
+                        <span class="reference-text">约壹 4:20 <button class="btn-verse" onclick="showVerseDisplay('约壹 4:20')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '约壹 4:20')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '约壹 4:20')" title="显示完整答案">👁️ 答案</button>
@@ -761,7 +810,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">使徒行传 2:38</span>
+                        <span class="reference-text">使徒行传 2:38 <button class="btn-verse" onclick="showVerseDisplay('使徒行传 2:38')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '使徒行传 2:38')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '使徒行传 2:38')" title="显示完整答案">👁️ 答案</button>
@@ -776,7 +825,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">使徒行传 3:19</span>
+                        <span class="reference-text">使徒行传 3:19 <button class="btn-verse" onclick="showVerseDisplay('使徒行传 3:19')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '使徒行传 3:19')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '使徒行传 3:19')" title="显示完整答案">👁️ 答案</button>
@@ -791,7 +840,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">阅读路加福音 15:11-24</span>
+                        <span class="reference-text">阅读路加福音 15:11-24 <button class="btn-verse" onclick="showVerseDisplay('阅读路加福音 15:11-24')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '阅读路加福音 15:11-24')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '阅读路加福音 15:11-24')" title="显示完整答案">👁️ 答案</button>
@@ -1355,7 +1404,97 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }        // ====== 多译本支持 ======
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        const VERSE_DATA = {"阅读路加福音 15:11-24": {"text": "耶稣又说：一个人有两个儿子。 小儿子对父亲说：父亲，请你把我应得的家业分给我。他父亲就把产业分给他们。 过了不多几日，小儿子就把他一切所有的都收拾起来，往远方去了。在那里任意放荡，浪费资财。 既耗尽了一切所有的，又遇着那地方大遭饥荒，就穷苦起来。 于是去投靠那地方的一个人；那人打发他到田里去放猪。 他恨不得拿猪所吃的豆荚充饥，也没有人给他。 他醒悟过来，就说：我父亲有多少的雇工，口粮有余，我倒在这里饿死吗？ 我要起来，到我父亲那里去，向他说：父亲！我得罪了天，又得罪了你； 从今以后，我不配称为你的儿子，把我当作一个雇工吧！ 于是起来，往他父亲那里去。相离还远，他父亲看见，就动了慈心，跑去抱着他的颈项，连连与他亲嘴。 儿子说：父亲！我得罪了天，又得罪了你；从今以后，我不配称为你的儿子。 父亲却吩咐仆人说：把那上好的袍子快拿出来给他穿；把戒指戴在他指头上；把鞋穿在他脚上； 把那肥牛犊牵来宰了，我们可以吃喝快乐； 因为我这个儿子是死而复活，失而又得的。他们就快乐起来。", "ccb": "耶稣又说：“某人有两个儿子。小儿子对父亲说，‘父亲，请你把我应得的家产分给我。’父亲就把财产分给了两个儿子。“没过几天，小儿子带着他所有的财物出门远游去了。他终日在外花天酒地，挥金如土，很快囊空如洗，又遇到严重的饥荒，就穷困潦倒，只好投靠一个当地人。那人派他到田里去放猪，他饿到恨不得拿喂猪的豆荚充饥，可是连这些也没有人给他。最后，他醒悟过来，心想，‘我父亲家那么多雇工的口粮都绰绰有余，我现在却要在这里饿死吗？我要动身回到我父亲身边，对他说，父亲，我得罪了天，也得罪了你，今后，我再也不配做你的儿子，请把我当作雇工看待吧。’于是他动身回父亲那里。 “他父亲远远地看见他，就动了慈心，跑上前去抱着他连连亲吻。小儿子说，‘父亲，我得罪了天，也得罪了你，今后，我再也不配做你的儿子。’“父亲却对奴仆说，‘赶快拿最好的袍子来给他穿上，给他戴上戒指，穿上鞋，把那头肥牛犊牵来宰了，让我们一同欢宴庆祝！因我这儿子是死而复活、失而复得的。’于是他们开始欢庆。", "csb": "耶稣又说：“某人有两个儿子。小儿子对父亲说：‘父亲，请把我应得的那份家产给我。’父亲就把财产分给两个儿子。没过几天，那小儿子就收拾了一切，往一个遥远的地方去旅行了。他在那里过着放荡的生活，挥霍他的钱财。当他花尽了自己的一切，那地方又发生了严重的饥荒，他就开始穷困起来。于是他去投靠当地的一个居民，那人打发他到自己的田里去放猪。他就是渴望拿猪吃的豆荚来充饥 ，也没有人给他。可是他醒悟过来的时候，就说：‘我父亲那么多的雇工都食物充足，我却要在这里饿死 吗？我要起来，到我父亲那里去，对他说：‘父亲，我对天犯了罪，也在你面前犯了罪。我再也不配称为你的儿子，请把我当做你的一个雇工吧。’于是他起来往自己的父亲那里去。他离得还远的时候，他父亲就看到他，动了怜悯之心，跑上去搂住他的脖子亲吻他。儿子说：‘父亲，我对天犯了罪，也在你面前犯了罪。我再也不配称为你的儿子。’“父亲却对奴仆们说：‘赶快 把那最好的袍子拿来给他穿上，把戒指戴在他手上，把鞋子穿在他脚上，把那只养肥的牛犊牵来宰杀了，让我们吃喝、庆祝吧！因为我这个儿子是死而复生、失而复得的。’于是他们开始庆祝。", "esv": "And he said, “There was a man who had two sons.And the younger of them said to his father, ‘Father, give me the share of property that is coming to me.’ And he divided his property between them.Not many days later, the younger son gathered all he had and took a journey into a far country, and there he squandered his property in reckless living.And when he had spent everything, a severe famine arose in that country, and he began to be in need.So he went and hired himself out to one of the citizens of that country, who sent him into his fields to feed pigs.And he was longing to be fed with the pods that the pigs ate, and no one gave him anything.“But when he came to himself, he said, ‘How many of my father’s hired servants have more than enough bread, but I perish here with hunger!I will arise and go to my father, and I will say to him, “Father, I have sinned against heaven and before you.I am no longer worthy to be called your son. Treat me as one of your hired servants.”’And he arose and came to his father. But while he was still a long way off, his father saw him and felt compassion, and ran and embraced him and kissed him.And the son said to him, ‘Father, I have sinned against heaven and before you. I am no longer worthy to be called your son.’But the father said to his servants, ‘Bring quickly the best robe, and put it on him, and put a ring on his hand, and shoes on his feet.And bring the fattened calf and kill it, and let us eat and celebrate.For this my son was dead, and is alive again; he was lost, and is found.’ And they began to celebrate.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "使徒行传 2:38": {"text": "彼得说：你们各人要悔改，奉耶稣基督的名受洗，叫你们的罪得赦，就必领受所赐的圣灵；", "ccb": "彼得说：“你们每一个人都要悔改，奉耶稣基督的名受洗，使你们的罪得到赦免，你们就必领受上帝所赐的圣灵。", "csb": "彼得对他们说：“你们应当悔改，每个人都当奉耶稣基督的名受洗 ，使你们的罪得赦免，就会领受所赐的圣灵。", "esv": "And Peter said to them, “Repent and be baptized every one of you in the name of Jesus Christ for the forgiveness of your sins, and you will receive the gift ...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "约壹 2:3,4": {"text": "我们若遵守他的诫命，就晓得是认识他。 人若说我认识他，却不遵守他的诫命，便是说谎话的，真理也不在他心里了。", "ccb": "我们若遵行上帝的命令，就知道自己确实认识祂。若有人说“我认识祂”，却不遵行祂的命令，这人是说谎的，他里面没有真理。", "csb": "如果我们遵守基督 的命令，从这一点我们就知道我们已经认识他。那说“我已经认识他”，却不遵守他命令的，就是说谎者，真理也不在这个人里面；", "esv": "2:3 And by this we know that we have come to know him, if we keep his commandments.2:4 Whoever says “I know him” but does not keep his commandments is a liar, and the truth is not in him,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "约壹 2:9-11": {"text": "人若说自己在光明中，却恨他的弟兄，他到如今还是在黑暗里。 爱弟兄的，就是住在光明中，在他并没有绊跌的缘由。 惟独恨弟兄的，是在黑暗里，且在黑暗里行，也不知道往哪里去，因为黑暗叫他眼睛瞎了。", "ccb": "人若说自己在光明中，却恨他的弟兄姊妹，他仍然活在黑暗里。爱弟兄姊妹的人住在光明中，没有什么可以绊倒他 。恨弟兄姊妹的人活在黑暗中，走在黑暗中，不知何去何从，因为黑暗弄瞎了他的眼睛。", "csb": "那说自己在光里却恨自己弟兄的，至今还在黑暗里；那爱自己弟兄的，就住在光里，而且在他里面 没有什么绊脚的事；但那恨自己弟兄的，就是在黑暗里，并且在黑暗里行走，也不知道自己往哪里去，因为黑暗使他的眼睛瞎了。", "esv": "2:9 Whoever says he is in the light and hates his brother is still in darkness.2:10 Whoever loves his brother abides in the light, and in him there is no cause for stumbling.2:11 But whoever hates his brother is in the darkness and walks in the darkness, and does not know where he is going, because the darkness has blinded his eyes.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "约壹 1:5": {"text": "神就是光，在他毫无黑暗。这是我们从主所听见、又报给你们的信息。", "ccb": "我们从耶稣那里听见、现在又传给你们的信息就是：上帝是光，在祂里面毫无黑暗。", "csb": "我们从基督 所听到，现在又传讲给你们的信息是这样的：神就是光，在他里面毫无黑暗。", "esv": "1:5 This is the message we have heard from him and proclaim to you, that God is light, and in him is no darkness at all.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "约壹 3:7-10": {"text": "小子们哪，不要被人诱惑。行义的才是义人，正如主是义的一样。 犯罪的是属魔鬼，因为魔鬼从起初就犯罪。神的儿子显现出来，为要除灭魔鬼的作为。 凡从神生的，就不犯罪，因神的道存在他心里；他也不能犯罪，因为他是由神生的。 从此就显出谁是神的儿女，谁是魔鬼的儿女。凡不行义的就不属神，不爱弟兄的也是如此。", "ccb": "孩子们，不要受人诱骗，行义的才是义人，正如耶稣是公义的。一直犯罪的人是属魔鬼的，因为魔鬼从起初便犯罪，但上帝儿子的显现是为了摧毁魔鬼的工作。从上帝生的人不会继续犯罪，因为他里面有上帝的生命 。他不能继续犯罪，因为他是从上帝生的。这样，就可以看出谁是上帝的儿女，谁是魔鬼的儿女。凡不行义、不爱弟兄姊妹的人，都不是上帝的儿女。", "csb": "孩子们哪，不要让任何人迷惑你们。行义的人是公义的，正如基督 是公义的。继续犯罪的人属于魔鬼，因为魔鬼从起初就一直犯罪。为此，神的儿子显现了，是为了废除魔鬼的作为。凡是由神所生的，不继续犯罪，因为神的种子住在他里面；他也不能继续犯罪，因为他是由神所生的。从这一点，谁是神的儿女，谁是魔鬼的儿女就清清楚楚了。 凡是不行公义的，就不属于神；不爱自己弟兄的，也不属于神。", "esv": "3:7 Little children, let no one deceive you. Whoever practices righteousness is righteous, as he is righteous.3:8 Whoever makes a practice of sinning is of the devil, for the devil has been sinning from the beginning. The reason the Son of God appeared was to destroy the...3:9 No one born of God makes a practice of sinning, for God’s seed abides in him; and he cannot keep on sinning, because he has been born of God.3:10 By this it is evident who are the children of God, and who are the children of the devil: whoever does not practice righteousness is not of God, nor is the o...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "约壹 3:11": {"text": "我们应当彼此相爱。这就是你们从起初所听见的命令。", "ccb": "我们应当彼此相爱，这是你们起初听见的信息。", "csb": "因为你们从起初所听见的信息是这样的：我们要彼此相爱。", "esv": "3:11 For this is the message that you have heard from the beginning, that we should love one another.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "太 22:34-40": {"text": "法利赛人听见耶稣堵住了撒都该人的口，他们就聚集。 内中有一个人是律法师，要试探耶稣，就问他说： '先生，律法上的诫命，哪一条是最大的呢？' 耶稣对他说：'你要尽心、尽性、尽意爱主—你的神。 这是诫命中的第一，且是最大的。 其次也相仿，就是要爱人如己。 这两条诫命是律法和先知书的总纲。'", "ccb": "法利赛人听见耶稣使撒都该人无言以对，就聚集在一起。其中有位律法专家试探耶稣说：“老师，请问律法中哪一条诫命最重要呢？”耶稣回答说：“‘你要全心、全情、全意爱主你的上帝’ ，这是第一条也是最重要的诫命。第二条也相似，就是‘要爱邻如己’ 。律法和先知的全部教导都以这两条诫命为基础。”", "csb": "法利赛人听说耶稣使撒都该人哑口无言，就聚集在一起。他们当中有一个是律法师， 来试探耶稣，问他：“老师，律法中最大的诫命是哪一条呢？”耶稣对他说：“‘你要以全心、全灵、全意爱主——你的神’ ，这是最大的，也是最重要的诫命。其次的也和它类似，‘要爱邻如己。’全部律法和先知书都是以这两条诫命为依据的。”", "esv": "But when the Pharisees heard that he had silenced the Sadducees, they gathered together.And one of them, a lawyer, asked him a question to test him.“Teacher, which is the great commandment in the Law?”And he said to him, “You shall love the Lord your God with all your heart and with all your soul and with all your mind.This is the great and first commandment.And a second is like it: You shall love your neighbor as yourself.On these two commandments depend all the Law and the Prophets.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "约壹 4:20": {"text": "人若说我爱神，却恨他的弟兄，就是说谎话的；不爱他所看见的弟兄，就不能爱没有看见的神。", "ccb": "人若声称爱上帝，却恨自己的弟兄姊妹，就是说谎的，因为人若不爱看得见的弟兄姊妹，又怎能爱看不见的上帝呢？", "csb": "如果有人说“我爱神”，却恨自己的弟兄，他就是说谎者，因为一个人不爱自己所看到的弟兄，就不能爱没有看到的神。", "esv": "4:20 If anyone says, “I love God,” and hates his brother, he is a liar; for he who does not love his brother whom he has seen cannot love God whom he has not seen.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "使徒行传 3:19": {"text": "所以，你们当悔改归正，使你们的罪得以涂抹，这样，那安舒的日子就必从主面前来到；", "ccb": "所以你们要悔改，归向上帝，祂将除去你们的罪恶，", "csb": "所以，你们应当悔改，应当回转，使你们的罪孽被抹去，", "esv": "Repent therefore, and turn back, that your sins may be blotted out,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "约壹 1:6": {"text": "我们若说是与神相交，却仍在黑暗里行，就是说谎话，不行真理了。", "ccb": "我们如果说与祂相交，却仍活在黑暗里，就是说谎，没有遵行真理。", "csb": "如果我们说自己与神相契合，却仍然在黑暗中行走，我们就是在说谎，没有遵行真理；", "esv": "1:6 If we say we have fellowship with him while we walk in darkness, we lie and do not practice the truth.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        let currentTranslation = localStorage.getItem('foundation_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = VERSE_DATA[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text || null;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
         }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('foundation_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { alert('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        // Init after DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+        });
+
+        // Modify showFullHint to use selected translation
+        const _origShowFullHint = showFullHint;
+        showFullHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const standardAnswerDiv = document.querySelector('.standard-answer[data-ref="' + ref + '"]');
+            if (standardAnswerDiv) {
+                if (standardAnswerDiv.classList.contains('show')) {
+                    standardAnswerDiv.classList.remove('show');
+                } else {
+                    const text = getVerseText(ref, currentTranslation) || answerInfo.text;
+                    standardAnswerDiv.innerHTML = '<strong>📖 标准答案:</strong> ' + text;
+                    standardAnswerDiv.classList.add('show');
+                }
+            }
+        };
+
+        // Modify showPartialHint to use selected translation
+        const _origShowPartialHint = showPartialHint;
+        showPartialHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const input = document.querySelector('textarea[data-question="' + questionId + '"][data-reference="' + ref + '"]');
+            if (!input) return;
+            const standardText = getVerseText(ref, currentTranslation) || answerInfo.text;
+            const currentProgress = parseInt(input.dataset.hintProgress || '0');
+            const fillPercentage = Math.min(currentProgress + 20, 100);
+            const fillLength = Math.floor((standardText.length * fillPercentage) / 100);
+            input.value = standardText.substring(0, fillLength);
+            input.dataset.hintProgress = fillPercentage;
+            if (fillPercentage >= 100) { showToast('💡 答案已全部填充'); }
+            else { showToast('💡 已填充 ' + fillPercentage + '% 的答案'); }
+            updateProgress();
+        };
     </script>
+
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
+        </div>
+    </div>
+
 </body>
 </html>

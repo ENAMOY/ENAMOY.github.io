@@ -8,92 +8,188 @@
       "reference": "申 8:18",
       "text": "你要记念耶和华－你的　神，因为得货财的力量是他给你的，为要坚定他向你列祖起誓所立的约，像今日一样。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "要记住，是你们的上帝耶和华赐给你们致富的能力，为要坚立祂给你们祖先的誓约，正如今日的情形。",
+      "has_ccb": true,
+      "csb": "但你要记得耶和华你的神，是他赐给你能力获取财富，好成就他与你先祖起誓立下的约，就像今日这样。",
+      "has_csb": true,
+      "esv": "You shall remember the Lord your God, for it is he who gives you power to get wealth, that he may confirm his covenant that he swore to your fathers, as it i...",
+      "has_esv": true
     },
     "q2_申 30:8-10": {
       "reference": "申 30:8-10",
       "text": "你必归回，听从耶和华的话，遵行他的一切诫命，就是我今日所吩咐你的。你手里所办的一切事，并你身所生的，牲畜所下的，地土所产的，耶和华必使你样样都丰盛，因为耶和华必再喜悦你，降福与你，像从前喜悦你列祖一样。你若听从耶和华－你　神的话，谨守这律法书上所写的诫命律例，又尽心尽性归向耶和华－你的　神，他必使你手里所办的一切事尽都顺利。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "你们必再次听从耶和华，遵行今天祂借我吩咐你们的一切诫命。倘若你们听从你们的上帝耶和华的话，遵守这律法书上的诫命和律例，全心全意地归向祂，祂必使你们凡事蒙福、儿女众多、牛羊成群、五谷丰登。因为祂必乐意再次赐福你们，像从前赐福你们祖先一样。只要你听从耶和华—你上帝的话，谨守这律法书上所写的诫命律例，尽心尽性归向耶和华—你的上帝。”",
+      "has_ccb": true,
+      "csb": "至于你，你会再次听从耶和华的话，遵行他的一切诫命，就是我今天所吩咐你的。你的神耶和华会使你兴旺，祝福你手中的一切工作，祝福你腹中的胎儿 、牲畜的幼仔 和土地的出产 。耶和华必再次乐意祝福你，像他曾经乐意祝福你的祖先那样，因为你听从你的神耶和华的话，遵守他写在这律法书上的诫命和律例，全心、全灵回转归向耶和华你的神。",
+      "has_csb": true,
+      "esv": "And you shall again obey the voice of the Lord and keep all his commandments that I command you today.The Lord your God will make you abundantly prosperous in all the work of your hand, in the fruit of your womb and in the fruit of your cattle and in the frui...when you obey the voice of the Lord your God, to keep his commandments and his statutes that are written in this Book of the Law, when you turn to the Lord y...",
+      "has_esv": true
     },
     "q3_箴 10:3": {
       "reference": "箴 10:3",
       "text": "耶和华不使义人受饥饿，恶人所欲的，他必推开。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "耶和华不让义人挨饿， 祂使恶人的奢望成空。",
+      "has_ccb": true,
+      "csb": "耶和华不让义人挨饿； 恶人的贪欲，他会拒绝。",
+      "has_csb": true,
+      "esv": "The Lord does not let the righteous go hungry, but he thwarts the craving of the wicked.",
+      "has_esv": true
     },
     "q3_箴 10:4": {
       "reference": "箴 10:4",
       "text": "手懒的，要受贫穷；手勤的，却要富足。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "游手好闲招致贫穷， 勤奋努力带来富足。",
+      "has_ccb": true,
+      "csb": "懈怠的手，使人贫穷； 殷勤的手，使人富有。",
+      "has_csb": true,
+      "esv": "A slack hand causes poverty, but the hand of the diligent makes rich.",
+      "has_esv": true
     },
     "q3_箴 10:22": {
       "reference": "箴 10:22",
       "text": "耶和华所赐的福使人富足，并不加上忧虑。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "耶和华的祝福使人富足， 祝福中不加任何忧愁 。",
+      "has_ccb": true,
+      "csb": "耶和华的祝福使人富有， 并且他不会加上劳苦 。",
+      "has_csb": true,
+      "esv": "The blessing of the Lord makes rich, and he adds no sorrow with it.",
+      "has_esv": true
     },
     "q3_箴 13:21": {
       "reference": "箴 13:21",
       "text": "祸患追赶罪人；义人必得善报。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "祸患追赶罪人， 义人必得善报。",
+      "has_ccb": true,
+      "csb": "恶事追赶罪人， 义人必得善报。",
+      "has_csb": true,
+      "esv": "Disaster pursues sinners, but the righteous are rewarded with good.",
+      "has_esv": true
     },
     "q3_箴 13:22": {
       "reference": "箴 13:22",
       "text": "善人给子孙遗留产业；罪人为义人积存资财。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "善人为子孙留下产业， 罪人给义人积聚财富。",
+      "has_ccb": true,
+      "csb": "好人使子子孙孙得继业； 罪人的财富，却为义人留存。",
+      "has_csb": true,
+      "esv": "A good man leaves an inheritance to his children’s children, but the sinner’s wealth is laid up for the righteous.",
+      "has_esv": true
     },
     "q3_箴 21:21": {
       "reference": "箴 21:21",
       "text": "追求公义仁慈的，就寻得生命、公义，和尊荣。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "追求公义与慈爱的， 必寻得生命、公义和尊荣。",
+      "has_ccb": true,
+      "csb": "追求公义和慈爱的， 必找到生命、公义和荣耀。",
+      "has_csb": true,
+      "esv": "Whoever pursues righteousness and kindness will find life, righteousness, and honor.",
+      "has_esv": true
     },
     "q3_箴 22:4": {
       "reference": "箴 22:4",
       "text": "敬畏耶和华心存谦卑，就得富有、尊荣、生命为赏赐。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "心存谦卑、敬畏耶和华， 必得财富、尊荣和生命。",
+      "has_ccb": true,
+      "csb": "心存谦卑、敬畏耶和华， 就有财富、荣耀和生命为赏赐。",
+      "has_csb": true,
+      "esv": "The reward for humility and fear of the Lord is riches and honor and life.",
+      "has_esv": true
     },
     "q3_箴 22:9": {
       "reference": "箴 22:9",
       "text": "眼目慈善的，就必蒙福，因他将食物分给穷人。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "慷慨的人必蒙福， 因他给穷人食物。",
+      "has_ccb": true,
+      "csb": "心眼良善的必蒙祝福， 因为他把自己的粮食分给贫弱者。",
+      "has_csb": true,
+      "esv": "Whoever has a bountiful eye will be blessed, for he shares his bread with the poor.",
+      "has_esv": true
     },
     "q4_路 6:38": {
       "reference": "路 6:38",
       "text": "你们要给人，就必有给你们的，并且用十足的升斗，连摇带按，上尖下流地倒在你们怀里。因为你们用什么量器量给人，也必用什么量器量给你们。'",
-      "has_data": true
+      "has_data": true,
+      "ccb": "你们要给他人，这样上帝必给你们，并且会用大号升斗摇匀压实，满满地倒给你们，因为你们用什么量器量给别人，上帝也会用什么量器量给你们。”",
+      "has_ccb": true,
+      "csb": "你们要给与，就会被赐予，而且用十足的量器，连摇带按、满满当当地倒在你们怀里，因为，你们用什么量器 来衡量，也会同样地被衡量。”",
+      "has_csb": true,
+      "esv": "give, and it will be given to you. Good measure, pressed down, shaken together, running over, will be put into your lap. For with the measure you use it will...",
+      "has_esv": true
     },
     "q4_请阅读哥林多后书 9:6-11": {
       "reference": "请阅读哥林多后书 9:6-11",
       "text": "少种的少收，多种的多收，这话是真的。各人要随本心所酌定的，不要作难，不要勉强，因为捐得乐意的人是神所喜爱的。神能将各样的恩惠多多的加给你们，使你们凡事常常充足，能多行各样善事。如经上所记：他施舍钱财，周济贫穷；他的仁义存到永远。那赐种给撒种的，赐粮给人吃的，必多多加给你们种地的种子，又增添你们仁义的果子；叫你们凡事富足，可以多多施舍，就藉着我们使感谢归于神。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "要记住：“少种的少收，多种的多收。”各人心里想捐多少就捐多少，不要勉强，不要为难。因为捐得甘心乐意的人才是上帝所喜爱的。上帝能够把各样恩典多多赐给你们，使你们在各方面常常富足有余，可以多行各种善事。正如圣经上说： “他慷慨施舍、周济穷人， 他的公义永远长存。”赐农夫种子又赐人粮食的上帝，必加倍赐给你们种子，使你们收获更多仁义的果实，叫你们事事丰裕，可以多多施舍。这样，从我们这里得到你们帮助的人便会向上帝献上感恩。",
+      "has_ccb": true,
+      "csb": "又有这话：播撒吝啬的人，也收获吝啬；播撒祝福的人，也收获祝福。每个人要照着心里预先定好的，不要为难，也不要勉强，因为神喜爱那乐意给与的人。神能使一切的恩典丰丰富富地临到你们，使你们总是在一切事上都能知足，在一切美善的工作上充实满溢。正如经上所记： “他施舍，赐予穷人； 他的义行永远常存。”供应种子给撒种的，又供应粮食给人吃的那一位，将要供给并增加你们的种子，而且增多你们义行的果子，使你们在一切事上都得以富足，以致十分慷慨，就藉着我们生出对神的感谢之心。",
+      "has_csb": true,
+      "esv": "9:6 The point is this: whoever sows sparingly will also reap sparingly, and whoever sows bountifully will also reap bountifully.9:7 Each one must give as he has decided in his heart, not reluctantly or under compulsion, for God loves a cheerful giver.9:8 And God is able to make all grace abound to you, so that having all sufficiency in all things at all times, you may abound in every good work.9:9 As it is written, “He has distributed freely, he has given to the poor; his righteousness endures forever.”9:10 He who supplies seed to the sower and bread for food will supply and multiply your seed for sowing and increase the harvest of your righteousness.9:11 You will be enriched in every way to be generous in every way, which through us will produce thanksgiving to God.",
+      "has_esv": true
     },
     "q5_林后 9:6": {
       "reference": "林后 9:6",
       "text": "少种的少收，多种的多收，这话是真的。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "要记住：“少种的少收，多种的多收。”",
+      "has_ccb": true,
+      "csb": "又有这话：播撒吝啬的人，也收获吝啬；播撒祝福的人，也收获祝福。",
+      "has_csb": true,
+      "esv": "9:6 The point is this: whoever sows sparingly will also reap sparingly, and whoever sows bountifully will also reap bountifully.",
+      "has_esv": true
     },
     "q6_林后 9:7": {
       "reference": "林后 9:7",
       "text": "各人要随本心所酌定的，不要作难，不要勉强，因为捐得乐意的人是神所喜爱的。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "各人心里想捐多少就捐多少，不要勉强，不要为难。因为捐得甘心乐意的人才是上帝所喜爱的。",
+      "has_ccb": true,
+      "csb": "每个人要照着心里预先定好的，不要为难，也不要勉强，因为神喜爱那乐意给与的人。",
+      "has_csb": true,
+      "esv": "9:7 Each one must give as he has decided in his heart, not reluctantly or under compulsion, for God loves a cheerful giver.",
+      "has_esv": true
     },
     "q7_林后 9:8": {
       "reference": "林后 9:8",
       "text": "神能将各样的恩惠多多的加给你们，使你们凡事常常充足，能多行各样善事。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "上帝能够把各样恩典多多赐给你们，使你们在各方面常常富足有余，可以多行各种善事。",
+      "has_ccb": true,
+      "csb": "神能使一切的恩典丰丰富富地临到你们，使你们总是在一切事上都能知足，在一切美善的工作上充实满溢。",
+      "has_csb": true,
+      "esv": "9:8 And God is able to make all grace abound to you, so that having all sufficiency in all things at all times, you may abound in every good work.",
+      "has_esv": true
     },
     "q8_林后 9:11": {
       "reference": "林后 9:11",
       "text": "你们凡事富足，可以多多施舍，就藉着我们使感谢归于神。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "叫你们事事丰裕，可以多多施舍。这样，从我们这里得到你们帮助的人便会向上帝献上感恩。",
+      "has_ccb": true,
+      "csb": "使你们在一切事上都得以富足，以致十分慷慨，就藉着我们生出对神的感谢之心。",
+      "has_csb": true,
+      "esv": "9:11 You will be enriched in every way to be generous in every way, which through us will produce thanksgiving to God.",
+      "has_esv": true
     }
   }
 }

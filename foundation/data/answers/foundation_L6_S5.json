@@ -7,22 +7,46 @@
     "q1_太 4:19": {
       "reference": "太 4:19",
       "text": "耶稣对他们说：来跟从我，我要叫你们得人如得鱼一样。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "耶稣对他们说：“来跟从我！我要使你们成为得人的渔夫。”",
+      "has_ccb": true,
+      "csb": "耶稣就对他们说：“来跟从我！我将要使你们成为得人的渔夫。”",
+      "has_csb": true,
+      "esv": "And he said to them, “Follow me, and I will make you fishers of men.”",
+      "has_esv": true
     },
     "q2_太 4:19": {
       "reference": "太 4:19",
       "text": "耶稣对他们说：来跟从我，我要叫你们得人如得鱼一样。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "耶稣对他们说：“来跟从我！我要使你们成为得人的渔夫。”",
+      "has_ccb": true,
+      "csb": "耶稣就对他们说：“来跟从我！我将要使你们成为得人的渔夫。”",
+      "has_csb": true,
+      "esv": "And he said to them, “Follow me, and I will make you fishers of men.”",
+      "has_esv": true
     },
     "q3_太 4:20": {
       "reference": "太 4:20",
       "text": "他们就立刻舍了网，跟从了他。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "他们立刻撇下渔网，跟从了耶稣。",
+      "has_ccb": true,
+      "csb": "他们立刻舍弃渔网，跟从了耶稣。",
+      "has_csb": true,
+      "esv": "Immediately they left their nets and followed him.",
+      "has_esv": true
     },
     "q4_太 10:1": {
       "reference": "太 10:1",
       "text": "耶稣叫了十二个门徒来，给他们权柄，能赶逐污鬼，并医治各样的病症。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "耶稣叫了十二位门徒来，赐他们权柄，能赶出污鬼、医治各样的疾病。",
+      "has_ccb": true,
+      "csb": "耶稣召来他的十二个门徒，赐给他们权柄，能驱赶污灵，也能使各样的疾病和各样的症状痊愈。",
+      "has_csb": true,
+      "esv": "And he called to him his twelve disciples and gave them authority over unclean spirits, to cast them out, and to heal every disease and every affliction.",
+      "has_esv": true
     },
     "q5_可 6:7,12,13": {
       "reference": "可 6:7,12,13",
@@ -33,45 +57,93 @@
       "reference": "请阅读马太福音 28:18-20",
       "text": "耶稣进前来，对他们说：天上地下所有的权柄都赐给我了。所以，你们要去，使万民作我的门徒，奉父、子、圣灵的名给他们施洗。凡我所吩咐你们的，都教训他们遵守，我就常与你们同在，直到世界的末了。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "耶稣上前对门徒说： “天上地下所有的权柄都交给我了。所以，你们要去使万民做我的门徒，奉父、子、圣灵的名给他们施洗，教导他们遵守我吩咐你们的一切。记住，我必常与你们同在，一直到世界的末了。”",
+      "has_ccb": true,
+      "csb": "耶稣前来，对他们说：“天上和地上所有的权柄都赐给我了。所以你们要去，使万民成为我的门徒；奉父、子、圣灵的名给他们施洗 ；凡我所吩咐你们的，都教导他们遵守。看哪，我就天天都与你们同在，直到这世代的终结。”",
+      "has_csb": true,
+      "esv": "And Jesus came and said to them, “All authority in heaven and on earth has been given to me.Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit,teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age.”",
+      "has_esv": true
     },
     "q8_太 28:19": {
       "reference": "太 28:19",
       "text": "所以，你们要去，使万民作我的门徒，奉父、子、圣灵的名给他们施洗。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "所以，你们要去，使万民作我的门徒，奉父、子、圣灵的名给他们施洗（或作“给他们施洗，归于父、子、圣灵的名”）。",
+      "has_ccb": true,
+      "csb": "所以你们要去，使万民成为我的门徒；奉父、子、圣灵的名给他们施洗； 凡我所吩咐你们的，都教导他们遵守。看哪，我就天天都与你们同在，直到这世代的终结。”",
+      "has_csb": true,
+      "esv": "Go\nand make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit,",
+      "has_esv": true
     },
     "q9_太 28:20": {
       "reference": "太 28:20",
       "text": "凡我所吩咐你们的，都教训他们遵守，我就常与你们同在，直到世界的末了。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "凡我所吩咐你们的，都教训他们遵守，我就常与你们同在，直到世界的末了。”",
+      "has_ccb": true,
+      "csb": "所以你们要去，使万民成为我的门徒；奉父、子、圣灵的名给他们施洗； 凡我所吩咐你们的，都教导他们遵守。看哪，我就天天都与你们同在，直到这世代的终结。”",
+      "has_csb": true,
+      "esv": "teaching them to observe all things that I commanded you. Behold, I am with you always, even to the end of the age.” Amen.",
+      "has_esv": true
     },
     "q10_太 28:20": {
       "reference": "太 28:20",
       "text": "凡我所吩咐你们的，都教训他们遵守，我就常与你们同在，直到世界的末了。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "凡我所吩咐你们的，都教训他们遵守，我就常与你们同在，直到世界的末了。”",
+      "has_ccb": true,
+      "csb": "所以你们要去，使万民成为我的门徒；奉父、子、圣灵的名给他们施洗； 凡我所吩咐你们的，都教导他们遵守。看哪，我就天天都与你们同在，直到这世代的终结。”",
+      "has_csb": true,
+      "esv": "teaching them to observe all things that I commanded you. Behold, I am with you always, even to the end of the age.” Amen.",
+      "has_esv": true
     },
     "q11_太 28:20": {
       "reference": "太 28:20",
       "text": "凡我所吩咐你们的，都教训他们遵守，我就常与你们同在，直到世界的末了。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "凡我所吩咐你们的，都教训他们遵守，我就常与你们同在，直到世界的末了。”",
+      "has_ccb": true,
+      "csb": "所以你们要去，使万民成为我的门徒；奉父、子、圣灵的名给他们施洗； 凡我所吩咐你们的，都教导他们遵守。看哪，我就天天都与你们同在，直到这世代的终结。”",
+      "has_csb": true,
+      "esv": "teaching them to observe all things that I commanded you. Behold, I am with you always, even to the end of the age.” Amen.",
+      "has_esv": true
     },
     "q11_马太福音 16:18": {
       "reference": "马太福音 16:18",
       "text": "我还告诉你，你是彼得，我要把我的教会建造在这磐石上；阴间的权柄，不能胜过他。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "我还告诉你，你是彼得，我要把我的教会建造在这磐石上；阴间的权柄（“权柄”原文作“门”）不能胜过他。",
+      "has_ccb": true,
+      "csb": "西门彼得 回答说：“你是基督，是永生神的儿子！” 耶稣对他说：“ 约拿 的儿子 西门 ，你是蒙福的，因为这不是任何人启示你的，而是我在天上的父启示你的。 我还告诉你：你是 彼得 ，我要在这磐石上建立我的教会，阴间的门不能胜过它。",
+      "has_csb": true,
+      "esv": "I also tell you that you are Peter,\nand on this rock\n\nI will build my assembly, and the gates of Hades\nwill not prevail against it.",
+      "has_esv": true
     },
     "q11_使徒行传 2:42-47": {
       "reference": "使徒行传 2:42-47",
       "text": "都恒心遵守使徒的教训，彼此交接，掰饼，祈祷。众人都惧怕；使徒又行了许多奇事神迹。信的人都在一处，凡物公用；并且卖了田产，家业，照各人所需用的分给各人。他们天天同心合意恒切的在殿里，且在家中掰饼，存着欢喜、诚实的心用饭，赞美神，得众民的喜爱。主将得救的人天天加给他们。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "他们都一心遵守使徒的教导，一起团契、掰饼、祷告。大家都满心敬畏上帝。使徒又行了很多神迹奇事。信徒聚在一起，共用所有的东西。他们把田产家业变卖了，按照各人的需要分给大家。他们天天同心合意地聚集在圣殿里敬拜上帝，又在各人家中掰饼聚会，怀着欢喜和慷慨的心分享食物，赞美上帝，受到众人的喜爱。主使得救的人数与日俱增。",
+      "has_ccb": true,
+      "csb": "他们在使徒们的教导上，在契合 、掰饼、祷告之事上恒切专心。每个人 都起了敬畏之心。使徒们又行了很多奇事和神迹 。所有信了的人都在一起，凡物共有，他们变卖财产和产业，按照各人的需要分给大家。他们同心合意，不但天天恒切地在圣殿聚集 ，还在各家各户掰饼。他们怀着喜乐和诚恳的心用饭，赞美神，并且得到全体民众的喜爱。主就在那里 使得救的人与日俱增 。",
+      "has_csb": true,
+      "esv": "And they devoted themselves to the apostles’ teaching and the fellowship, to the breaking of bread and the prayers.And awe came upon every soul, and many wonders and signs were being done through the apostles.And all who believed were together and had all things in common.And they were selling their possessions and belongings and distributing the proceeds to all, as any had need.And day by day, attending the temple together and breaking bread in their homes, they received their food with glad and generous hearts,praising God and having favor with all the people. And the Lord added to their number day by day those who were being saved.",
+      "has_esv": true
     },
     "q11_以弗所书 4:4-6": {
       "reference": "以弗所书 4:4-6",
       "text": "身体只有一个，圣灵只有一个，正如你们蒙召同有一个指望。一主，一信，一洗，一神，就是众人的父，超乎众人之上，贯乎众人之中，也住在众人之内。",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "正如你们蒙召后同有一个盼望、一个身体、一位圣灵、一位主、一个信仰、一种洗礼、一位上帝，就是万人之父，祂超越万物，贯穿万物，且在万物之中。",
+      "has_ccb": true,
+      "csb": "一个身体、一位圣灵，就像你们蒙召时也被召入一个盼望，一位主、一个信仰、一个洗礼、一位神——就是万有之父，他超越万有 ，贯通万有，在万有之中。",
+      "has_csb": true,
+      "esv": "There is one body and one Spirit—just as you were called to the one hope that belongs to your call—one Lord, one faith, one baptism,one God and Father of all, who is over all and through all and in all.",
+      "has_esv": true
     }
   }
 }

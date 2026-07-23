@@ -550,6 +550,46 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
+
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        .btn-verse { padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.8em; margin-left: 4px; }
+        .btn-verse:hover { background: #667eea; color: white; border-color: #667eea; }
+
     </style>
 </head>
 <body>
@@ -566,6 +606,15 @@
             </div>
         </header>
 
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+
         <div class="content">
             
             <div class="question-block" data-question-id="1">
@@ -577,7 +626,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">来 9:27</span>
+                        <span class="reference-text">来 9:27 <button class="btn-verse" onclick="showVerseDisplay('来 9:27')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('1', '来 9:27')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('1', '来 9:27')" title="显示完整答案">👁️ 答案</button>
@@ -602,7 +651,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">罗 14:10</span>
+                        <span class="reference-text">罗 14:10 <button class="btn-verse" onclick="showVerseDisplay('罗 14:10')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('2', '罗 14:10')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('2', '罗 14:10')" title="显示完整答案">👁️ 答案</button>
@@ -631,7 +680,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">腓 1:20,21</span>
+                        <span class="reference-text">腓 1:20,21 <button class="btn-verse" onclick="showVerseDisplay('腓 1:20,21')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('3', '腓 1:20,21')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('3', '腓 1:20,21')" title="显示完整答案">👁️ 答案</button>
@@ -650,7 +699,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">请阅读哥林多前书 15:13-19</span>
+                        <span class="reference-text">请阅读哥林多前书 15:13-19 <button class="btn-verse" onclick="showVerseDisplay('请阅读哥林多前书 15:13-19')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('3', '请阅读哥林多前书 15:13-19')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('3', '请阅读哥林多前书 15:13-19')" title="显示完整答案">👁️ 答案</button>
@@ -675,7 +724,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 15:13</span>
+                        <span class="reference-text">林前 15:13 <button class="btn-verse" onclick="showVerseDisplay('林前 15:13')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('4', '林前 15:13')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('4', '林前 15:13')" title="显示完整答案">👁️ 答案</button>
@@ -704,7 +753,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 15:14</span>
+                        <span class="reference-text">林前 15:14 <button class="btn-verse" onclick="showVerseDisplay('林前 15:14')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('5', '林前 15:14')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('5', '林前 15:14')" title="显示完整答案">👁️ 答案</button>
@@ -723,7 +772,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 15:15</span>
+                        <span class="reference-text">林前 15:15 <button class="btn-verse" onclick="showVerseDisplay('林前 15:15')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('5', '林前 15:15')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('5', '林前 15:15')" title="显示完整答案">👁️ 答案</button>
@@ -742,7 +791,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 15:16</span>
+                        <span class="reference-text">林前 15:16 <button class="btn-verse" onclick="showVerseDisplay('林前 15:16')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('5', '林前 15:16')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('5', '林前 15:16')" title="显示完整答案">👁️ 答案</button>
@@ -761,7 +810,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 15:17</span>
+                        <span class="reference-text">林前 15:17 <button class="btn-verse" onclick="showVerseDisplay('林前 15:17')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('5', '林前 15:17')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('5', '林前 15:17')" title="显示完整答案">👁️ 答案</button>
@@ -780,7 +829,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 15:18</span>
+                        <span class="reference-text">林前 15:18 <button class="btn-verse" onclick="showVerseDisplay('林前 15:18')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('5', '林前 15:18')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('5', '林前 15:18')" title="显示完整答案">👁️ 答案</button>
@@ -799,7 +848,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 15:19</span>
+                        <span class="reference-text">林前 15:19 <button class="btn-verse" onclick="showVerseDisplay('林前 15:19')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('5', '林前 15:19')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('5', '林前 15:19')" title="显示完整答案">👁️ 答案</button>
@@ -828,7 +877,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 15:26</span>
+                        <span class="reference-text">林前 15:26 <button class="btn-verse" onclick="showVerseDisplay('林前 15:26')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('6', '林前 15:26')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('6', '林前 15:26')" title="显示完整答案">👁️ 答案</button>
@@ -857,7 +906,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 15:42-44</span>
+                        <span class="reference-text">林前 15:42-44 <button class="btn-verse" onclick="showVerseDisplay('林前 15:42-44')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '林前 15:42-44')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '林前 15:42-44')" title="显示完整答案">👁️ 答案</button>
@@ -886,7 +935,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">腓 3:10</span>
+                        <span class="reference-text">腓 3:10 <button class="btn-verse" onclick="showVerseDisplay('腓 3:10')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('8', '腓 3:10')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('8', '腓 3:10')" title="显示完整答案">👁️ 答案</button>
@@ -915,7 +964,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">腓 3:11</span>
+                        <span class="reference-text">腓 3:11 <button class="btn-verse" onclick="showVerseDisplay('腓 3:11')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('9', '腓 3:11')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('9', '腓 3:11')" title="显示完整答案">👁️ 答案</button>
@@ -944,7 +993,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">徒 24:15</span>
+                        <span class="reference-text">徒 24:15 <button class="btn-verse" onclick="showVerseDisplay('徒 24:15')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('10', '徒 24:15')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('10', '徒 24:15')" title="显示完整答案">👁️ 答案</button>
@@ -973,7 +1022,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">徒 24:16</span>
+                        <span class="reference-text">徒 24:16 <button class="btn-verse" onclick="showVerseDisplay('徒 24:16')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('11', '徒 24:16')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('11', '徒 24:16')" title="显示完整答案">👁️ 答案</button>
@@ -1002,7 +1051,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">腓 3:20</span>
+                        <span class="reference-text">腓 3:20 <button class="btn-verse" onclick="showVerseDisplay('腓 3:20')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('12', '腓 3:20')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('12', '腓 3:20')" title="显示完整答案">👁️ 答案</button>
@@ -1031,7 +1080,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">腓 3:21</span>
+                        <span class="reference-text">腓 3:21 <button class="btn-verse" onclick="showVerseDisplay('腓 3:21')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('13', '腓 3:21')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('13', '腓 3:21')" title="显示完整答案">👁️ 答案</button>
@@ -1050,7 +1099,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">请阅读哥林多后书 5:6-10</span>
+                        <span class="reference-text">请阅读哥林多后书 5:6-10 <button class="btn-verse" onclick="showVerseDisplay('请阅读哥林多后书 5:6-10')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('13', '请阅读哥林多后书 5:6-10')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('13', '请阅读哥林多后书 5:6-10')" title="显示完整答案">👁️ 答案</button>
@@ -1109,7 +1158,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林后 5:10</span>
+                        <span class="reference-text">林后 5:10 <button class="btn-verse" onclick="showVerseDisplay('林后 5:10')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('16', '林后 5:10')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('16', '林后 5:10')" title="显示完整答案">👁️ 答案</button>
@@ -1128,7 +1177,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">请阅读希伯来书 2:14-15</span>
+                        <span class="reference-text">请阅读希伯来书 2:14-15 <button class="btn-verse" onclick="showVerseDisplay('请阅读希伯来书 2:14-15')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('16', '请阅读希伯来书 2:14-15')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('16', '请阅读希伯来书 2:14-15')" title="显示完整答案">👁️ 答案</button>
@@ -1153,7 +1202,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">来 2:14,15</span>
+                        <span class="reference-text">来 2:14,15 <button class="btn-verse" onclick="showVerseDisplay('来 2:14,15')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('17', '来 2:14,15')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('17', '来 2:14,15')" title="显示完整答案">👁️ 答案</button>
@@ -1178,7 +1227,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">来 2:14</span>
+                        <span class="reference-text">来 2:14 <button class="btn-verse" onclick="showVerseDisplay('来 2:14')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('18', '来 2:14')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('18', '来 2:14')" title="显示完整答案">👁️ 答案</button>
@@ -1203,7 +1252,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">来 2:14</span>
+                        <span class="reference-text">来 2:14 <button class="btn-verse" onclick="showVerseDisplay('来 2:14')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('19', '来 2:14')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('19', '来 2:14')" title="显示完整答案">👁️ 答案</button>
@@ -1228,7 +1277,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">来 2:15</span>
+                        <span class="reference-text">来 2:15 <button class="btn-verse" onclick="showVerseDisplay('来 2:15')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('20', '来 2:15')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('20', '来 2:15')" title="显示完整答案">👁️ 答案</button>
@@ -1691,7 +1740,97 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }        // ====== 多译本支持 ======
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        const VERSE_DATA = {"林前 15:18": {"text": "就是在基督里睡了的人也灭亡了。", "ccb": "那些在基督里安息的人也灭亡了。", "csb": "因此在基督里那些睡了的人也就灭亡了。", "esv": "15:18 Then those also who have fallen asleep in Christ have perished.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林后 5:10": {"text": "因为我们众人必要在基督台前显露出来，叫各人按着本身所行的，或善或恶受报。", "ccb": "因为我们所有的人都要出现在基督的审判台前，好按照各人肉身所行的善恶接受赏罚。", "csb": "因为我们大家都必须站 在基督的审判台前，好使每个人都为自己藉着身体所做的，或善或恶，领受回报。", "esv": "5:10 For we must all appear before the judgment seat of Christ, so that each one may receive what is due for what he has done in the body, whether good or evil.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "腓 3:11": {"text": "或者我也得以从死里复活。", "ccb": "这样我无论如何都可以从死里复活。", "csb": "或许我能得以从死人中复活。", "esv": "that by any means possible I may attain the resurrection from the dead.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "罗 14:10": {"text": "你这个人，为什么论断弟兄呢？又为什么轻看弟兄呢？因我们都要站在神的台前。", "ccb": "那么，你为什么论断弟兄姊妹呢？为什么轻视弟兄姊妹呢？将来我们都要一同站在上帝的审判台前。", "csb": "至于你，为什么评断你的弟兄呢？又为什么藐视你的弟兄呢？要知道，我们都要站在神 的审判台前，", "esv": "Why do you pass judgment on your brother? Or you, why do you despise your brother? For we will all stand before the judgment seat of God;", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "腓 3:10": {"text": "使我认识基督，晓得他复活的大能，并且晓得和他一同受苦，效法他的死。", "ccb": "我渴望认识基督和祂复活的大能，与祂一同受苦，甚至到死的地步 ，", "csb": "并且为要认识基督和他复活的大能，要在他的苦难里相契合 ，效法他的死，", "esv": "that I may know him and the power of his resurrection, and may share his sufferings, becoming like him in his death,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "请阅读希伯来书 2:14-15": {"text": "儿女既同有血肉之体，他也照样亲自成了血肉之体，特要藉着死败坏那掌死权的，就是魔鬼，并要释放那些一生因怕死而为奴仆的人。", "ccb": "因为众儿女都是血肉之躯，所以祂也同样成为血肉之躯，以便亲身经历死亡，借此摧毁掌握死亡权势的魔鬼，释放那些因怕死而一生做奴隶的人。", "csb": "所以，孩子们既然同属血肉之体，他也照样同有一样的血肉之体，为要藉着死亡来废除那掌握死亡权势的——就是魔鬼，并且释放那些因怕死而终生被束缚为奴役的人。", "esv": "Since therefore the children share in flesh and blood, he himself likewise partook of the same things, that through death he might destroy the one who has th...and deliver all those who through fear of death were subject to lifelong slavery.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 24:15": {"text": "并且靠着神，盼望死人，无论善恶，都要复活，就是他们自己也有这个盼望。", "ccb": "并且我与他们对上帝拥有同样的盼望，就是义人和不义的人都要复活。", "csb": "我对神所怀有的盼望也是这些人自己所期望的，就是义人和不义的人 将来都要复活。", "esv": "having a hope in God, which these men themselves accept, that there will be a resurrection of both the just and the unjust.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 15:26": {"text": "尽末了所毁灭的仇敌就是死。", "ccb": "祂最后要毁灭的仇敌就是死亡。", "csb": "最后被废除的仇敌就是死亡，", "esv": "15:26 The last enemy to be destroyed is death.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 15:17": {"text": "若基督没有复活，你们的信便是徒然，你们仍在罪里。", "ccb": "如果基督没有复活，你们的信仰就是虚空，你们依旧沉沦在罪中，", "csb": "如果基督没有复活，你们的信仰就是虚妄的，你们也仍然在自己的罪孽中；", "esv": "15:17 And if Christ has not been raised, your faith is futile and you are still in your sins.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 15:42-44": {"text": "死人复活也是这样：所种的是必朽坏的，复活的是不朽坏的； 所种的是羞辱的，复活的是荣耀的；所种的是软弱的，复活的是强壮的； 所种的是血气的身体，复活的是灵性的身体。若有血气的身体，也必有灵性的身体。", "ccb": "死人复活也是同样的道理。种下去的会朽坏，复活的不会朽坏；种下去的是羞耻的，复活的是荣耀的；种下去的是软弱的，复活的是刚强的；种下去的是血肉之躯，复活的是属灵的形体。既有血肉之躯，也必有属灵的形体。", "csb": "死人的复活也是这样： 在衰朽 中被种下，在不朽中复活；在卑贱中被种下，在荣耀中复活； 在软弱中被种下，在强壮中复活；被种下的是属血气的身体，复活的是属灵的身体。 既然有属血气的身体，也就有属灵的身体。", "esv": "15:42 So is it with the resurrection of the dead. What is sown is perishable; what is raised is imperishable.15:43 It is sown in dishonor; it is raised in glory. It is sown in weakness; it is raised in power.15:44 It is sown a natural body; it is raised a spiritual body. If there is a natural body, there is also a spiritual body.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 15:13": {"text": "若没有死人复活的事，基督也就没有复活了。", "ccb": "要是没有死人复活的事，基督也就没有复活。", "csb": "如果没有死人复活的事，基督也就没有复活了。", "esv": "15:13 But if there is no resurrection of the dead, then not even Christ has been raised.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 15:14": {"text": "若基督没有复活，我们所传的便是枉然，你们所信的也是枉然。", "ccb": "如果基督没有复活，我们所传的就是虚空，你们所信的也是虚空。", "csb": "如果基督没有复活，我们传道就是虚空，你们相信也是虚空。", "esv": "15:14 And if Christ has not been raised, then our preaching is in vain and your faith is in vain.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 15:16": {"text": "因为若死人不复活，基督也就没有复活了。", "ccb": "如果人死了不会复活，基督也就没有复活。", "csb": "就是说，如果死人不会复活，基督也就没有复活了。", "esv": "15:16 For if the dead are not raised, not even Christ has been raised.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "腓 3:20": {"text": "我们却是天上的国民，并且等候救主，就是主耶稣基督从天上降临。", "ccb": "我们却是天上的国民，热切等候从天降临的救主，就是主耶稣基督。", "csb": "然而，我们的国籍在天上；我们也热切等待着救主——主耶稣基督从那里降临。", "esv": "But our citizenship is in heaven, and from it we await a Savior, the Lord Jesus Christ,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 15:15": {"text": "并且明显我们是为神妄作见证的，因我们见证神是叫基督复活了。若死人真不复活，神也就没有叫基督复活了。", "ccb": "而且，我们就是在为上帝做假见证，因为我们见证上帝已经使基督复活了。如果没有死人复活的事，上帝也就没有叫基督复活。", "csb": "这样，我们就被看做是神的假见证人，因为我们见证了有关神的事，说神使基督复活了，如果死人真不会复活，神就没有使基督复活；", "esv": "15:15 We are even found to be misrepresenting God, because we testified about God that he raised Christ, whom he did not raise if it is true that the dead are not ...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "请阅读哥林多前书 15:13-19": {"text": "若没有死人复活的事，基督也就没有复活了。若基督没有复活，我们所传的便是枉然，你们所信的也是枉然。并且明显我们是为神妄作见证的，因我们见证神是叫基督复活了。若死人真不复活，神也就没有叫基督复活了。因为若死人不复活，基督也就没有复活了。若基督没有复活，你们的信便是徒然，你们仍在罪里。就是在基督里睡了的人也灭亡了。我们若靠基督只在今生有指望，就算比众人更可怜。", "ccb": "要是没有死人复活的事，基督也就没有复活。如果基督没有复活，我们所传的就是虚空，你们所信的也是虚空。而且，我们就是在为上帝做假见证，因为我们见证上帝已经使基督复活了。如果没有死人复活的事，上帝也就没有叫基督复活。如果人死了不会复活，基督也就没有复活。如果基督没有复活，你们的信仰就是虚空，你们依旧沉沦在罪中，那些在基督里安息的人也灭亡了。如果我们对基督的盼望只在今世，我们就是世上最可怜的人。", "csb": "如果没有死人复活的事，基督也就没有复活了。如果基督没有复活，我们传道就是虚空，你们相信也是虚空。这样，我们就被看做是神的假见证人，因为我们见证了有关神的事，说神使基督复活了，如果死人真不会复活，神就没有使基督复活；就是说，如果死人不会复活，基督也就没有复活了。如果基督没有复活，你们的信仰就是虚妄的，你们也仍然在自己的罪孽中；因此在基督里那些睡了的人也就灭亡了。如果我们在基督里的盼望只在于今生 ，我们就比所有的人更可怜。", "esv": "15:13 But if there is no resurrection of the dead, then not even Christ has been raised.15:14 And if Christ has not been raised, then our preaching is in vain and your faith is in vain.15:15 We are even found to be misrepresenting God, because we testified about God that he raised Christ, whom he did not raise if it is true that the dead are not ...15:16 For if the dead are not raised, not even Christ has been raised.15:17 And if Christ has not been raised, your faith is futile and you are still in your sins.15:18 Then those also who have fallen asleep in Christ have perished.15:19 If in Christ we have hope in this life only, we are of all people most to be pitied.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "来 2:15": {"text": "并要释放那些一生因怕死而为奴仆的人。", "ccb": "释放那些因怕死而一生做奴隶的人。", "csb": "并且释放那些因怕死而终生被束缚为奴役的人。", "esv": "and deliver all those who through fear of death were subject to lifelong slavery.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "腓 1:20,21": {"text": "照着我所切慕、所盼望的，没有一事叫我羞愧。只要凡事放胆，无论是生是死，总叫基督在我身上照常显大。 因我活着就是基督，我死了就有益处。", "ccb": "我热切期待和盼望：我不会感到任何羞愧，而是放胆无惧，不管是生是死，都要照常使基督在我身上被尊崇。因为对我来说，活着是为了基督，死了也有益处。", "csb": "我的热切盼望和期待是：我在任何事上都将不至于蒙羞；而现在也能像往常一样，无论藉着生，还是藉着死，总要满有胆量地让基督在我身上被尊为大。因为对我来说，活着就是基督，死去就有益处。", "esv": "as it is my eager expectation and hope that I will not be at all ashamed, but that with full courage now as always Christ will be honored in my body, whether...For to me to live is Christ, and to die is gain.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "来 2:14,15": {"text": "儿女既同有血肉之体，他也照样亲自成了血肉之体，特要藉着死败坏那掌死权的，就是魔鬼，并要释放那些一生因怕死而为奴仆的人。", "ccb": "因为众儿女都是血肉之躯，所以祂也同样成为血肉之躯，以便亲身经历死亡，借此摧毁掌握死亡权势的魔鬼，释放那些因怕死而一生做奴隶的人。", "csb": "所以，孩子们既然同属血肉之体，他也照样同有一样的血肉之体，为要藉着死亡来废除那掌握死亡权势的——就是魔鬼，并且释放那些因怕死而终生被束缚为奴役的人。", "esv": "Since therefore the children share in flesh and blood, he himself likewise partook of the same things, that through death he might destroy the one who has th...and deliver all those who through fear of death were subject to lifelong slavery.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "来 9:27": {"text": "按着定命，人人都有一死，死后且有审判。", "ccb": "按着定命，人人都有一死，死后还有审判。", "csb": "就如人人注定都有一死，而且死后有审判，", "esv": "And just as it is appointed for man to die once, and after that comes judgment,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "来 2:14": {"text": "儿女既同有血肉之体，他也照样亲自成了血肉之体，特要藉着死败坏那掌死权的，就是魔鬼，", "ccb": "因为众儿女都是血肉之躯，所以祂也同样成为血肉之躯，以便亲身经历死亡，借此摧毁掌握死亡权势的魔鬼，", "csb": "所以，孩子们既然同属血肉之体，他也照样同有一样的血肉之体，为要藉着死亡来废除那掌握死亡权势的——就是魔鬼，", "esv": "Since therefore the children share in flesh and blood, he himself likewise partook of the same things, that through death he might destroy the one who has th...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "腓 3:21": {"text": "他要按着那能叫万有归服自己的大能，将我们这卑贱的身体改变形状，和他自己荣耀的身体相似。", "ccb": "那时，祂要以降服万物的大能将我们这卑贱的躯体改变成像祂那样荣耀的身体。", "csb": "他将照着那能使万有都服从他的力量，改变我们这卑贱的身体，要 与他那荣耀的身体相似。", "esv": "who will transform our lowly body to be like his glorious body, by the power that enables him even to subject all things to himself.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 24:16": {"text": "我因此自己勉励，对神、对人，常存无亏的良心。", "ccb": "因此，我一直尽力在上帝和人面前都存无愧的良心。", "csb": "因此，在神和人面前，我总是尽力存着无愧的良心。", "esv": "So I always take pains to have a clear conscience toward both God and man.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "请阅读哥林多后书 5:6-10": {"text": "所以，我们时常坦然无惧，并且晓得我们住在身内，便与主相离。因我们行事为人是凭着信心，不是凭着眼见。我们坦然无惧，是更愿意离开身体与主同住。所以，无论是住在身内，离开身外，我们立了志向，要得主的喜悦。因为我们众人必要在基督台前显露出来，叫各人按着本身所行的，或善或恶受报。", "ccb": "所以，我们总是坦然无惧，尽管知道住在身体之内便无法与主在一起。因为我们行事为人是凭信心，不是凭眼见。是的，我们坦然无惧，甚至更乐意离开身体，回到天家与主相聚。因此，我们立定心志，无论是住在身体之内还是离开身体，都要取悦主。因为我们所有的人都要出现在基督的审判台前，好按照各人肉身所行的善恶接受赏罚。", "csb": "因此我们总是满怀勇气，尽管知道我们还住在这身体里的时候，是与主相离的；原来我们行事是藉着信，不是藉着眼见。是的，我们满怀勇气，更乐意离开这身体，与主同住。所以我们立定心志，无论是住在身体里，还是离开身体，都要得主的喜悦，因为我们大家都必须站 在基督的审判台前，好使每个人都为自己藉着身体所做的，或善或恶，领受回报。", "esv": "5:6 So we are always of good courage. We know that while we are at home in the body we are away from the Lord,5:7 for we walk by faith, not by sight.5:8 Yes, we are of good courage, and we would rather be away from the body and at home with the Lord.5:9 So whether we are at home or away, we make it our aim to please him.5:10 For we must all appear before the judgment seat of Christ, so that each one may receive what is due for what he has done in the body, whether good or evil.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 15:19": {"text": "我们若靠基督只在今生有指望，就算比众人更可怜。", "ccb": "如果我们对基督的盼望只在今世，我们就是世上最可怜的人。", "csb": "如果我们在基督里的盼望只在于今生 ，我们就比所有的人更可怜。", "esv": "15:19 If in Christ we have hope in this life only, we are of all people most to be pitied.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        let currentTranslation = localStorage.getItem('foundation_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = VERSE_DATA[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text || null;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
         }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('foundation_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { alert('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        // Init after DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+        });
+
+        // Modify showFullHint to use selected translation
+        const _origShowFullHint = showFullHint;
+        showFullHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const standardAnswerDiv = document.querySelector('.standard-answer[data-ref="' + ref + '"]');
+            if (standardAnswerDiv) {
+                if (standardAnswerDiv.classList.contains('show')) {
+                    standardAnswerDiv.classList.remove('show');
+                } else {
+                    const text = getVerseText(ref, currentTranslation) || answerInfo.text;
+                    standardAnswerDiv.innerHTML = '<strong>📖 标准答案:</strong> ' + text;
+                    standardAnswerDiv.classList.add('show');
+                }
+            }
+        };
+
+        // Modify showPartialHint to use selected translation
+        const _origShowPartialHint = showPartialHint;
+        showPartialHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const input = document.querySelector('textarea[data-question="' + questionId + '"][data-reference="' + ref + '"]');
+            if (!input) return;
+            const standardText = getVerseText(ref, currentTranslation) || answerInfo.text;
+            const currentProgress = parseInt(input.dataset.hintProgress || '0');
+            const fillPercentage = Math.min(currentProgress + 20, 100);
+            const fillLength = Math.floor((standardText.length * fillPercentage) / 100);
+            input.value = standardText.substring(0, fillLength);
+            input.dataset.hintProgress = fillPercentage;
+            if (fillPercentage >= 100) { showToast('💡 答案已全部填充'); }
+            else { showToast('💡 已填充 ' + fillPercentage + '% 的答案'); }
+            updateProgress();
+        };
     </script>
+
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
+        </div>
+    </div>
+
 </body>
 </html>

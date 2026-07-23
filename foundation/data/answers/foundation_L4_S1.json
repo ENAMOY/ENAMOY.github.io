@@ -7,57 +7,123 @@
     "q1_约 14:16": {
       "reference": "约 14:16",
       "text": "我要求父，父就另外赐给你们一位保惠师，叫他永远与你们同在，",
-      "has_data": true
+      "has_data": true,
+      "ccb": "我会求父另外赐一位护慰者给你们，祂要永远和你们同在。",
+      "has_ccb": true,
+      "csb": "我也要向父祈求，他就将赐给你们另一位慰助者，让他与你们在 一起，直到永远。",
+      "has_csb": true,
+      "esv": "And I will ask the Father, and he will give you another Helper, to be with you forever,",
+      "has_esv": true
     },
     "q1_约 14:17": {
       "reference": "约 14:17",
       "text": "就是真理的圣灵，乃世人不能接受的；因为不见他，也不认识他。你们却认识他，因他常与你们同在，也要在你们里面。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "祂是真理的灵，世人不能接受祂，因为他们看不见祂，也不认识祂。但你们认识祂，因祂常与你们同在，并且要住在你们里面。",
+      "has_ccb": true,
+      "csb": "他就是真理的灵，是世界不能接受的，因为世界看不到他，也不认识他。而你们认识他，因为他与你们同在，并且要在你们里面。",
+      "has_csb": true,
+      "esv": "even the Spirit of truth, whom the world cannot receive, because it neither sees him nor knows him. You know him, for he dwells with you and will be in you.",
+      "has_esv": true
     },
     "q2_太 10:19,20": {
       "reference": "太 10:19,20",
       "text": "你们被交的时候，不要思虑怎样说话，或说什么话。到那时候，必赐给你们当说的话； 因为不是你们自己说的，乃是你们父的灵在你们里头说的。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "当你们被押去受审时，不要顾虑如何应对，或说什么话，那时必赐给你们当说的话。因为那时候说话的不是你们自己，而是你们父的灵借着你们说话。",
+      "has_ccb": true,
+      "csb": "当他们把你们交出去的时候，不要忧虑怎样说或说什么。到时候，你们就会被赐予该说的话，因为说话的不是你们自己，而是你们父的灵在你们里面说话。",
+      "has_csb": true,
+      "esv": "When they deliver you over, do not be anxious how you are to speak or what you are to say, for what you are to say will be given to you in that hour.For it is not you who speak, but the Spirit of your Father speaking through you.",
+      "has_esv": true
     },
     "q2_约 14:26": {
       "reference": "约 14:26",
       "text": "但保惠师，就是父因我的名所要差来的圣灵，他要将一切的事指教你们，并且要叫你们想起我对你们所说的一切话。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "但保惠师，就是父因我的名所要差来的圣灵，他要将一切的事指教你们，并且要叫你们想起我对你们所说的一切话。",
+      "has_ccb": true,
+      "csb": "But the Counselor, the Holy Spirit, whom the Father will send in my name, will teach you all things and remind you of everything I have told you.",
+      "has_csb": true,
+      "esv": "But the Advocate, the Holy Spirit, whom the Father will send in my name, will teach you all things and will remind you of everything I have said to you.",
+      "has_esv": true
     },
     "q2_约 16:13,14": {
       "reference": "约 16:13,14",
       "text": "只等真理的圣灵来了，他要引导你们明白一切的真理；因为他不是凭自己说的，乃是把他所听见的都说出来，并要把将来的事告诉你们。 他要荣耀我，因为他要将受于我的告诉你们。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "等到真理之灵来了，祂会引导你们进入一切真理。祂不凭自己说话，而是把祂所听见的和有关将来的事告诉你们。祂也要把从我领受的指示你们，使我得荣耀。",
+      "has_ccb": true,
+      "csb": "不过当那位真理的灵来了，他就会引导你们进入一切真理 。那时，他不会凭着自己说话，只把所听到的说出来，并且把那些就要来的事传讲给你们。他将荣耀我，因为他将从我领受，并传讲给你们。",
+      "has_csb": true,
+      "esv": "When the Spirit of truth comes, he will guide you into all the truth, for he will not speak on his own authority, but whatever he hears he will speak, and he...He will glorify me, for he will take what is mine and declare it to you.",
+      "has_esv": true
     },
     "q2_徒 1:8": {
       "reference": "徒 1:8",
       "text": "但圣灵降临在你们身上，你们就必得着能力；并要在耶路撒冷、犹太全地和撒玛利亚，直到地极，作我的见证。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "但圣灵降临在你们身上，你们就必得着能力，并要在耶路撒冷、犹太全地和撒玛利亚，直到地极，作我的见证。”",
+      "has_ccb": true,
+      "csb": "不过圣灵临到你们的时候，你们将得着能力，并且要在 耶路撒冷 ，在 犹太 和 撒玛利亚 全地，直到地极，做我的见证人。”",
+      "has_csb": true,
+      "esv": "But you will receive power when the Holy Spirit comes on you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth.",
+      "has_esv": true
     },
     "q2_罗 8:14": {
       "reference": "罗 8:14",
       "text": "因为凡被神的灵引导的，都是神的儿子。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "因为凡有上帝的灵引导的人都是上帝的儿女。",
+      "has_ccb": true,
+      "csb": "原来，凡是蒙神的灵带领的人，他们才是神的儿女。",
+      "has_csb": true,
+      "esv": "For all who are led by the Spirit of God are sons of God.",
+      "has_esv": true
     },
     "q2_罗 8:15": {
       "reference": "罗 8:15",
       "text": "你们所受的，不是奴仆的心，仍旧害怕；所受的，乃是儿子的心，因此我们呼叫：'阿爸！父！'",
-      "has_data": true
+      "has_data": true,
+      "ccb": "你们接受的圣灵不是使你们做奴隶，仍旧害怕，而是使你们做儿子，可以称上帝为“阿爸，父亲”。",
+      "has_ccb": true,
+      "csb": "就是说，你们所领受的不是一个奴役的灵，使你们再有惧怕；相反，你们所领受的是使你们有儿子名份的圣灵——藉着他，我们呼叫：“阿爸！父啊！”",
+      "has_csb": true,
+      "esv": "For you did not receive the spirit of slavery to fall back into fear, but you have received the Spirit of adoption as sons, by whom we cry, “Abba! Father!”",
+      "has_esv": true
     },
     "q2_罗 8:16": {
       "reference": "罗 8:16",
       "text": "圣灵与我们的心同证我们是神的儿女；",
-      "has_data": true
+      "has_data": true,
+      "ccb": "圣灵亲自与我们的心一同见证我们是上帝的儿女。",
+      "has_ccb": true,
+      "csb": "圣灵亲自与我们的灵一同作证：我们是神的儿女。",
+      "has_csb": true,
+      "esv": "The Spirit himself bears witness with our spirit that we are children of God,",
+      "has_esv": true
     },
     "q2_罗 8:26,27": {
       "reference": "罗 8:26,27",
       "text": "况且我们的软弱有圣灵帮助，我们本不晓得当怎样祷告，只是圣灵亲自用说不出来的叹息替我们祷告。 鉴察人心的，晓得圣灵的意思，因为圣灵照着神的旨意替圣徒祈求。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "况且，我们软弱的时候，有圣灵帮助我们。我们不知道该怎样祷告，但圣灵亲自用说不出来的叹息替我们祈祷。洞悉人心的上帝知道圣灵的意思，因为圣灵是照着上帝的旨意替圣徒祈祷。",
+      "has_ccb": true,
+      "csb": "况且，圣灵也照样扶助我们的软弱。事实上，我们不知道该祷告什么、如何祷告，但圣灵却亲自用说不出的叹息，为我们 代求。而且，洞察人心的那一位，知道圣灵的意念是什么，因为圣灵是按神的意思 为圣徒代求的。",
+      "has_csb": true,
+      "esv": "Likewise the Spirit helps us in our weakness. For we do not know what to pray for as we ought, but the Spirit himself intercedes for us with groanings too de...And he who searches hearts knows what is the mind of the Spirit, because the Spirit intercedes for the saints according to the will of God.",
+      "has_esv": true
     },
     "q2_提后 1:14": {
       "reference": "提后 1:14",
       "text": "从前所交托你的善道，你要靠着那住在我们里面的圣灵，牢牢的守着。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "要靠着住在我们里面的圣灵牢牢守住交托给你的善道。",
+      "has_ccb": true,
+      "csb": "你要藉着住在我们里面的圣灵，保守那所受的美好托付。",
+      "has_csb": true,
+      "esv": "1:14 By the Holy Spirit who dwells within us, guard the good deposit entrusted to you.",
+      "has_esv": true
     }
   }
 }

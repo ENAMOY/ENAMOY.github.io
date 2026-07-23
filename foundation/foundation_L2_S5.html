@@ -345,6 +345,46 @@
                 transform: translateX(0);
             }
         }
+
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        .btn-verse { padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.8em; margin-left: 4px; }
+        .btn-verse:hover { background: #667eea; color: white; border-color: #667eea; }
+
     </style>
 </head>
 <body>
@@ -361,6 +401,15 @@
             </div>
         </header>
 
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+
         <div class="content">
             
             <div class="question-block" data-question-id="4">
@@ -371,7 +420,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">徒 2:36</span>
+                    <span class="reference-text">徒 2:36 <button class="btn-verse" onclick="showVerseDisplay('徒 2:36')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="4" 
@@ -390,7 +439,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">徒 2:37</span>
+                    <span class="reference-text">徒 2:37 <button class="btn-verse" onclick="showVerseDisplay('徒 2:37')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="5" 
@@ -409,7 +458,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">徒 2:38</span>
+                    <span class="reference-text">徒 2:38 <button class="btn-verse" onclick="showVerseDisplay('徒 2:38')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="6" 
@@ -428,7 +477,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">徒 2:38</span>
+                    <span class="reference-text">徒 2:38 <button class="btn-verse" onclick="showVerseDisplay('徒 2:38')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="7" 
@@ -447,7 +496,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">徒 2:39</span>
+                    <span class="reference-text">徒 2:39 <button class="btn-verse" onclick="showVerseDisplay('徒 2:39')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="8" 
@@ -466,7 +515,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">徒 2:40</span>
+                    <span class="reference-text">徒 2:40 <button class="btn-verse" onclick="showVerseDisplay('徒 2:40')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="9" 
@@ -485,7 +534,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">徒 2:41</span>
+                    <span class="reference-text">徒 2:41 <button class="btn-verse" onclick="showVerseDisplay('徒 2:41')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="10" 
@@ -658,7 +707,60 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }        // ====== 多译本支持 ======
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        const VERSE_DATA = {"徒 2:36": {"text": "故此，以色列全家当确实地知道，你们钉在十字架上的这位耶稣，神已经立他为主，为基督了。", "ccb": "“所以，以色列全体人民应当确实知道，这位被你们钉在十字架上的耶稣，上帝已经立祂为主、为基督了。”", "csb": "“因此， 以色列 全家都当确实知道：被你们钉上十字架的这位耶稣，神已经委任他为主、为基督了。”", "esv": "Therefore let all Israel be assured of this: God has made this Jesus, whom you crucified, both Lord and Messiah.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 2:37": {"text": "众人听见这话，觉得扎心，就对彼得和其余的使徒说：诸位弟兄，我们当怎样行？", "ccb": "他们听了这番话，觉得扎心，就对彼得和其他使徒说：“弟兄们，我们该怎么办呢？”", "csb": "众人听了这话，觉得扎心，就对彼得和其他的使徒说：“各位兄弟，我们该做什么呢？”", "esv": "Now when they heard this they were cut to the heart, and said to Peter and the rest of the apostles, “Brothers, what shall we do?”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 2:41": {"text": "于是领受他话的人就受了洗。那一天，门徒约添了三千人。", "ccb": "结果，那天约有三千人相信了他传的道，接受了洗礼。", "csb": "于是 领受他话的人就受了洗；那一天大约增加了三千人 。", "esv": "So those who received his word were baptized, and there were added that day about three thousand souls.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 2:39": {"text": "因为这应许是给你们和你们的儿女，并一切在远方的人，就是主我们神所召来的。", "ccb": "因为这应许是给你们和你们的儿女，以及远方的人，就是所有被主——我们的上帝呼召的人。”", "csb": "因为这应许是给你们和你们的儿女，以及所有在远处的人，就是主我们的神所召来的人。”", "esv": "For the promise is for you and for your children and for all who are far off, everyone whom the Lord our God calls to himself.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 2:38": {"text": "彼得说：你们各人要悔改，奉耶稣基督的名受洗，叫你们的罪得赦，就必领受所赐的圣灵。", "ccb": "彼得说：“你们每一个人都要悔改，奉耶稣基督的名受洗，使你们的罪得到赦免，你们就必领受上帝所赐的圣灵。", "csb": "彼得对他们说：“你们应当悔改，每个人都当奉耶稣基督的名受洗 ，使你们的罪得赦免，就会领受所赐的圣灵。", "esv": "And Peter said to them, “Repent and be baptized every one of you in the name of Jesus Christ for the forgiveness of your sins, and you will receive the gift ...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 2:40": {"text": "彼得还用许多别的话作见证，劝勉他们说：你们当救自己脱离这弯曲的世代。", "ccb": "然后，彼得还讲了其他许多话警戒、劝勉他们，说：“你们要救自己脱离这邪恶的世代。”", "csb": "彼得还说许多别的话郑重地做见证，又劝告他们说：“你们从这扭曲的 世代中得救吧！”", "esv": "And with many other words he bore witness and continued to exhort them, saying, “Save yourselves from this crooked generation.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        let currentTranslation = localStorage.getItem('foundation_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = VERSE_DATA[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text || null;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
         }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('foundation_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { alert('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        // Init after DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+        });
     </script>
+
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
+        </div>
+    </div>
+
 </body>
 </html>

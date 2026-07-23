@@ -8,17 +8,35 @@
       "reference": "请阅读马太福音 6:5-13",
       "text": "你们祷告的时候，不可像那假冒为善的人，爱站在会堂里和十字路口上祷告，故意叫人看见。我实在告诉你们，他们已经得了他们的赏赐。你祷告的时候，要进你的内屋，关上门，祷告你在暗中的父；你父在暗中察看，必然报答你。你们祷告，不可像外邦人，用许多重复话，他们以为话多了必蒙垂听。你们不可效法他们；因为你们没有祈求以先，你们所需用的，你们的父早已知道了。所以，你们祷告要这样说：我们在天上的父：愿人都尊你的名为圣。愿你的国降临；愿你的旨意行在地上，如同行在天上。我们日用的饮食，今日赐给我们。免我们的债，如同我们免了人的债。不叫我们遇见试探；救我们脱离凶恶。因为国度、权柄、荣耀，全是你的，直到永远。阿们！",
       "has_data": true,
-      "note": "暂无答案数据"
+      "note": "暂无答案数据",
+      "ccb": "“你们祷告时，不要像伪君子那样。他们喜欢站在会堂里和十字路口上公开祷告，故意让人看见。我实在告诉你们，他们得到的赏赐不过是人的赞赏。你们祷告的时候，要进入内室，关上门，向你们肉眼看不见的父祈祷，鉴察隐秘事的父必赏赐你们。“你们祷告时不可像外族人那样喋喋不休，他们以为长篇大论，就必蒙垂听。不可像他们那样，因为在你们祈求以前，你们的父已经知道你们的需要了。“你们应当这样祷告， “‘我们天上的父， 愿你的圣名被尊崇，愿你的国度降临， 愿你的旨意在地上成就，就像在天上成就一样。求你今天赐给我们日用的饮食。饶恕我们的罪， 就像我们饶恕了得罪我们的人。不要让我们陷入诱惑， 救我们脱离那恶者。 因为国度、权柄、荣耀都是你的，直到永远。阿们！’",
+      "has_ccb": true,
+      "csb": "“你们祷告的时候，不要像伪善的人那样。他们喜爱站在会堂里和十字路口祷告，好让人看见。我确实地告诉你们：他们已经得到了他们的报偿。至于你，你祷告的时候，要进入你的内室，关上门，向你在隐秘中的父祷告。这样，你那在隐秘中察看的父就将回报你 。你们祷告的时候，不要像外邦人那样，重复无意义的话。他们以为话多了就蒙垂听。不要像他们那样，因为在你们祈求以前，你们的父就已经知道你们有什么需要了。“因此，你们要这样祷告： 我们在天上的父， 愿你的名被尊为圣，愿你的国度来临。 愿你的旨意行在地上， 如同行在天上。我们日用的食粮，愿你今天赐给我们。愿你饶恕我们的亏欠， 如同我们也饶恕了亏欠我们的人。不要让我们陷入试探， 救我们脱离那恶者 。 因为国度、权柄、荣耀， 全是你的，直到永远！阿们。",
+      "has_csb": true,
+      "esv": "“And when you pray, you must not be like the hypocrites. For they love to stand and pray in the synagogues and at the street corners, that they may be seen b...But when you pray, go into your room and shut the door and pray to your Father who is in secret. And your Father who sees in secret will reward you.“And when you pray, do not heap up empty phrases as the Gentiles do, for they think that they will be heard for their many words.Do not be like them, for your Father knows what you need before you ask him.Pray then like this: “Our Father in heaven, hallowed be your name.Your kingdom come, your will be done, on earth as it is in heaven.Give us this day our daily bread,and forgive us our debts, as we also have forgiven our debtors.And lead us not into temptation, but deliver us from evil.",
+      "has_esv": true
     },
     "q2_太 6:5": {
       "reference": "太 6:5",
       "text": "你们祷告的时候，不可像那假冒为善的人，爱站在会堂里和十字路口上祷告，故意叫人看见。我实在告诉你们，他们已经得了他们的赏赐。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "“你们祷告的时候，不可像那假冒为善的人，爱站在会堂里和十字路口上祷告，故意叫人看见。我实在告诉你们，他们已经得了他们的赏赐。",
+      "has_ccb": true,
+      "csb": "“Whenever you pray, you must not be like the hypocrites, because they love to pray standing in the synagogues and on the street corners to be seen by people....",
+      "has_csb": true,
+      "esv": "And when you pray, do not be like the hypocrites, for they love to pray standing in the synagogues and on the street corners to be seen by others. Truly I tell you, they have received their reward in full.",
+      "has_esv": true
     },
     "q3_太 6:6": {
       "reference": "太 6:6",
       "text": "你祷告的时候，要进你的内屋，关上门，祷告你在暗中的父；你父在暗中察看，必然报答你。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "你祷告的时候，要进你的内屋，关上门，祷告你在暗中的父；你父在暗中察看，必然报答你。",
+      "has_ccb": true,
+      "csb": "But when you pray, go into your private room, shut your door, and pray to your Father who is in secret. And your Father who sees in secret will reward you.",
+      "has_csb": true,
+      "esv": "But when you pray, go into your room, close the door and pray to your Father, who is unseen. Then your Father, who sees what is done in secret, will reward you.",
+      "has_esv": true
     },
     "q4_太 6:6,8,9": {
       "reference": "太 6:6,8,9",
@@ -28,32 +46,68 @@
     "q5_太 6:7": {
       "reference": "太 6:7",
       "text": "你们祷告，不可像外邦人，用许多重复话，他们以为话多了必蒙垂听。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "“你们祷告时不可像外族人那样喋喋不休，他们以为长篇大论，就必蒙垂听。",
+      "has_ccb": true,
+      "csb": "你们祷告的时候，不要像外邦人那样，重复无意义的话。他们以为话多了就蒙垂听。",
+      "has_csb": true,
+      "esv": "“And when you pray, do not heap up empty phrases as the Gentiles do, for they think that they will be heard for their many words.",
+      "has_esv": true
     },
     "q6_太 6:9": {
       "reference": "太 6:9",
       "text": "所以，你们祷告要这样说：我们在天上的父：愿人都尊你的名为圣。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "“你们应当这样祷告， “‘我们天上的父， 愿你的圣名被尊崇，",
+      "has_ccb": true,
+      "csb": "“因此，你们要这样祷告： 我们在天上的父， 愿你的名被尊为圣，",
+      "has_csb": true,
+      "esv": "Pray then like this: “Our Father in heaven, hallowed be your name.",
+      "has_esv": true
     },
     "q6_太 6:10": {
       "reference": "太 6:10",
       "text": "愿你的国降临；愿你的旨意行在地上，如同行在天上。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "愿你的国度降临， 愿你的旨意在地上成就，就像在天上成就一样。",
+      "has_ccb": true,
+      "csb": "愿你的国度来临。 愿你的旨意行在地上， 如同行在天上。",
+      "has_csb": true,
+      "esv": "Your kingdom come, your will be done, on earth as it is in heaven.",
+      "has_esv": true
     },
     "q6_太 6:11": {
       "reference": "太 6:11",
       "text": "我们日用的饮食，今日赐给我们。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "求你今天赐给我们日用的饮食。",
+      "has_ccb": true,
+      "csb": "我们日用的食粮，愿你今天赐给我们。",
+      "has_csb": true,
+      "esv": "Give us this day our daily bread,",
+      "has_esv": true
     },
     "q6_太 6:12": {
       "reference": "太 6:12",
       "text": "免我们的债，如同我们免了人的债。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "饶恕我们的罪， 就像我们饶恕了得罪我们的人。",
+      "has_ccb": true,
+      "csb": "愿你饶恕我们的亏欠， 如同我们也饶恕了亏欠我们的人。",
+      "has_csb": true,
+      "esv": "and forgive us our debts, as we also have forgiven our debtors.",
+      "has_esv": true
     },
     "q6_太 6:13": {
       "reference": "太 6:13",
       "text": "不叫我们遇见试探；救我们脱离凶恶。因为国度、权柄、荣耀，全是你的，直到永远。阿们！",
-      "has_data": true
+      "has_data": true,
+      "ccb": "不要让我们陷入诱惑， 救我们脱离那恶者。 因为国度、权柄、荣耀都是你的，直到永远。阿们！’",
+      "has_ccb": true,
+      "csb": "不要让我们陷入试探， 救我们脱离那恶者 。 因为国度、权柄、荣耀， 全是你的，直到永远！阿们。",
+      "has_csb": true,
+      "esv": "And lead us not into temptation, but deliver us from evil.",
+      "has_esv": true
     }
   }
 }

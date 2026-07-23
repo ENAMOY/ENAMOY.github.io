@@ -550,6 +550,46 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
+
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        .btn-verse { padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.8em; margin-left: 4px; }
+        .btn-verse:hover { background: #667eea; color: white; border-color: #667eea; }
+
     </style>
 </head>
 <body>
@@ -566,6 +606,15 @@
             </div>
         </header>
 
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+
         <div class="content">
             
             <div class="question-block" data-question-id="1">
@@ -577,7 +626,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">徒 4:29-30</span>
+                        <span class="reference-text">徒 4:29-30 <button class="btn-verse" onclick="showVerseDisplay('徒 4:29-30')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('1', '徒 4:29-30')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('1', '徒 4:29-30')" title="显示完整答案">👁️ 答案</button>
@@ -606,7 +655,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">徒 4:31</span>
+                        <span class="reference-text">徒 4:31 <button class="btn-verse" onclick="showVerseDisplay('徒 4:31')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('2', '徒 4:31')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('2', '徒 4:31')" title="显示完整答案">👁️ 答案</button>
@@ -635,7 +684,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">徒 9:19-30</span>
+                        <span class="reference-text">徒 9:19-30 <button class="btn-verse" onclick="showVerseDisplay('徒 9:19-30')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('3', '徒 9:19-30')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('3', '徒 9:19-30')" title="显示完整答案">👁️ 答案</button>
@@ -664,7 +713,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">徒 9:19,20</span>
+                        <span class="reference-text">徒 9:19,20 <button class="btn-verse" onclick="showVerseDisplay('徒 9:19,20')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('4', '徒 9:19,20')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('4', '徒 9:19,20')" title="显示完整答案">👁️ 答案</button>
@@ -710,7 +759,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">箴 29:25</span>
+                        <span class="reference-text">箴 29:25 <button class="btn-verse" onclick="showVerseDisplay('箴 29:25')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '箴 29:25')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '箴 29:25')" title="显示完整答案">👁️ 答案</button>
@@ -735,7 +784,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">弗 6:19,20</span>
+                        <span class="reference-text">弗 6:19,20 <button class="btn-verse" onclick="showVerseDisplay('弗 6:19,20')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('8', '弗 6:19,20')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('8', '弗 6:19,20')" title="显示完整答案">👁️ 答案</button>
@@ -1202,7 +1251,97 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }        // ====== 多译本支持 ======
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        const VERSE_DATA = {"徒 9:19-30": {"text": "吃过饭就健壮了。扫罗和大马士革的门徒同住了些日子， 立刻在各会堂里宣传耶稣，说他是神的儿子。 凡听见的人都惊奇，说：在耶路撒冷残害求告这名的人，不是这人吗？并且他到这里来，特要捆绑他们，带到祭司长那里。 但扫罗越发有能力，驳倒外邦人，证明耶稣是基督。 过了好些日子，犹太人商议要杀扫罗。 但他们的计谋被扫罗知道了。他们又昼夜在城门守候，要杀他。 他的门徒就在夜间用筐子把他从城墙上缒下去。 扫罗到了耶路撒冷，想与门徒结交。他们却都怕他，不信他是门徒。 惟有巴拿巴接待他，领去见使徒，把他在路上怎样看见主，主怎样对他说话，他在大马士革怎样奉耶稣的名放胆传道，都述说出来。 于是扫罗在耶路撒冷和他们同住，奉主的名放胆传道。 又与说希腊话的犹太人讲论辩驳，他们却想法子要杀他。 弟兄们知道了，就送他下凯撒利亚，打发他往大数去。", "ccb": "他吃过东西之后，体力也恢复了。他和大马士革的门徒住了几天之后，随即到各会堂去宣讲：“耶稣是上帝的儿子。”听的人都大吃一惊，说：“他不就是那在耶路撒冷迫害信徒的人吗？他到这里来不是要把他们绑了押去见祭司长吗？”但扫罗越发有能力，他向大马士革的犹太人证明耶稣是基督，使他们惊慌失措。过了一段日子，犹太人图谋杀死扫罗。他们昼夜在城门守候，伺机下手，但这阴谋被扫罗知道了。他的门徒趁夜间用筐子把他从城墙上缒下去。扫罗逃到耶路撒冷后，曾设法与当地的门徒联络，可是他们都怕他，不相信他是门徒。只有巴拿巴接待他，带他去见使徒，向他们陈述扫罗如何在路上遇见主，主如何对他说话，他又如何勇敢地在大马士革奉耶稣的名传道。于是，扫罗就在耶路撒冷与使徒一起出入来往，奉主的名放胆传道。他常常跟那些讲希腊话的犹太人辩论，于是他们打算杀掉他。弟兄姊妹知道这消息后，就把扫罗带到凯撒利亚，然后送他到大数去。", "csb": "吃过饭，体力就恢复了。 扫罗与在大马士革的门徒们住了几天，就立刻在各会堂里传讲耶稣 ，说这一位就是神的儿子。所有听见的人都十分惊讶，说：“这不就是那个在耶路撒冷残害了那些求告这名的人吗？而且他来到这里，不就是为要捆绑他们，带到祭司长们那里吗？”扫罗反而更加得以刚强，证明这一位就是基督，使住在大马士革的犹太人很狼狈。过了许多日子以后，犹太人商议要杀了扫罗，但他们的阴谋却被扫罗知道了。于是他们就日夜严守着各城门，要杀掉他。然而他的门徒们趁夜把他带去，用筐子把他从城墙上缒了下去。扫罗来到耶路撒冷，想要和门徒们交往，可是大家都怕他，不相信他成了门徒。但是巴拿巴接纳他，把他带到使徒们那里，并且告诉他们扫罗怎样在路上见到主，主怎样对他说了话，以及他怎样在大马士革奉耶稣的名放胆传道。于是扫罗在耶路撒冷与他们一起出入，奉主 的名放胆传道。他对那些说希腊语的犹太人讲道，与他们辩论；他们却图谋要杀了他。弟兄们知道了这事，就带他下到凯撒里亚，然后送他往塔尔苏去。", "esv": "and taking food, he was strengthened. For some days he was with the disciples at Damascus.And immediately he proclaimed Jesus in the synagogues, saying, “He is the Son of God.”And all who heard him were amazed and said, “Is not this the man who made havoc in Jerusalem of those who called upon this name? And has he not come here for...But Saul increased all the more in strength, and confounded the Jews who lived in Damascus by proving that Jesus was the Christ.When many days had passed, the Jews plotted to kill him,but their plot became known to Saul. They were watching the gates day and night in order to kill him,but his disciples took him by night and let him down through an opening in the wall, lowering him in a basket.And when he had come to Jerusalem, he attempted to join the disciples. And they were all afraid of him, for they did not believe that he was a disciple.But Barnabas took him and brought him to the apostles and declared to them how on the road he had seen the Lord, who spoke to him, and how at Damascus he had...So he went in and out among them at Jerusalem, preaching boldly in the name of the Lord.And he spoke and disputed against the Hellenists. But they were seeking to kill him.And when the brothers learned this, they brought him down to Caesarea and sent him off to Tarsus.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 4:31": {"text": "祷告完了，聚会的地方震动，他们就都被圣灵充满，放胆讲论神的道。", "ccb": "祷告完了，聚会的地方震动，他们就都被圣灵充满，放胆讲论　神的道。", "csb": "When they had prayed, the place where they were assembled was shaken, and they were all filled with the Holy Spirit and began to speak the word of God boldly.", "esv": "When they had prayed, the place was shaken where they were gathered together. They were all filled with the Holy Spirit, and they spoke the word of God with boldness.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 4:29-30": {"text": "他们恐吓我们，现在求主鉴察，一面叫你仆人大放胆量讲你的道， 一面伸出你的手来医治疾病，并且使神迹奇事因着你圣仆耶稣的名行出来。", "ccb": "主啊，你看他们这样恐吓我们，求你帮助你的奴仆们坦然无惧地传你的道。求你伸出手医治疾病，借着你圣仆耶稣的名行神迹奇事。”", "csb": "主啊，现在求你鉴察 他们的威吓，使 你的奴仆们能满有胆量地传讲你的话语。求你伸出你的手，藉着你圣仆耶稣的名，使疾病痊愈，施行神迹和奇事。”", "esv": "And now, Lord, look upon their threats and grant to your servants to continue to speak your word with all boldness,while you stretch out your hand to heal, and signs and wonders are performed through the name of your holy servant Jesus.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "箴 29:25": {"text": "惧怕人的，陷入网罗；惟有倚靠耶和华的，必得安稳。", "ccb": "惧怕人的，陷入网罗； 惟有倚靠耶和华的，必得安稳。", "csb": "The fear of mankind is a snare, but the one who trusts in the Lord is protected.", "esv": "The fear of man lays a snare, but whoever trusts in the LORD is safe.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 9:19,20": {"text": "吃过饭就健壮了。扫罗和大马士革的门徒同住了些日子， 立刻在各会堂里宣传耶稣，说他是神的儿子。", "ccb": "他吃过东西之后，体力也恢复了。他和大马士革的门徒住了几天之后，随即到各会堂去宣讲：“耶稣是上帝的儿子。”", "csb": "吃过饭，体力就恢复了。 扫罗与在大马士革的门徒们住了几天，就立刻在各会堂里传讲耶稣 ，说这一位就是神的儿子。", "esv": "and taking food, he was strengthened. For some days he was with the disciples at Damascus.And immediately he proclaimed Jesus in the synagogues, saying, “He is the Son of God.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "弗 6:19,20": {"text": "也为我祈求，使我得着口才，能以放胆开口讲明福音的奥秘， （我为这福音的奥秘作了带锁链的使者，）并使我照着当尽的本分放胆讲论。", "ccb": "也请你们为我祷告，求上帝赐我口才，让我勇敢地把福音的奥秘讲解明白。我为传福音成了带锁链的使者。请你们为我祷告，使我能尽忠职守，放胆传福音。", "csb": "也为我祈求，好使我在开口的时候被赐予话语，能坦然无惧地让人明白福音的奥秘——为此，我成了带锁链的特使。请为我祈求 ，使我能照着应该说的，放胆传道。", "esv": "and also for me, that words may be given to me in opening my mouth boldly to proclaim the mystery of the gospel,for which I am an ambassador in chains, that I may declare it boldly, as I ought to speak.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        let currentTranslation = localStorage.getItem('foundation_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = VERSE_DATA[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text || null;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
         }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('foundation_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { alert('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        // Init after DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+        });
+
+        // Modify showFullHint to use selected translation
+        const _origShowFullHint = showFullHint;
+        showFullHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const standardAnswerDiv = document.querySelector('.standard-answer[data-ref="' + ref + '"]');
+            if (standardAnswerDiv) {
+                if (standardAnswerDiv.classList.contains('show')) {
+                    standardAnswerDiv.classList.remove('show');
+                } else {
+                    const text = getVerseText(ref, currentTranslation) || answerInfo.text;
+                    standardAnswerDiv.innerHTML = '<strong>📖 标准答案:</strong> ' + text;
+                    standardAnswerDiv.classList.add('show');
+                }
+            }
+        };
+
+        // Modify showPartialHint to use selected translation
+        const _origShowPartialHint = showPartialHint;
+        showPartialHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const input = document.querySelector('textarea[data-question="' + questionId + '"][data-reference="' + ref + '"]');
+            if (!input) return;
+            const standardText = getVerseText(ref, currentTranslation) || answerInfo.text;
+            const currentProgress = parseInt(input.dataset.hintProgress || '0');
+            const fillPercentage = Math.min(currentProgress + 20, 100);
+            const fillLength = Math.floor((standardText.length * fillPercentage) / 100);
+            input.value = standardText.substring(0, fillLength);
+            input.dataset.hintProgress = fillPercentage;
+            if (fillPercentage >= 100) { showToast('💡 答案已全部填充'); }
+            else { showToast('💡 已填充 ' + fillPercentage + '% 的答案'); }
+            updateProgress();
+        };
     </script>
+
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
+        </div>
+    </div>
+
 </body>
 </html>

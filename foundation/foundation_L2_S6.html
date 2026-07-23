@@ -345,6 +345,46 @@
                 transform: translateX(0);
             }
         }
+
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        .btn-verse { padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.8em; margin-left: 4px; }
+        .btn-verse:hover { background: #667eea; color: white; border-color: #667eea; }
+
     </style>
 </head>
 <body>
@@ -360,6 +400,15 @@
                 <span class="section-name">第6节</span>
             </div>
         </header>
+
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
 
         <div class="content">
             
@@ -405,7 +454,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">路 24:47</span>
+                    <span class="reference-text">路 24:47 <button class="btn-verse" onclick="showVerseDisplay('路 24:47')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="3" 
@@ -414,7 +463,7 @@
                 </div>
                 
                 <div class="reference-with-blank">
-                    <span class="reference-text">徒 3:19</span>
+                    <span class="reference-text">徒 3:19 <button class="btn-verse" onclick="showVerseDisplay('徒 3:19')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="3" 
@@ -450,7 +499,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">请阅读使徒行传 26:18-20</span>
+                    <span class="reference-text">请阅读使徒行传 26:18-20 <button class="btn-verse" onclick="showVerseDisplay('请阅读使徒行传 26:18-20')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="6" 
@@ -503,7 +552,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">徒 26:20</span>
+                    <span class="reference-text">徒 26:20 <button class="btn-verse" onclick="showVerseDisplay('徒 26:20')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="9" 
@@ -522,7 +571,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">箴 28:13</span>
+                    <span class="reference-text">箴 28:13 <button class="btn-verse" onclick="showVerseDisplay('箴 28:13')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="10" 
@@ -541,7 +590,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">路 19:8</span>
+                    <span class="reference-text">路 19:8 <button class="btn-verse" onclick="showVerseDisplay('路 19:8')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="12" 
@@ -560,7 +609,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">路 19:9</span>
+                    <span class="reference-text">路 19:9 <button class="btn-verse" onclick="showVerseDisplay('路 19:9')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="13" 
@@ -579,7 +628,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">罗 2:4</span>
+                    <span class="reference-text">罗 2:4 <button class="btn-verse" onclick="showVerseDisplay('罗 2:4')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="14" 
@@ -598,7 +647,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">林后 7:10</span>
+                    <span class="reference-text">林后 7:10 <button class="btn-verse" onclick="showVerseDisplay('林后 7:10')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="15" 
@@ -617,7 +666,7 @@
                 <div class="answers-area">
                     
                 <div class="reference-with-blank">
-                    <span class="reference-text">林后 7:11</span>
+                    <span class="reference-text">林后 7:11 <button class="btn-verse" onclick="showVerseDisplay('林后 7:11')">📖</button></span>
                     <input type="text" 
                            class="answer-input" 
                            data-question="16" 
@@ -773,7 +822,60 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }        // ====== 多译本支持 ======
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        const VERSE_DATA = {"箴 28:13": {"text": "遮掩自己罪过的，必不亨通；承认离弃罪过的，必蒙怜恤。", "ccb": "遮掩自己罪过的，必不亨通； 承认离弃罪过的，必蒙怜恤。", "csb": "The one who conceals his sins will not prosper, but whoever confesses and renounces them will find mercy.", "esv": "Whoever conceals his transgressions will not prosper, but he who confesses and forsakes them will obtain mercy.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "路 24:47": {"text": "并且人要奉他的名传悔改、赦罪的道，从耶路撒冷起直传到万邦。", "ccb": "人们要奉祂的名传扬悔改、赦罪的福音，从耶路撒冷一直传遍万国。", "csb": "并且人要奉他的名宣讲为罪得赦免的悔改 ，从耶路撒冷开始，直到万国。", "esv": "and that repentance for the forgiveness of sins should be proclaimed in his name to all nations, beginning from Jerusalem.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "罗 2:4": {"text": "还是你藐视他丰富的恩慈、宽容、忍耐，不晓得他的恩慈是领你悔改呢？", "ccb": "还是你藐视他丰富的恩慈、宽容、忍耐，不晓得他的恩慈是领你悔改呢？", "csb": "Or do you despise the riches of his kindness, restraint, and patience, not recognizing that God’s kindness is intended to lead you to repentance?", "esv": "Or do you show contempt for the riches of his kindness, forbearance and patience, not realizing that God's kindness is intended to lead you to repentance?", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "路 19:8": {"text": "撒该站着，对主说：'主啊，我把所有的一半给穷人；我若讹诈了谁，就还他四倍。'", "ccb": "撒该站着对主说：“主啊，我把所有的一半给穷人；我若讹诈了谁，就还他四倍。”", "csb": "But Zacchaeus stood there and said to the Lord, “Look, I’ll give half of my possessions to the poor, Lord. And if I have extorted anything from anyone, I’ll ...", "esv": "But Zacchaeus stood up and said to the Lord, 'Look, Lord! Here and now I give half of my possessions to the poor, and if I have cheated anybody out of anything, I will pay back four times the amount.'", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "请阅读使徒行传 26:18-20": {"text": "要叫他们的眼睛得开，从黑暗中归向光明，从撒但权下归向神；又因信我，得蒙赦罪，和一切成圣的人同得基业。 亚基帕王啊，我故此没有违背那从天上来的异象， 先在大马士革，后在耶路撒冷和犹太全地，以及外邦，劝勉他们应当悔改归向神，行事与悔改的心相称。", "ccb": "去开启他们的眼睛，使他们弃暗投明，脱离魔鬼的权势，归向上帝，好叫他们的罪得到赦免，与所有因信我而圣洁的人同得基业。’“因此，亚基帕王啊！我没有违背这从天上来的异象。我先在大马士革，然后到耶路撒冷、犹太全境和外族人当中劝人悔改归向上帝，行事为人要与悔改的心相称。", "csb": "为了开启他们的眼睛，使他们从黑暗归向光明，从撒旦的权势下归向神，使他们因着信我，罪得赦免，并且与那些被分别为圣的人同得继业。’“故此，阿格里帕王啊，我没有悖逆那从天上来的异象。我首先在大马士革，然后在耶路撒冷、犹太全地以及外邦人中，告诫人们要悔改，归向神，行事与悔改的心相称。", "esv": "to open their eyes, so that they may turn from darkness to light and from the power of Satan to God, that they may receive forgiveness of sins and a place am...“Therefore, O King Agrippa, I was not disobedient to the heavenly vision,but declared first to those in Damascus, then in Jerusalem and throughout all the region of Judea, and also to the Gentiles, that they should repent and turn...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林后 7:11": {"text": "你们依着神的意思忧愁，从此就生出何等的殷勤、自诉、自恨、恐惧、想念、热心、责罚。在这一切事上，你们都表明自己是洁净的。", "ccb": "你看，你们依着　神的意思忧愁，从此就生出何等的殷勤、自诉、自恨、恐惧、想念、热心、责罚（或作”自责”）。在这一切事上，你们都表明自己是洁净的。", "csb": "7:11 For consider how much diligence this very thing — this grieving as God wills — has produced in you: what a desire to clear yourselves, what indignation, what...", "esv": "See what this godly sorrow has produced in you: what earnestness, what eagerness to clear yourselves, what indignation, what alarm, what longing, what concern, what readiness to see justice done. At every point you have proved yourselves to be innocent in this matter.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 3:19": {"text": "所以你们当悔改归正，使你们的罪得以涂抹，这样，那安舒的日子就必从主面前来到。", "ccb": "所以你们要悔改，归向上帝，祂将除去你们的罪恶，", "csb": "所以，你们应当悔改，应当回转，使你们的罪孽被抹去，", "esv": "Repent therefore, and turn back, that your sins may be blotted out,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林后 7:10": {"text": "因为依着神的意思忧愁，就生出没有后悔的懊悔来，以致得救；但世俗的忧愁是叫人死。", "ccb": "因为按照上帝的心意忧愁会带来悔改，使人得救，永不后悔；但世俗的忧愁只会带来死亡。", "csb": "因为按神的意思忧伤，就生出悔改通向救恩，是不懊悔的；可是属世界的忧伤，却带来死亡。", "esv": "Godly sorrow brings repentance that leads to salvation and leaves no regret, but worldly sorrow brings death.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 26:20": {"text": "先在大马士革，后在耶路撒冷和犹太全地，以及外邦人，我都传明他们当悔改归向神，行事与悔改的心相称。", "ccb": "劝导他们悔改归向上帝，行事为人要与悔改的心相称。", "csb": "我首先在 大马士革 ，然后在 耶路撒冷 、 犹太 全地以及外邦人中，告诫人们要悔改，归向神，行事与悔改的心相称。", "esv": "First to those in Damascus, then to those in Jerusalem and in all Judea, and then to the Gentiles, I preached that they should repent and turn to God and demonstrate their repentance by their deeds.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "路 19:9": {"text": "耶稣说：'今天救恩到了这家，因为他也是亚伯拉罕的子孙。", "ccb": "耶稣说：“今天救恩到了这家，因为他也是亚伯拉罕的子孙。", "csb": "“Today salvation has come to this house,” Jesus told him, “because he too is a son of Abraham.", "esv": "Jesus said to him, 'Today salvation has come to this house, because this man, too, is a son of Abraham.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        let currentTranslation = localStorage.getItem('foundation_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = VERSE_DATA[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text || null;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
         }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('foundation_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { alert('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        // Init after DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+        });
     </script>
+
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
+        </div>
+    </div>
+
 </body>
 </html>

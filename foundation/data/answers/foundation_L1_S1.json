@@ -7,72 +7,156 @@
     "q1_创 1:10": {
       "reference": "创 1:10",
       "text": "神称旱地为地，称水的聚处为海。神看着是好的。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "上帝称干地为陆地，称汇聚的水为海洋。上帝看了，觉得美好。",
+      "has_ccb": true,
+      "csb": "神称干处为“地”，称水的聚集之处为“海”。神看这是好的。",
+      "has_csb": true,
+      "esv": "God called the dry land Earth, and the waters that were gathered together he called Seas. And God saw that it was good.",
+      "has_esv": true
     },
     "q1_创 1:12": {
       "reference": "创 1:12",
       "text": "于是地发生了青草和结种子的菜蔬，各从其类；并结果子的树木，各从其类，果子都包着核。神看着是好的。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "陆地长出了植物——各类结种子的菜蔬和结果子的树木，果子内都有籽。上帝看了，觉得美好。",
+      "has_ccb": true,
+      "csb": "地就生出了植物——结种子的蔬草，各从其类；还有结果实、果实中有种子的树，各从其类。神看这是好的。",
+      "has_csb": true,
+      "esv": "The earth brought forth vegetation, plants yielding seed according to their own kinds, and trees bearing fruit in which is their seed, each according to its ...",
+      "has_esv": true
     },
     "q1_创 1:18": {
       "reference": "创 1:18",
       "text": "管理昼夜，分别明暗。神看着是好的。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "管理昼夜，分开光和黑暗。上帝看了，觉得美好。",
+      "has_ccb": true,
+      "csb": "分管昼与夜，并分开光与黑暗。神看这是好的。",
+      "has_csb": true,
+      "esv": "to rule over the day and over the night, and to separate the light from the darkness. And God saw that it was good.",
+      "has_esv": true
     },
     "q1_创 1:21": {
       "reference": "创 1:21",
       "text": "神就造出大鱼和水中所滋生各样有生命的动物，各从其类；又造出各样飞鸟，各从其类。神看着是好的。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "上帝就创造了海中的大鱼等各类水族和各类禽鸟。上帝看了，觉得美好。",
+      "has_ccb": true,
+      "csb": "神就创造了海中的巨兽和水中群聚、游动的各样活物，各从其类；又创造了各样有翅膀的飞鸟，各从其类。神看这是好的。",
+      "has_csb": true,
+      "esv": "So God created the great sea creatures and every living creature that moves, with which the waters swarm, according to their kinds, and every winged bird acc...",
+      "has_esv": true
     },
     "q1_创 1:25": {
       "reference": "创 1:25",
       "text": "于是神造出野兽，各从其类；牲畜，各从其类；地上一切昆虫，各从其类。神看着是好的。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "上帝造了地上的各类野兽、牲畜和爬虫。上帝看了，觉得美好。",
+      "has_ccb": true,
+      "csb": "于是神造了地上的走兽，各从其类；又造牲畜，各从其类；并地上一切的爬虫，各从其类。神看这是好的。",
+      "has_csb": true,
+      "esv": "And God made the beasts of the earth according to their kinds and the livestock according to their kinds, and everything that creeps on the ground according ...",
+      "has_esv": true
     },
     "q2_创 2:17": {
       "reference": "创 2:17",
       "text": "只是分别善恶树上的果子，你不可吃，因为你吃的日子必定死。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "只是不可吃那棵分别善恶树的果子，因为你吃的日子必定死。”",
+      "has_ccb": true,
+      "csb": "只是分辨善恶树上的果实，你不可吃，因为在吃的日子，你必定死。”",
+      "has_csb": true,
+      "esv": "but of the tree of the knowledge of good and evil you shall not eat, for in the day that you eat of it you shall surely die.”",
+      "has_esv": true
     },
     "q3_创 2:16,17": {
       "reference": "创 2:16,17",
       "text": "耶和华神吩咐他说：园中各样树上的果子，你可以随意吃， 只是分别善恶树上的果子，你不可吃，因为你吃的日子必定死。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "耶和华上帝吩咐那人说：“你可以随意吃园中各种树上的果子，只是不可吃那棵分别善恶树的果子，因为你吃的日子必定死。”",
+      "has_ccb": true,
+      "csb": "耶和华神吩咐那人说：“园子中各样树上的果实，你都可以随意吃；只是分辨善恶树上的果实，你不可吃，因为在吃的日子，你必定死。”",
+      "has_csb": true,
+      "esv": "And the Lord God commanded the man, saying, “You may surely eat of every tree of the garden,but of the tree of the knowledge of good and evil you shall not eat, for in the day that you eat of it you shall surely die.”",
+      "has_esv": true
     },
     "q4_创 3:6,7": {
       "reference": "创 3:6,7",
       "text": "于是，女人见那棵树的果子好作食物，也悦人的眼目，且是可喜爱的，能使人有智慧，就摘下果子来吃了；又给她丈夫，她丈夫也吃了。 他们二人的眼睛就明亮了，才知道自己是赤身露体，便拿无花果树的叶子，为自己编做裙子。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "女人见那棵树上的果子可口，悦人眼目，可使人有智慧，就摘下来吃了。她又把果子给跟她在一起的丈夫，他也吃了。二人的眼睛就打开了，发觉自己原来赤身露体，便编起无花果树的叶子来遮体。",
+      "has_ccb": true,
+      "csb": "女人见那棵树的果实 好作食物，又悦人眼目，并且因使人有智慧而令人喜爱，就摘下果实吃了，又给了与她在一起的丈夫，她丈夫也吃了。于是他们两人的眼睛开了，知道自己是赤身的，就把无花果树的叶子缝合起来，为自己做了腰上的遮盖。",
+      "has_csb": true,
+      "esv": "So when the woman saw that the tree was good for food, and that it was a delight to the eyes, and that the tree was to be desired to make one wise, she took ...Then the eyes of both were opened, and they knew that they were naked. And they sewed fig leaves together and made themselves loincloths.",
+      "has_esv": true
     },
     "q6_创 3:1": {
       "reference": "创 3:1",
       "text": "耶和华神所造的，惟有蛇比田野一切的活物更狡猾。蛇对女人说：神岂是真说不许你们吃园中所有树上的果子吗？",
-      "has_data": true
+      "has_data": true,
+      "ccb": "在耶和华上帝所造的田野的各种动物中，蛇最狡猾。蛇对女人说：“上帝真的说过‘你们不可吃园中任何树上的果子’吗？”",
+      "has_ccb": true,
+      "csb": "在耶和华神所造的田野各样活物中，蛇是最狡猾的。它对女人说：“难道神真说过，你们不可吃这园子中任何树上的果实吗？”",
+      "has_csb": true,
+      "esv": "Now the serpent was more crafty than any other beast of the field that the Lord God had made. He said to the woman, “Did God actually say, ‘You shall not eat...",
+      "has_esv": true
     },
     "q7_创 3:7": {
       "reference": "创 3:7",
       "text": "他们二人的眼睛就明亮了，才知道自己是赤身露体，便拿无花果树的叶子，为自己编做裙子。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "二人的眼睛就打开了，发觉自己原来赤身露体，便编起无花果树的叶子来遮体。",
+      "has_ccb": true,
+      "csb": "于是他们两人的眼睛开了，知道自己是赤身的，就把无花果树的叶子缝合起来，为自己做了腰上的遮盖。",
+      "has_csb": true,
+      "esv": "Then the eyes of both were opened, and they knew that they were naked. And they sewed fig leaves together and made themselves loincloths.",
+      "has_esv": true
     },
     "q7_创 3:8": {
       "reference": "创 3:8",
       "text": "天起了凉风，耶和华神在园中行走。那人和他妻子听见神的声音，就藏在园里的树木中，躲避耶和华神的面。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "天起凉风时，那人和他妻子听见耶和华上帝在园中行走的声音，就藏在园子的树丛中，想躲避耶和华上帝。",
+      "has_ccb": true,
+      "csb": "天起凉风的时候，那人和他的妻子听见耶和华神在园子里行走的声音，就躲藏在园子的树木中，避开耶和华神的面。",
+      "has_csb": true,
+      "esv": "And they heard the sound of the Lord God walking in the garden in the cool of the day, and the man and his wife hid themselves from the presence of the Lord ...",
+      "has_esv": true
     },
     "q7_创 3:10": {
       "reference": "创 3:10",
       "text": "他说：我在园中听见你的声音，我就害怕，因为我赤身露体，我便藏了。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "那人说：“我在园中听见你的声音，就害怕得躲了起来，因为我赤身露体！”",
+      "has_ccb": true,
+      "csb": "那人说：“我在园子里听见你的声音就害怕，因为我是赤身的；于是我躲藏了。”",
+      "has_csb": true,
+      "esv": "And he said, “I heard the sound of you in the garden, and I was afraid, because I was naked, and I hid myself.”",
+      "has_esv": true
     },
     "q7_创 3:11-13": {
       "reference": "创 3:11-13",
       "text": "耶和华说：谁告诉你赤身露体呢？莫非你吃了我吩咐你不可吃的那树上的果子吗？ 那人说：你所赐给我、与我同居的女人，她把那树上的果子给我，我就吃了。 耶和华神对女人说：你做的是什么事呢？女人说：那蛇引诱我，我就吃了。",
-      "has_data": true
+      "has_data": true,
+      "ccb": "耶和华上帝问：“谁告诉你，说你赤身露体？难道你吃了我吩咐你不可吃的果子吗？”那人说：“你赐给我作伴的女人把那树上的果子给我，我就吃了。”耶和华上帝对女人说：“你这是做的什么事？”女人说：“是蛇诱骗我，我才吃的。”",
+      "has_ccb": true,
+      "csb": "耶和华说：“谁告诉你，你是赤身的呢？难道你吃了我吩咐你‘不可吃’的那棵树的果实 吗？”那人说：“你赐给我那与我在一起的女人——她把那棵树上的果实给了我，我就吃了。”耶和华神对女人说：“你做的这是什么呢？”女人说：“那蛇引诱了我，我就吃了。”",
+      "has_csb": true,
+      "esv": "He said, “Who told you that you were naked? Have you eaten of the tree of which I commanded you not to eat?”The man said, “The woman whom you gave to be with me, she gave me fruit of the tree, and I ate.”Then the Lord God said to the woman, “What is this that you have done?” The woman said, “The serpent deceived me, and I ate.”",
+      "has_esv": true
     },
     "q9_创 3:8,9": {
       "reference": "创 3:8,9",
       "text": "天起了凉风，耶和华神在园中行走。那人和他妻子听见神的声音，就藏在园里的树木中，躲避耶和华神的面。 耶和华神呼唤那人，对他说：你在哪里？",
-      "has_data": true
+      "has_data": true,
+      "ccb": "天起凉风时，那人和他妻子听见耶和华上帝在园中行走的声音，就藏在园子的树丛中，想躲避耶和华上帝。耶和华上帝呼唤那人说：“你在哪里？”",
+      "has_ccb": true,
+      "csb": "天起凉风的时候，那人和他的妻子听见耶和华神在园子里行走的声音，就躲藏在园子的树木中，避开耶和华神的面。耶和华神呼唤那人，对他说：“你在哪里？”",
+      "has_csb": true,
+      "esv": "And they heard the sound of the Lord God walking in the garden in the cool of the day, and the man and his wife hid themselves from the presence of the Lord ...But the Lord God called to the man and said to him, “Where are you?”",
+      "has_esv": true
     }
   }
 }

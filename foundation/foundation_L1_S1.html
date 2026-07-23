@@ -550,6 +550,46 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
+
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        .btn-verse { padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.8em; margin-left: 4px; }
+        .btn-verse:hover { background: #667eea; color: white; border-color: #667eea; }
+
     </style>
 </head>
 <body>
@@ -566,6 +606,15 @@
             </div>
         </header>
 
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+
         <div class="content">
             
             <div class="question-block" data-question-id="1">
@@ -577,7 +626,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 1:10</span>
+                        <span class="reference-text">创 1:10 <button class="btn-verse" onclick="showVerseDisplay('创 1:10')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('1', '创 1:10')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('1', '创 1:10')" title="显示完整答案">👁️ 答案</button>
@@ -592,7 +641,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 1:12</span>
+                        <span class="reference-text">创 1:12 <button class="btn-verse" onclick="showVerseDisplay('创 1:12')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('1', '创 1:12')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('1', '创 1:12')" title="显示完整答案">👁️ 答案</button>
@@ -607,7 +656,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 1:18</span>
+                        <span class="reference-text">创 1:18 <button class="btn-verse" onclick="showVerseDisplay('创 1:18')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('1', '创 1:18')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('1', '创 1:18')" title="显示完整答案">👁️ 答案</button>
@@ -622,7 +671,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 1:21</span>
+                        <span class="reference-text">创 1:21 <button class="btn-verse" onclick="showVerseDisplay('创 1:21')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('1', '创 1:21')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('1', '创 1:21')" title="显示完整答案">👁️ 答案</button>
@@ -637,7 +686,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 1:25</span>
+                        <span class="reference-text">创 1:25 <button class="btn-verse" onclick="showVerseDisplay('创 1:25')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('1', '创 1:25')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('1', '创 1:25')" title="显示完整答案">👁️ 答案</button>
@@ -662,7 +711,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 2:17</span>
+                        <span class="reference-text">创 2:17 <button class="btn-verse" onclick="showVerseDisplay('创 2:17')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('2', '创 2:17')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('2', '创 2:17')" title="显示完整答案">👁️ 答案</button>
@@ -687,7 +736,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 2:16,17</span>
+                        <span class="reference-text">创 2:16,17 <button class="btn-verse" onclick="showVerseDisplay('创 2:16,17')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('3', '创 2:16,17')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('3', '创 2:16,17')" title="显示完整答案">👁️ 答案</button>
@@ -712,7 +761,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 3:6,7</span>
+                        <span class="reference-text">创 3:6,7 <button class="btn-verse" onclick="showVerseDisplay('创 3:6,7')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('4', '创 3:6,7')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('4', '创 3:6,7')" title="显示完整答案">👁️ 答案</button>
@@ -754,7 +803,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 3:1</span>
+                        <span class="reference-text">创 3:1 <button class="btn-verse" onclick="showVerseDisplay('创 3:1')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('6', '创 3:1')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('6', '创 3:1')" title="显示完整答案">👁️ 答案</button>
@@ -779,7 +828,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 3:7</span>
+                        <span class="reference-text">创 3:7 <button class="btn-verse" onclick="showVerseDisplay('创 3:7')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '创 3:7')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '创 3:7')" title="显示完整答案">👁️ 答案</button>
@@ -794,7 +843,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 3:8</span>
+                        <span class="reference-text">创 3:8 <button class="btn-verse" onclick="showVerseDisplay('创 3:8')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '创 3:8')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '创 3:8')" title="显示完整答案">👁️ 答案</button>
@@ -809,7 +858,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 3:10</span>
+                        <span class="reference-text">创 3:10 <button class="btn-verse" onclick="showVerseDisplay('创 3:10')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '创 3:10')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '创 3:10')" title="显示完整答案">👁️ 答案</button>
@@ -824,7 +873,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 3:11-13</span>
+                        <span class="reference-text">创 3:11-13 <button class="btn-verse" onclick="showVerseDisplay('创 3:11-13')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '创 3:11-13')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '创 3:11-13')" title="显示完整答案">👁️ 答案</button>
@@ -866,7 +915,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">创 3:8,9</span>
+                        <span class="reference-text">创 3:8,9 <button class="btn-verse" onclick="showVerseDisplay('创 3:8,9')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('9', '创 3:8,9')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('9', '创 3:8,9')" title="显示完整答案">👁️ 答案</button>
@@ -1425,7 +1474,97 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }        // ====== 多译本支持 ======
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        const VERSE_DATA = {"创 3:10": {"text": "他说：我在园中听见你的声音，我就害怕，因为我赤身露体，我便藏了。", "ccb": "那人说：“我在园中听见你的声音，就害怕得躲了起来，因为我赤身露体！”", "csb": "那人说：“我在园子里听见你的声音就害怕，因为我是赤身的；于是我躲藏了。”", "esv": "And he said, “I heard the sound of you in the garden, and I was afraid, because I was naked, and I hid myself.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 3:8,9": {"text": "天起了凉风，耶和华神在园中行走。那人和他妻子听见神的声音，就藏在园里的树木中，躲避耶和华神的面。 耶和华神呼唤那人，对他说：你在哪里？", "ccb": "天起凉风时，那人和他妻子听见耶和华上帝在园中行走的声音，就藏在园子的树丛中，想躲避耶和华上帝。耶和华上帝呼唤那人说：“你在哪里？”", "csb": "天起凉风的时候，那人和他的妻子听见耶和华神在园子里行走的声音，就躲藏在园子的树木中，避开耶和华神的面。耶和华神呼唤那人，对他说：“你在哪里？”", "esv": "And they heard the sound of the Lord God walking in the garden in the cool of the day, and the man and his wife hid themselves from the presence of the Lord ...But the Lord God called to the man and said to him, “Where are you?”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 3:7": {"text": "他们二人的眼睛就明亮了，才知道自己是赤身露体，便拿无花果树的叶子，为自己编做裙子。", "ccb": "二人的眼睛就打开了，发觉自己原来赤身露体，便编起无花果树的叶子来遮体。", "csb": "于是他们两人的眼睛开了，知道自己是赤身的，就把无花果树的叶子缝合起来，为自己做了腰上的遮盖。", "esv": "Then the eyes of both were opened, and they knew that they were naked. And they sewed fig leaves together and made themselves loincloths.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 1:12": {"text": "于是地发生了青草和结种子的菜蔬，各从其类；并结果子的树木，各从其类，果子都包着核。神看着是好的。", "ccb": "陆地长出了植物——各类结种子的菜蔬和结果子的树木，果子内都有籽。上帝看了，觉得美好。", "csb": "地就生出了植物——结种子的蔬草，各从其类；还有结果实、果实中有种子的树，各从其类。神看这是好的。", "esv": "The earth brought forth vegetation, plants yielding seed according to their own kinds, and trees bearing fruit in which is their seed, each according to its ...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 2:16,17": {"text": "耶和华神吩咐他说：园中各样树上的果子，你可以随意吃， 只是分别善恶树上的果子，你不可吃，因为你吃的日子必定死。", "ccb": "耶和华上帝吩咐那人说：“你可以随意吃园中各种树上的果子，只是不可吃那棵分别善恶树的果子，因为你吃的日子必定死。”", "csb": "耶和华神吩咐那人说：“园子中各样树上的果实，你都可以随意吃；只是分辨善恶树上的果实，你不可吃，因为在吃的日子，你必定死。”", "esv": "And the Lord God commanded the man, saying, “You may surely eat of every tree of the garden,but of the tree of the knowledge of good and evil you shall not eat, for in the day that you eat of it you shall surely die.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 3:11-13": {"text": "耶和华说：谁告诉你赤身露体呢？莫非你吃了我吩咐你不可吃的那树上的果子吗？ 那人说：你所赐给我、与我同居的女人，她把那树上的果子给我，我就吃了。 耶和华神对女人说：你做的是什么事呢？女人说：那蛇引诱我，我就吃了。", "ccb": "耶和华上帝问：“谁告诉你，说你赤身露体？难道你吃了我吩咐你不可吃的果子吗？”那人说：“你赐给我作伴的女人把那树上的果子给我，我就吃了。”耶和华上帝对女人说：“你这是做的什么事？”女人说：“是蛇诱骗我，我才吃的。”", "csb": "耶和华说：“谁告诉你，你是赤身的呢？难道你吃了我吩咐你‘不可吃’的那棵树的果实 吗？”那人说：“你赐给我那与我在一起的女人——她把那棵树上的果实给了我，我就吃了。”耶和华神对女人说：“你做的这是什么呢？”女人说：“那蛇引诱了我，我就吃了。”", "esv": "He said, “Who told you that you were naked? Have you eaten of the tree of which I commanded you not to eat?”The man said, “The woman whom you gave to be with me, she gave me fruit of the tree, and I ate.”Then the Lord God said to the woman, “What is this that you have done?” The woman said, “The serpent deceived me, and I ate.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 1:21": {"text": "神就造出大鱼和水中所滋生各样有生命的动物，各从其类；又造出各样飞鸟，各从其类。神看着是好的。", "ccb": "上帝就创造了海中的大鱼等各类水族和各类禽鸟。上帝看了，觉得美好。", "csb": "神就创造了海中的巨兽和水中群聚、游动的各样活物，各从其类；又创造了各样有翅膀的飞鸟，各从其类。神看这是好的。", "esv": "So God created the great sea creatures and every living creature that moves, with which the waters swarm, according to their kinds, and every winged bird acc...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 1:18": {"text": "管理昼夜，分别明暗。神看着是好的。", "ccb": "管理昼夜，分开光和黑暗。上帝看了，觉得美好。", "csb": "分管昼与夜，并分开光与黑暗。神看这是好的。", "esv": "to rule over the day and over the night, and to separate the light from the darkness. And God saw that it was good.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 3:1": {"text": "耶和华神所造的，惟有蛇比田野一切的活物更狡猾。蛇对女人说：神岂是真说不许你们吃园中所有树上的果子吗？", "ccb": "在耶和华上帝所造的田野的各种动物中，蛇最狡猾。蛇对女人说：“上帝真的说过‘你们不可吃园中任何树上的果子’吗？”", "csb": "在耶和华神所造的田野各样活物中，蛇是最狡猾的。它对女人说：“难道神真说过，你们不可吃这园子中任何树上的果实吗？”", "esv": "Now the serpent was more crafty than any other beast of the field that the Lord God had made. He said to the woman, “Did God actually say, ‘You shall not eat...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 1:10": {"text": "神称旱地为地，称水的聚处为海。神看着是好的。", "ccb": "上帝称干地为陆地，称汇聚的水为海洋。上帝看了，觉得美好。", "csb": "神称干处为“地”，称水的聚集之处为“海”。神看这是好的。", "esv": "God called the dry land Earth, and the waters that were gathered together he called Seas. And God saw that it was good.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 3:8": {"text": "天起了凉风，耶和华神在园中行走。那人和他妻子听见神的声音，就藏在园里的树木中，躲避耶和华神的面。", "ccb": "天起凉风时，那人和他妻子听见耶和华上帝在园中行走的声音，就藏在园子的树丛中，想躲避耶和华上帝。", "csb": "天起凉风的时候，那人和他的妻子听见耶和华神在园子里行走的声音，就躲藏在园子的树木中，避开耶和华神的面。", "esv": "And they heard the sound of the Lord God walking in the garden in the cool of the day, and the man and his wife hid themselves from the presence of the Lord ...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 3:6,7": {"text": "于是，女人见那棵树的果子好作食物，也悦人的眼目，且是可喜爱的，能使人有智慧，就摘下果子来吃了；又给她丈夫，她丈夫也吃了。 他们二人的眼睛就明亮了，才知道自己是赤身露体，便拿无花果树的叶子，为自己编做裙子。", "ccb": "女人见那棵树上的果子可口，悦人眼目，可使人有智慧，就摘下来吃了。她又把果子给跟她在一起的丈夫，他也吃了。二人的眼睛就打开了，发觉自己原来赤身露体，便编起无花果树的叶子来遮体。", "csb": "女人见那棵树的果实 好作食物，又悦人眼目，并且因使人有智慧而令人喜爱，就摘下果实吃了，又给了与她在一起的丈夫，她丈夫也吃了。于是他们两人的眼睛开了，知道自己是赤身的，就把无花果树的叶子缝合起来，为自己做了腰上的遮盖。", "esv": "So when the woman saw that the tree was good for food, and that it was a delight to the eyes, and that the tree was to be desired to make one wise, she took ...Then the eyes of both were opened, and they knew that they were naked. And they sewed fig leaves together and made themselves loincloths.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 2:17": {"text": "只是分别善恶树上的果子，你不可吃，因为你吃的日子必定死。", "ccb": "只是不可吃那棵分别善恶树的果子，因为你吃的日子必定死。”", "csb": "只是分辨善恶树上的果实，你不可吃，因为在吃的日子，你必定死。”", "esv": "but of the tree of the knowledge of good and evil you shall not eat, for in the day that you eat of it you shall surely die.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "创 1:25": {"text": "于是神造出野兽，各从其类；牲畜，各从其类；地上一切昆虫，各从其类。神看着是好的。", "ccb": "上帝造了地上的各类野兽、牲畜和爬虫。上帝看了，觉得美好。", "csb": "于是神造了地上的走兽，各从其类；又造牲畜，各从其类；并地上一切的爬虫，各从其类。神看这是好的。", "esv": "And God made the beasts of the earth according to their kinds and the livestock according to their kinds, and everything that creeps on the ground according ...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        let currentTranslation = localStorage.getItem('foundation_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = VERSE_DATA[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text || null;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
         }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('foundation_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { alert('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        // Init after DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+        });
+
+        // Modify showFullHint to use selected translation
+        const _origShowFullHint = showFullHint;
+        showFullHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const standardAnswerDiv = document.querySelector('.standard-answer[data-ref="' + ref + '"]');
+            if (standardAnswerDiv) {
+                if (standardAnswerDiv.classList.contains('show')) {
+                    standardAnswerDiv.classList.remove('show');
+                } else {
+                    const text = getVerseText(ref, currentTranslation) || answerInfo.text;
+                    standardAnswerDiv.innerHTML = '<strong>📖 标准答案:</strong> ' + text;
+                    standardAnswerDiv.classList.add('show');
+                }
+            }
+        };
+
+        // Modify showPartialHint to use selected translation
+        const _origShowPartialHint = showPartialHint;
+        showPartialHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const input = document.querySelector('textarea[data-question="' + questionId + '"][data-reference="' + ref + '"]');
+            if (!input) return;
+            const standardText = getVerseText(ref, currentTranslation) || answerInfo.text;
+            const currentProgress = parseInt(input.dataset.hintProgress || '0');
+            const fillPercentage = Math.min(currentProgress + 20, 100);
+            const fillLength = Math.floor((standardText.length * fillPercentage) / 100);
+            input.value = standardText.substring(0, fillLength);
+            input.dataset.hintProgress = fillPercentage;
+            if (fillPercentage >= 100) { showToast('💡 答案已全部填充'); }
+            else { showToast('💡 已填充 ' + fillPercentage + '% 的答案'); }
+            updateProgress();
+        };
     </script>
+
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
+        </div>
+    </div>
+
 </body>
 </html>

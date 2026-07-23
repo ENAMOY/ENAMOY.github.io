@@ -550,6 +550,46 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
+
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        .btn-verse { padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.8em; margin-left: 4px; }
+        .btn-verse:hover { background: #667eea; color: white; border-color: #667eea; }
+
     </style>
 </head>
 <body>
@@ -566,6 +606,15 @@
             </div>
         </header>
 
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+
         <div class="content">
             
             <div class="question-block" data-question-id="1">
@@ -577,7 +626,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">罗 12:6-8</span>
+                        <span class="reference-text">罗 12:6-8 <button class="btn-verse" onclick="showVerseDisplay('罗 12:6-8')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('1', '罗 12:6-8')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('1', '罗 12:6-8')" title="显示完整答案">👁️ 答案</button>
@@ -640,7 +689,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:1</span>
+                        <span class="reference-text">林前 14:1 <button class="btn-verse" onclick="showVerseDisplay('林前 14:1')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('4', '林前 14:1')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('4', '林前 14:1')" title="显示完整答案">👁️ 答案</button>
@@ -669,7 +718,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 13:1,2</span>
+                        <span class="reference-text">林前 13:1,2 <button class="btn-verse" onclick="showVerseDisplay('林前 13:1,2')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('5', '林前 13:1,2')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('5', '林前 13:1,2')" title="显示完整答案">👁️ 答案</button>
@@ -698,7 +747,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:1</span>
+                        <span class="reference-text">林前 14:1 <button class="btn-verse" onclick="showVerseDisplay('林前 14:1')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('6', '林前 14:1')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('6', '林前 14:1')" title="显示完整答案">👁️ 答案</button>
@@ -717,7 +766,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:3</span>
+                        <span class="reference-text">林前 14:3 <button class="btn-verse" onclick="showVerseDisplay('林前 14:3')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('6', '林前 14:3')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('6', '林前 14:3')" title="显示完整答案">👁️ 答案</button>
@@ -736,7 +785,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:4</span>
+                        <span class="reference-text">林前 14:4 <button class="btn-verse" onclick="showVerseDisplay('林前 14:4')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('6', '林前 14:4')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('6', '林前 14:4')" title="显示完整答案">👁️ 答案</button>
@@ -755,7 +804,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:31</span>
+                        <span class="reference-text">林前 14:31 <button class="btn-verse" onclick="showVerseDisplay('林前 14:31')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('6', '林前 14:31')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('6', '林前 14:31')" title="显示完整答案">👁️ 答案</button>
@@ -774,7 +823,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:39,40</span>
+                        <span class="reference-text">林前 14:39,40 <button class="btn-verse" onclick="showVerseDisplay('林前 14:39,40')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('6', '林前 14:39,40')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('6', '林前 14:39,40')" title="显示完整答案">👁️ 答案</button>
@@ -803,7 +852,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:2</span>
+                        <span class="reference-text">林前 14:2 <button class="btn-verse" onclick="showVerseDisplay('林前 14:2')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '林前 14:2')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '林前 14:2')" title="显示完整答案">👁️ 答案</button>
@@ -822,7 +871,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:4</span>
+                        <span class="reference-text">林前 14:4 <button class="btn-verse" onclick="showVerseDisplay('林前 14:4')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '林前 14:4')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '林前 14:4')" title="显示完整答案">👁️ 答案</button>
@@ -841,7 +890,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:5</span>
+                        <span class="reference-text">林前 14:5 <button class="btn-verse" onclick="showVerseDisplay('林前 14:5')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '林前 14:5')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '林前 14:5')" title="显示完整答案">👁️ 答案</button>
@@ -860,7 +909,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:13</span>
+                        <span class="reference-text">林前 14:13 <button class="btn-verse" onclick="showVerseDisplay('林前 14:13')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '林前 14:13')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '林前 14:13')" title="显示完整答案">👁️ 答案</button>
@@ -879,7 +928,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:14</span>
+                        <span class="reference-text">林前 14:14 <button class="btn-verse" onclick="showVerseDisplay('林前 14:14')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '林前 14:14')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '林前 14:14')" title="显示完整答案">👁️ 答案</button>
@@ -898,7 +947,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:15</span>
+                        <span class="reference-text">林前 14:15 <button class="btn-verse" onclick="showVerseDisplay('林前 14:15')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '林前 14:15')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '林前 14:15')" title="显示完整答案">👁️ 答案</button>
@@ -917,7 +966,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">林前 14:39,40</span>
+                        <span class="reference-text">林前 14:39,40 <button class="btn-verse" onclick="showVerseDisplay('林前 14:39,40')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('7', '林前 14:39,40')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('7', '林前 14:39,40')" title="显示完整答案">👁️ 答案</button>
@@ -946,7 +995,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">帖前 5:19,20</span>
+                        <span class="reference-text">帖前 5:19,20 <button class="btn-verse" onclick="showVerseDisplay('帖前 5:19,20')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('8', '帖前 5:19,20')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('8', '帖前 5:19,20')" title="显示完整答案">👁️ 答案</button>
@@ -965,7 +1014,7 @@
                 
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">弗 4:30</span>
+                        <span class="reference-text">弗 4:30 <button class="btn-verse" onclick="showVerseDisplay('弗 4:30')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('8', '弗 4:30')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('8', '弗 4:30')" title="显示完整答案">👁️ 答案</button>
@@ -994,7 +1043,7 @@
                     
                 <div class="reference-with-blank">
                     <div class="reference-header">
-                        <span class="reference-text">徒 1:8</span>
+                        <span class="reference-text">徒 1:8 <button class="btn-verse" onclick="showVerseDisplay('徒 1:8')">📖</button></span>
                         <div class="hint-buttons">
                             <button class="btn-hint-partial" onclick="showPartialHint('9', '徒 1:8')" title="渐进提示">💡 提示</button>
                             <button class="btn-hint-full" onclick="showFullHint('9', '徒 1:8')" title="显示完整答案">👁️ 答案</button>
@@ -1461,7 +1510,97 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }        // ====== 多译本支持 ======
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        const VERSE_DATA = {"林前 14:3": {"text": "但作先知讲道的，是对人说，要造就、安慰、劝勉人。", "ccb": "但先知讲道是对人讲的，为了要造就、鼓励、安慰人。", "csb": "可是那做先知传道的是对人说，为要造就、鼓励和安慰人。", "esv": "14:3 On the other hand, the one who prophesies speaks to people for their upbuilding and encouragement and consolation.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 14:39,40": {"text": "所以，我弟兄们，你们要切慕作先知讲道，也不要禁止说方言。 凡事都要规规矩矩地按着次序行。", "ccb": "所以，我的弟兄姊妹，你们要切慕做先知讲道，也不要禁止说方言。但无论做什么事，都要按规矩，有次序。", "csb": "所以，我的弟兄们，你们要渴慕做先知传道，也不要禁止说殊言。然而，一切事都要行得端正，并且要按着秩序行。", "esv": "14:39 So, my brothers, earnestly desire to prophesy, and do not forbid speaking in tongues.14:40 But all things should be done decently and in order.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 14:5": {"text": "我愿意你们都说方言，更愿意你们作先知讲道。因为说方言的，若不翻出来，使教会得造就，那作先知讲道的，就比他强了。", "ccb": "我希望你们都能说方言，不过，我更希望你们都能做先知讲道。说方言的不如做先知讲道的重要，除非把方言翻译出来，使教会得造就。", "csb": "我虽然希望你们都说殊言，但更希望你们都做先知传道。因为，除非说殊言的能把殊言翻译出来使教会得到造就，否则那做先知传道的就比说殊言的更大了。", "esv": "14:5 Now I want you all to speak in tongues, but even more to prophesy. The one who prophesies is greater than the one who speaks in tongues, unless someone inter...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 14:15": {"text": "这却怎么样呢？我要用灵祷告，也要用悟性祷告；我要用灵歌唱，也要用悟性歌唱。", "ccb": "那么，我该怎么做呢？我要用灵祷告，也要用悟性祷告；我要用灵歌唱，也要用悟性歌唱。", "csb": "那么该怎么办呢？我要用灵祷告，也要用理性祷告；我要用灵歌颂，也要用理性歌颂。", "esv": "14:15 What am I to do? I will pray with my spirit, but I will pray with my mind also; I will sing praise with my spirit, but I will sing with my mind also.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 14:4": {"text": "说方言的，是造就自己；作先知讲道的，乃是造就教会。", "ccb": "说方言只是造就自己，但做先知讲道是造就教会。", "csb": "那说殊言的是造就自己，但那做先知传道的是造就教会。", "esv": "14:4 The one who speaks in a tongue builds up himself, but the one who prophesies builds up the church.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "罗 12:6-8": {"text": "按我们所得的恩赐，各有不同。或说预言，就当照着信心的程度说预言， 或作执事，就当专一执事；或作教导的，就当专一教导； 或作劝化的，就当专一劝化；施舍的，就当诚实；治理的，就当殷勤；怜悯人的，就当甘心。", "ccb": "按我们所得的恩赐，各有不同。或说预言，就当照着信心的程度说预言；或作执事，就当专一执事；或作教导的，就当专一教导；或作劝化的，就当专一劝化；施舍的，就当诚实；治理的，就当殷勤；怜悯人的，就当甘心。", "csb": "According to the grace given to us, we have different gifts: If prophecy, use it according to the proportion of one’s faith;if service, use it in service; if teaching, in teaching;if exhorting, in exhortation; giving, with generosity; leading, with diligence; showing mercy, with cheerfulness.", "esv": "We have different gifts, according to the grace given to each of us. If your gift is prophesying, then prophesy in accordance with your faith; if it is serving, then serve; if it is teaching, then teach; if it is to encourage, then give encouragement; if it is giving, then give generously; if it is to lead, do it diligently; if it is to show mercy, do it cheerfully.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 14:31": {"text": "因为你们都可以一个一个地作先知讲道，叫众人学道理，叫众人得劝勉。", "ccb": "这样大家都可以轮流讲道，人人都可以得到教导和勉励。", "csb": "因为你们都可以一个一个地做先知传道，好让大家都能学，都得到鼓励。", "esv": "14:31 For you can all prophesy one by one, so that all may learn and all be encouraged,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 13:1,2": {"text": "我若能说万人的方言，并天使的话语，却没有爱，我就成了鸣的锣，响的钹一般。 我若有先知讲道之能，也明白各样的奥秘，各样的知识，而且有全备的信，叫我能够移山，却没有爱，我就算不得甚么。", "ccb": "我就算能说人类和天使的各种语言，如果没有爱，也不过是咣咣作响的锣和钹。我就算能做先知讲道，又明白各种奥秘，而且知识渊博，甚至有移开山岭的信心，如果没有爱，也一无是处。", "csb": "如果我能说人间和天使的各种殊言 ，却没有爱， 我就成了嘈杂的锣、鸣响的钹；如果我有做先知传道 的恩赐 ， 也明白一切奥秘、一切知识， 并有全备的信，以致能移山， 却没有爱，我就一无所是；", "esv": "13:1 If I speak in the tongues of men and of angels, but have not love, I am a noisy gong or a clanging cymbal.13:2 And if I have prophetic powers, and understand all mysteries and all knowledge, and if I have all faith, so as to remove mountains, but have not love, I am n...", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "帖前 5:19,20": {"text": "不要消灭圣灵的感动。 不要藐视先知的讲论。", "ccb": "不要抑制圣灵的感动，不要轻视先知的信息。", "csb": "不要消灭圣灵 的感动 ，不要轻视做先知传道 ，", "esv": "5:19 Do not quench the Spirit.5:20 Do not despise prophecies,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 14:14": {"text": "我若用方言祷告，是我的灵祷告，但我的悟性没有果效。", "ccb": "如果我用方言祷告，那是我的灵在祷告，但我的悟性没有发挥作用。", "csb": "如果我用殊言祷告，是我的灵在祷告，但我的理性却是结不出果子的。", "esv": "14:14 For if I pray in a tongue, my spirit prays but my mind is unfruitful.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "徒 1:8": {"text": "但圣灵降临在你们身上，你们就必得着能力；并要在耶路撒冷、犹太全地和撒玛利亚，直到地极，作我的见证。", "ccb": "但圣灵降临在你们身上，你们就必得着能力，并要在耶路撒冷、犹太全地和撒玛利亚，直到地极，作我的见证。”", "csb": "不过圣灵临到你们的时候，你们将得着能力，并且要在 耶路撒冷 ，在 犹太 和 撒玛利亚 全地，直到地极，做我的见证人。”", "esv": "But you will receive power when the Holy Spirit comes on you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 14:2": {"text": "那说方言的，原不是对人说，乃是对神说，因为没有人听出来。然而，他在心灵里却是讲说各样的奥秘。", "ccb": "人说方言，是对上帝说的，并非对人说的，因为没有人听得懂，他是在心灵里 述说各种奥秘。", "csb": "原来那说殊言 的，不是对人说，而是对神说，因为没有人听得懂；他是在灵里讲说各样的奥秘。", "esv": "14:2 For one who speaks in a tongue speaks not to men but to God; for no one understands him, but he utters mysteries in the Spirit.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 14:1": {"text": "你们要追求爱，也要切慕属灵的恩赐，其中更要羡慕的，是作先知讲道。", "ccb": "你们要追求爱，也要切慕属灵的恩赐，其中更要羡慕的，是作先知讲道（原文作“是说预言”。下同）。", "csb": "14:1 Pursue love and desire spiritual gifts, and especially that you may prophesy.", "esv": "Follow the way of love and eagerly desire gifts of the Spirit, especially prophecy.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "林前 14:13": {"text": "因此，那说方言的，就当求着能翻方言。", "ccb": "所以说方言的人应当祈求能把方言翻译出来。", "csb": "所以，说殊言的人应当祷告，好让自己能翻译出来。", "esv": "14:13 Therefore, one who speaks in a tongue should pray that he may interpret.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "弗 4:30": {"text": "不要叫神的圣灵担忧；你们原是受了他的印记，等候得赎的日子来到。", "ccb": "不要叫　神的圣灵担忧；你们原是受了他的印记，等候得赎的日子来到。", "csb": "And don’t grieve God’s Holy Spirit. You were sealed by him for the day of redemption.", "esv": "Don’t grieve the Holy Spirit of God, in whom you were sealed for the day of redemption.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        let currentTranslation = localStorage.getItem('foundation_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = VERSE_DATA[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text || null;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
         }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('foundation_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { alert('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        // Init after DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+        });
+
+        // Modify showFullHint to use selected translation
+        const _origShowFullHint = showFullHint;
+        showFullHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const standardAnswerDiv = document.querySelector('.standard-answer[data-ref="' + ref + '"]');
+            if (standardAnswerDiv) {
+                if (standardAnswerDiv.classList.contains('show')) {
+                    standardAnswerDiv.classList.remove('show');
+                } else {
+                    const text = getVerseText(ref, currentTranslation) || answerInfo.text;
+                    standardAnswerDiv.innerHTML = '<strong>📖 标准答案:</strong> ' + text;
+                    standardAnswerDiv.classList.add('show');
+                }
+            }
+        };
+
+        // Modify showPartialHint to use selected translation
+        const _origShowPartialHint = showPartialHint;
+        showPartialHint = function(questionId, ref) {
+            const answerKey = 'q' + questionId + '_' + ref;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const input = document.querySelector('textarea[data-question="' + questionId + '"][data-reference="' + ref + '"]');
+            if (!input) return;
+            const standardText = getVerseText(ref, currentTranslation) || answerInfo.text;
+            const currentProgress = parseInt(input.dataset.hintProgress || '0');
+            const fillPercentage = Math.min(currentProgress + 20, 100);
+            const fillLength = Math.floor((standardText.length * fillPercentage) / 100);
+            input.value = standardText.substring(0, fillLength);
+            input.dataset.hintProgress = fillPercentage;
+            if (fillPercentage >= 100) { showToast('💡 答案已全部填充'); }
+            else { showToast('💡 已填充 ' + fillPercentage + '% 的答案'); }
+            updateProgress();
+        };
     </script>
+
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
+        </div>
+    </div>
+
 </body>
 </html>
