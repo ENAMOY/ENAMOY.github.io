@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教会带领与圣餐 | 建立根基 Kids</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            min-height: 100vh; padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        header {
+            background: white; border-radius: 15px 15px 0 0; padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .breadcrumb { color: #888; font-size: 0.9em; margin-bottom: 10px; }
+        .breadcrumb a { color: #f7971e; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        h1 { color: #333; margin-bottom: 10px; font-size: 2em; }
+        .section-title-box { display: inline-flex; align-items: center; gap: 15px; margin-top: 10px; }
+        .section-label {
+            display: inline-block; border: 2px solid #333; padding: 6px 16px;
+            font-size: 1em; font-weight: 500; color: #333;
+        }
+        .section-name { font-size: 1.2em; color: #333; font-weight: 500; }
+
+        /* Translation selector */
+        .translation-bar {
+            background: #f8f9fa; padding: 12px 40px; display: flex; align-items: center; gap: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); flex-wrap: wrap;
+        }
+        .translation-bar label { font-weight: 600; color: #555; font-size: 0.9em; }
+        .translation-btn {
+            padding: 6px 14px; border: 2px solid #ddd; border-radius: 20px; background: white;
+            cursor: pointer; font-size: 0.85em; transition: all 0.2s; color: #666;
+        }
+        .translation-btn:hover { border-color: #f7971e; color: #f7971e; }
+        .translation-btn.active {
+            background: #f7971e; color: white; border-color: #f7971e;
+        }
+
+        .content { background: white; padding: 40px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .teaching-text {
+            background: #fef9e7; border-left: 4px solid #f39c12; padding: 15px 20px;
+            border-radius: 0 8px 8px 0; margin-bottom: 25px; color: #555; line-height: 1.8; font-size: 0.95em;
+        }
+        .bible-reading {
+            background: #eaf2f8; border-left: 4px solid #2980b9; padding: 12px 20px;
+            border-radius: 0 8px 8px 0; margin-bottom: 20px; font-size: 0.95em;
+        }
+        .bible-reading strong { color: #2980b9; }
+
+        .question-block { margin-bottom: 30px; }
+        .question-header { margin-bottom: 12px; display: flex; align-items: flex-start; }
+        .question-number { flex-shrink: 0; margin-right: 10px; color: #333; font-size: 1em; font-weight: 600; }
+        .question-text { font-size: 1em; color: #333; line-height: 1.6; }
+
+        .answers-area { margin-left: 25px; }
+        .reference-with-blank { margin-bottom: 20px; }
+        .reference-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+        .reference-text { color: #f7971e; font-size: 0.95em; font-weight: 500; }
+        .hint-buttons { display: flex; gap: 6px; }
+        .btn-hint-partial, .btn-hint-full {
+            padding: 4px 10px; border: none; border-radius: 5px; font-size: 0.8em;
+            cursor: pointer; transition: all 0.2s; color: white;
+        }
+        .btn-hint-partial { background: #f39c12; }
+        .btn-hint-partial:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(243,156,24,0.3); }
+        .btn-hint-full { background: #f7971e; }
+        .btn-hint-full:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+
+        .answer-input {
+            width: 100%; border: 2px solid #ddd; border-radius: 8px; padding: 12px;
+            font-size: 1em; font-family: inherit; resize: vertical; outline: none;
+            transition: all 0.3s; line-height: 1.6;
+        }
+        .answer-input:focus { border-color: #f7971e; box-shadow: 0 0 0 3px rgba(0,0,0,0.05); }
+        .answer-input.correct { border-color: #27ae60; background: rgba(39,174,96,0.05); }
+        .answer-input.incorrect { border-color: #e74c3c; background: rgba(231,76,60,0.05); }
+        .answer-input.partial { border-color: #f39c12; background: rgba(243,156,18,0.05); }
+
+        .answer-feedback { margin-top: 8px; padding: 8px 12px; border-radius: 5px; font-size: 0.9em; display: none; }
+        .answer-feedback.show { display: block; }
+        .answer-feedback.correct { background: #d4edda; color: #155724; border-left: 4px solid #27ae60; }
+        .answer-feedback.incorrect { background: #f8d7da; color: #721c24; border-left: 4px solid #e74c3c; }
+        .answer-feedback.partial { background: #fff3cd; color: #856404; border-left: 4px solid #f39c12; }
+
+        .standard-answer {
+            display: none; margin-top: 10px; padding: 15px;
+            background: #f8f9fa; border-left: 4px solid #f7971e;
+            border-radius: 0 5px 5px 0; font-size: 0.95em; color: #555; line-height: 1.6;
+        }
+        .standard-answer.show { display: block; }
+
+        /* Verse display box */
+        .verse-display {
+            margin-top: 10px; padding: 12px 15px; background: #f0f4ff;
+            border-radius: 8px; font-size: 0.9em; line-height: 1.7; display: none;
+        }
+        .verse-display.show { display: block; }
+        .verse-display .verse-label {
+            font-weight: 600; color: #f7971e; margin-bottom: 5px; font-size: 0.85em;
+        }
+        .verse-display .verse-text { color: #444; }
+
+        .application-section {
+            margin-top: 35px; padding: 25px; background: #f8f9fa; border-radius: 8px;
+        }
+        .application-section h3 { color: #333; margin-bottom: 10px; font-size: 1.1em; }
+        .application-prompt { color: #666; margin-bottom: 15px; line-height: 1.6; font-size: 0.95em; }
+        .application-input {
+            width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;
+            font-size: 1em; font-family: inherit; resize: vertical; min-height: 100px;
+        }
+        .application-input:focus { outline: none; border-color: #f7971e; }
+
+        .action-bar {
+            background: white; padding: 20px 40px; border-radius: 0 0 15px 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1); display: flex;
+            justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+        }
+        .score-display { font-size: 1.1em; color: #333; font-weight: 500; }
+        .score-number { color: #f7971e; font-size: 1.4em; font-weight: bold; }
+        .btn {
+            padding: 12px 25px; border: none; border-radius: 8px; font-size: 1em;
+            cursor: pointer; transition: all 0.3s; font-weight: 500; color: white;
+        }
+        .btn-check { background: #f7971e; }
+        .btn-check:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .btn-submit { background: #27ae60; }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(39,174,96,0.4); }
+
+        .navigation {
+            background: white; padding: 20px 40px; margin-top: 20px; border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1); display: flex; justify-content: space-between; gap: 15px;
+        }
+        .nav-btn {
+            padding: 12px 25px; border-radius: 8px; text-decoration: none;
+            transition: all 0.3s; font-weight: 500; background: #f7971e; color: white;
+        }
+        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .home-btn { background: #f5f5f5; color: #333; }
+        .home-btn:hover { background: #e0e0e0; }
+
+        .toast {
+            position: fixed; top: 20px; right: 20px; background: white; padding: 15px 25px;
+            border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none;
+            z-index: 1000; max-width: 300px;
+        }
+        .toast.show { display: block; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateX(400px); } to { transform: translateX(0); } }
+
+        .score-modal {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7); display: none; align-items: center;
+            justify-content: center; z-index: 2000;
+        }
+        .score-modal.show { display: flex; }
+        .score-modal-content {
+            background: white; padding: 40px; border-radius: 15px; text-align: center;
+            max-width: 400px; animation: scaleIn 0.3s ease;
+        }
+        @keyframes scaleIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .score-modal-content h2 { color: #333; margin-bottom: 20px; }
+        .final-score { font-size: 4em; color: #f7971e; font-weight: bold; margin: 20px 0; }
+        .score-message { font-size: 1.2em; color: #666; margin-bottom: 30px; }
+        .score-details { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: left; }
+        .score-details p { margin: 8px 0; color: #555; }
+        .btn-close-modal {
+            background: #f7971e; color: white; padding: 12px 30px;
+            border: none; border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            header, .content, .action-bar, .translation-bar { padding: 20px; }
+            h1 { font-size: 1.5em; }
+            .navigation { flex-direction: column; padding: 15px; }
+            .nav-btn { width: 100%; text-align: center; }
+            .action-bar { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="breadcrumb">
+                <a href="index.html">建立根基 Kids</a> /
+                属灵家庭和教会生活 / 第2课
+            </div>
+            <h1>教会带领与圣餐</h1>
+            <div class="section-title-box">
+                <span class="section-label">第2课</span>
+                <span class="section-name">属灵家庭和教会生活</span>
+            </div>
+        </header>
+
+<div class="translation-bar">
+            <label>🌐 圣经译本:</label>
+            <button class="translation-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="translation-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="translation-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="translation-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button></div>
+
+        <div class="content">
+<div class="teaching-text">早期的教会不仅仅是一个组织，而是一个被神的灵掌管的活的有机体，这也是今天教会应该成为的样式。耶稣告诉门徒，为了纪念祂而吃喝。这个圣餐仪式代表了耶稣在十字架上的牺牲。这同时也是我们对自己新的生命、我们和耶稣新的关系的一个提醒。</div>
+<div class="bible-reading"><strong>📖 本课经文阅读:</strong><br>　· 以弗所书 4:11-16<br>　· 提多书 1:5<br>　· 约翰福音 21:15-17<br>　· 使徒行传 20:28<br>　· 以西结书 33:1-9; 34:2-5<br>　· 帖撒罗尼迦前书 5:12-13,25<br>　· 提摩太前书 5:17-19<br>　· 希伯来书 13:7,17<br>　· 以弗所书 4:15<br>　· 哥林多前书 3:10-11<br>　· 哥林多前书 11:26-32<br>　· 使徒行传 2:42<br></div>
+
+            <div class="question-block" data-question-id="1">
+                <div class="question-header">
+                    <span class="question-number">1.</span>
+                    <span class="question-text">神在教会中所担当的权柄和领导的五种角色是什么？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">弗 4:11-16</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('1', '弗 4:11-16')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('1', '弗 4:11-16')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('弗 4:11-16')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="1" data-reference="弗 4:11-16" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="弗 4:11-16"></div>
+                        <div class="standard-answer" data-ref="弗 4:11-16"></div>
+                        <div class="verse-display" data-ref="弗 4:11-16"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="2">
+                <div class="question-header">
+                    <span class="question-number">2.</span>
+                    <span class="question-text">提多为什么留在克里特岛？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">多 1:5</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('2', '多 1:5')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('2', '多 1:5')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('多 1:5')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="2" data-reference="多 1:5" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="多 1:5"></div>
+                        <div class="standard-answer" data-ref="多 1:5"></div>
+                        <div class="verse-display" data-ref="多 1:5"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="3">
+                <div class="question-header">
+                    <span class="question-number">3.</span>
+                    <span class="question-text">牧师、长老、属灵领袖的一些职责是什么？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">约 21:15-17</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('3', '约 21:15-17')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('3', '约 21:15-17')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('约 21:15-17')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="3" data-reference="约 21:15-17" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="约 21:15-17"></div>
+                        <div class="standard-answer" data-ref="约 21:15-17"></div>
+                        <div class="verse-display" data-ref="约 21:15-17"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="4">
+                <div class="question-header">
+                    <span class="question-number">4.</span>
+                    <span class="question-text">教会成员应该如何与他们的牧师、教会长老、属灵领袖建立关系？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">帖前 5:12-13</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('4', '帖前 5:12-13')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('4', '帖前 5:12-13')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('帖前 5:12-13')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="4" data-reference="帖前 5:12-13" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="帖前 5:12-13"></div>
+                        <div class="standard-answer" data-ref="帖前 5:12-13"></div>
+                        <div class="verse-display" data-ref="帖前 5:12-13"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="5">
+                <div class="question-header">
+                    <span class="question-number">5.</span>
+                    <span class="question-text">谁是教会的头？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">弗 4:15</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('5', '弗 4:15')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('5', '弗 4:15')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('弗 4:15')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="5" data-reference="弗 4:15" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="弗 4:15"></div>
+                        <div class="standard-answer" data-ref="弗 4:15"></div>
+                        <div class="verse-display" data-ref="弗 4:15"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="6">
+                <div class="question-header">
+                    <span class="question-number">6.</span>
+                    <span class="question-text">谁是教会的基石？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">林前 3:10-11</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('6', '林前 3:10-11')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('6', '林前 3:10-11')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('林前 3:10-11')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="6" data-reference="林前 3:10-11" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="林前 3:10-11"></div>
+                        <div class="standard-answer" data-ref="林前 3:10-11"></div>
+                        <div class="verse-display" data-ref="林前 3:10-11"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="7">
+                <div class="question-header">
+                    <span class="question-number">7.</span>
+                    <span class="question-text">早期的门徒致力于做什么？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">徒 2:42</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('7', '徒 2:42')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('7', '徒 2:42')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('徒 2:42')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="7" data-reference="徒 2:42" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="徒 2:42"></div>
+                        <div class="standard-answer" data-ref="徒 2:42"></div>
+                        <div class="verse-display" data-ref="徒 2:42"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="8">
+                <div class="question-header">
+                    <span class="question-number">8.</span>
+                    <span class="question-text">当我们领圣餐时，宣告了什么？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">林前 11:26</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('8', '林前 11:26')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('8', '林前 11:26')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('林前 11:26')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="8" data-reference="林前 11:26" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="林前 11:26"></div>
+                        <div class="standard-answer" data-ref="林前 11:26"></div>
+                        <div class="verse-display" data-ref="林前 11:26"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="9">
+                <div class="question-header">
+                    <span class="question-number">9.</span>
+                    <span class="question-text">当我们不配得的时候，领受圣餐会发生什么？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">林前 11:27</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('9', '林前 11:27')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('9', '林前 11:27')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('林前 11:27')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="9" data-reference="林前 11:27" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="林前 11:27"></div>
+                        <div class="standard-answer" data-ref="林前 11:27"></div>
+                        <div class="verse-display" data-ref="林前 11:27"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="10">
+                <div class="question-header">
+                    <span class="question-number">10.</span>
+                    <span class="question-text">当我们领圣餐时，我们应该做什么？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">林前 11:28</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('10', '林前 11:28')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('10', '林前 11:28')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('林前 11:28')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="10" data-reference="林前 11:28" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="林前 11:28"></div>
+                        <div class="standard-answer" data-ref="林前 11:28"></div>
+                        <div class="verse-display" data-ref="林前 11:28"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="11">
+                <div class="question-header">
+                    <span class="question-number">11.</span>
+                    <span class="question-text">如果我们一直领受圣餐，却没有尊荣耶稣的身体和转离我们的罪，我们会发生什么？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">林前 11:29</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('11', '林前 11:29')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('11', '林前 11:29')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('林前 11:29')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="11" data-reference="林前 11:29" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="林前 11:29"></div>
+                        <div class="standard-answer" data-ref="林前 11:29"></div>
+                        <div class="verse-display" data-ref="林前 11:29"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="12">
+                <div class="question-header">
+                    <span class="question-number">12.</span>
+                    <span class="question-text">这对许多人造成了什么影响？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">林前 11:30</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('12', '林前 11:30')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('12', '林前 11:30')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('林前 11:30')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="12" data-reference="林前 11:30" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="林前 11:30"></div>
+                        <div class="standard-answer" data-ref="林前 11:30"></div>
+                        <div class="verse-display" data-ref="林前 11:30"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="13">
+                <div class="question-header">
+                    <span class="question-number">13.</span>
+                    <span class="question-text">我们如何避免被审判？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">林前 11:31</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('13', '林前 11:31')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('13', '林前 11:31')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('林前 11:31')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="13" data-reference="林前 11:31" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="林前 11:31"></div>
+                        <div class="standard-answer" data-ref="林前 11:31"></div>
+                        <div class="verse-display" data-ref="林前 11:31"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-block" data-question-id="14">
+                <div class="question-header">
+                    <span class="question-number">14.</span>
+                    <span class="question-text">当神审判管教祂的儿女时，祂的动机是什么？</span>
+                </div>
+                <div class="answers-area">
+                    <div class="reference-with-blank">
+                        <div class="reference-header">
+                            <span class="reference-text">林前 11:32</span>
+                            <div class="hint-buttons">
+                                <button class="btn-hint-partial" onclick="showPartialHint('14', '林前 11:32')" title="渐进提示">💡 提示</button>
+                                <button class="btn-hint-full" onclick="showFullHint('14', '林前 11:32')" title="显示完整答案">👁️ 答案</button>
+                                <button class="btn-hint-full" onclick="toggleVerse('林前 11:32')" title="查看经文" style="background:#8e44ad;">📖 经文</button>
+                            </div>
+                        </div>
+                        <textarea class="answer-input" data-question="14" data-reference="林前 11:32" data-has-answer="true"
+                               data-hint-progress="0"
+                               placeholder="请填写经文内容..."></textarea>
+                        <div class="answer-feedback" data-ref="林前 11:32"></div>
+                        <div class="standard-answer" data-ref="林前 11:32"></div>
+                        <div class="verse-display" data-ref="林前 11:32"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="application-section">
+                <h3>🤔 个人应用</h3>
+                <p class="application-prompt">谁是一个在教会里受你尊敬的领袖？为什么？纪念耶稣的死与复活有什么重要意义？</p>
+                <textarea class="application-input"
+                          placeholder="写下你的思考、感受和具体的行动计划..."
+                          rows="5"></textarea>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <div class="score-display">
+                完成度: <span class="score-number" id="progressDisplay">0%</span>
+            </div>
+            <div>
+                <button class="btn btn-check" onclick="checkAnswers()">✓ 检查答案</button>
+                <button class="btn btn-submit" onclick="submitAnswers()">📝 提交成绩</button>
+            </div>
+        </div>
+
+<div class="navigation"><a href="kids_L8_S1.html" class="nav-btn">← ← 第1课</a><a href="index.html" class="nav-btn home-btn">📚 返回目录</a><div></div></div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="score-modal" id="scoreModal">
+        <div class="score-modal-content">
+            <h2>🎉 成绩报告</h2>
+            <div class="final-score" id="finalScore">-</div>
+            <div class="score-message" id="scoreMessage"></div>
+            <div class="score-details" id="scoreDetails"></div>
+            <button class="btn-close-modal" onclick="closeScoreModal()">确定</button>
+        </div>
+    </div>
+
+    <script>
+        let standardAnswers = {};
+        let currentTranslation = 'cuv';
+        const translations = {
+            'cuv': '和合本',
+            'ccb': '当代译本',
+            'csb': '标准译本',
+            'esv': 'ESV'
+        };
+
+        window.addEventListener('load', () => {
+            loadStandardAnswers();
+            loadProgress();
+            updateProgress();
+            // Restore translation preference
+            const savedTrans = localStorage.getItem('kidsBibleTranslation');
+            if (savedTrans && translations[savedTrans]) {
+                setTranslation(savedTrans);
+            }
+        });
+
+        document.querySelectorAll('.answer-input, .application-input').forEach(input => {
+            input.addEventListener('input', () => updateProgress());
+        });
+
+        async function loadStandardAnswers() {
+            try {
+                const response = await fetch('data/answers/kids_L8_S2.json');
+                if (!response.ok) { console.warn('未找到答案数据文件'); return; }
+                const answerData = await response.json();
+                standardAnswers = answerData.answers || {};
+                console.log('标准答案已加载:', Object.keys(standardAnswers).length, '个');
+            } catch (e) { console.error('加载标准答案失败:', e); }
+        }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('kidsBibleTranslation', trans);
+            // Update button states
+            document.querySelectorAll('.translation-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.trans === trans);
+            });
+            // Update verse displays if any are open
+            document.querySelectorAll('.verse-display.show').forEach(div => {
+                const ref = div.dataset.ref;
+                showVerseDisplay(ref);
+            });
+        }
+
+        function getVerseText(ref, trans) {
+            // Find the answer entry for this reference
+            let answerEntry = null;
+            for (const k of Object.keys(standardAnswers)) {
+                if (k.endsWith('_' + ref) && standardAnswers[k].has_data) {
+                    answerEntry = standardAnswers[k];
+                    break;
+                }
+            }
+            if (!answerEntry) return null;
+
+            // Return the text for the requested translation
+            if (trans === 'ccb' && answerEntry.has_ccb) return answerEntry.ccb;
+            if (trans === 'csb' && answerEntry.has_csb) return answerEntry.csb;
+            if (trans === 'esv' && answerEntry.has_esv) return answerEntry.esv;
+            // Fallback to CUV (default text)
+            if (trans === 'cuv') return answerEntry.text;
+            // For any other translation, try its field or fallback
+            if (answerEntry[trans]) return answerEntry[trans];
+            return answerEntry.text; // Ultimate fallback to CUV
+        }
+
+        function showVerseDisplay(ref) {
+            const div = document.querySelector(`.verse-display[data-ref="${ref}"]`);
+            if (!div) return;
+            const text = getVerseText(ref, currentTranslation);
+            const isFallback = (currentTranslation !== 'cuv') && !(function(){
+                for (const k of Object.keys(standardAnswers)) {
+                    if (k.endsWith('_' + ref) && standardAnswers[k].has_data) {
+                        const e = standardAnswers[k];
+                        if (currentTranslation === 'ccb' && e.has_ccb) return true;
+                        if (currentTranslation === 'csb' && e.has_csb) return true;
+                        if (currentTranslation === 'esv' && e.has_esv) return true;
+                    }
+                }
+                return false;
+            })();
+            const transLabel = translations[currentTranslation];
+            const fallbackNote = (isFallback || !text) ? '' : '';
+            if (!text) {
+                div.innerHTML = `<div class="verse-label">${ref} (${transLabel})</div><div class="verse-text" style="color:#999;">暂无经文数据</div>`;
+            } else {
+                const note = (currentTranslation !== 'cuv' && text === getVerseText(ref, 'cuv')) ?
+                    ' <span style="font-size:0.75em;color:#999;">(回退到和合本)</span>' : '';
+                div.innerHTML = `<div class="verse-label">${ref} (${transLabel})${note}</div><div class="verse-text">${text}</div>`;
+            }
+            div.classList.add('show');
+        }
+
+        function toggleVerse(ref) {
+            const div = document.querySelector(`.verse-display[data-ref="${ref}"]`);
+            if (!div) return;
+            if (div.classList.contains('show')) {
+                div.classList.remove('show');
+            } else {
+                showVerseDisplay(ref);
+            }
+        }
+
+        function showFullHint(questionId, ref) {
+            const answerKey = `q${questionId}_${ref}`;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) {
+                showToast('暂无答案数据');
+                return;
+            }
+            const standardAnswerDiv = document.querySelector(`.standard-answer[data-ref="${ref}"]`);
+            if (standardAnswerDiv) {
+                if (standardAnswerDiv.classList.contains('show')) {
+                    standardAnswerDiv.classList.remove('show');
+                } else {
+                    standardAnswerDiv.innerHTML = `<strong>📖 标准答案:</strong> ${answerInfo.text}`;
+                    standardAnswerDiv.classList.add('show');
+                }
+            }
+        }
+
+        function showPartialHint(questionId, ref) {
+            const answerKey = `q${questionId}_${ref}`;
+            const answerInfo = standardAnswers[answerKey];
+            if (!answerInfo || !answerInfo.has_data) {
+                showToast('暂无答案数据');
+                return;
+            }
+            const input = document.querySelector(`textarea[data-question="${questionId}"][data-reference="${ref}"]`);
+            if (!input) return;
+            const standardText = answerInfo.text;
+            const currentProgress = parseInt(input.dataset.hintProgress || '0');
+            const fillPercentage = Math.min(currentProgress + 20, 100);
+            const fillLength = Math.floor((standardText.length * fillPercentage) / 100);
+            input.value = standardText.substring(0, fillLength);
+            input.dataset.hintProgress = fillPercentage;
+            if (fillPercentage >= 100) { showToast('💡 答案已全部填充'); }
+            else { showToast(`💡 已填充 ${fillPercentage}% 的答案`); }
+            updateProgress();
+        }
+
+        async function checkAnswers() {
+            await loadStandardAnswers();
+            let totalAnswerableQuestions = 0, correctCount = 0, incorrectInputs = [];
+            document.querySelectorAll('.answer-input').forEach(input => {
+                const ref = input.dataset.reference;
+                const hasAnswer = input.dataset.hasAnswer === 'true';
+                if (!ref || !hasAnswer) return;
+                const questionId = input.dataset.question;
+                const answerKey = `q${questionId}_${ref}`;
+                const answerInfo = standardAnswers[answerKey];
+                if (!answerInfo || !answerInfo.has_data) return;
+                totalAnswerableQuestions++;
+                const userAnswer = input.value.trim();
+                const standardAnswer = answerInfo.text || '';
+                input.classList.remove('correct', 'incorrect', 'partial');
+                const feedbackDiv = input.parentElement.querySelector('.answer-feedback');
+                if (userAnswer === '') {
+                    input.classList.add('incorrect');
+                    if (feedbackDiv) { feedbackDiv.textContent = '✗ 请填写答案'; feedbackDiv.className = 'answer-feedback incorrect show'; }
+                    incorrectInputs.push(input);
+                } else {
+                    const similarity = calculateSimilarity(userAnswer, standardAnswer);
+                    if (similarity >= 0.85) {
+                        input.classList.add('correct');
+                        if (feedbackDiv) { feedbackDiv.textContent = '✓ 正确！'; feedbackDiv.className = 'answer-feedback correct show'; }
+                        correctCount++;
+                    } else if (similarity >= 0.6) {
+                        input.classList.add('partial');
+                        if (feedbackDiv) { feedbackDiv.textContent = '△ 部分正确，请对照标准答案修改'; feedbackDiv.className = 'answer-feedback partial show'; }
+                        incorrectInputs.push(input);
+                    } else {
+                        input.classList.add('incorrect');
+                        if (feedbackDiv) { feedbackDiv.textContent = '✗ 不正确，请对照标准答案修改'; feedbackDiv.className = 'answer-feedback incorrect show'; }
+                        incorrectInputs.push(input);
+                    }
+                }
+            });
+            if (incorrectInputs.length > 0) {
+                incorrectInputs[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => incorrectInputs[0].focus(), 500);
+                showToast(`❌ 发现 ${incorrectInputs.length} 个错误，已定位到第一个错误`);
+            } else if (correctCount === totalAnswerableQuestions && totalAnswerableQuestions > 0) {
+                showToast('🎉 所有答案都正确！');
+            } else {
+                showToast(`✓ 检查完成 - ${correctCount}/${totalAnswerableQuestions} 正确`);
+            }
+        }
+
+        async function submitAnswers() {
+            await loadStandardAnswers();
+            const questionStats = {};
+            let totalInputs = 0, correctInputs = 0, partialInputs = 0, incorrectInputs = 0;
+            document.querySelectorAll('.answer-input').forEach(input => {
+                const ref = input.dataset.reference;
+                const hasAnswer = input.dataset.hasAnswer === 'true';
+                if (!ref || !hasAnswer) return;
+                const questionId = input.dataset.question;
+                const answerKey = `q${questionId}_${ref}`;
+                const answerInfo = standardAnswers[answerKey];
+                if (!answerInfo || !answerInfo.has_data) return;
+                totalInputs++;
+                if (!questionStats[questionId]) questionStats[questionId] = { total: 0, correct: 0, partial: 0, incorrect: 0 };
+                questionStats[questionId].total++;
+                const similarity = calculateSimilarity(input.value.trim(), answerInfo.text || '');
+                if (similarity >= 0.85) { correctInputs++; questionStats[questionId].correct++; }
+                else if (similarity >= 0.6) { partialInputs++; questionStats[questionId].partial++; }
+                else { incorrectInputs++; questionStats[questionId].incorrect++; }
+            });
+            let totalQuestions = Object.keys(questionStats).length, qCorrect = 0, qPartial = 0, qIncorrect = 0;
+            Object.values(questionStats).forEach(stats => {
+                const accuracy = stats.total > 0 ? stats.correct / stats.total : 0;
+                if (accuracy >= 0.8) qCorrect++;
+                else if (accuracy >= 0.4) qPartial++;
+                else qIncorrect++;
+            });
+            const score = totalInputs > 0 ? Math.round(((correctInputs + partialInputs * 0.6) / totalInputs) * 100) : 0;
+            document.getElementById('finalScore').textContent = score + '分';
+            const msgEl = document.getElementById('scoreMessage');
+            if (totalInputs === 0) msgEl.textContent = '本节暂无可评分的题目';
+            else if (score >= 90) msgEl.textContent = '🌟 优秀！你掌握得非常好！';
+            else if (score >= 75) msgEl.textContent = '👍 良好！继续加油！';
+            else if (score >= 60) msgEl.textContent = '📚 及格！建议再复习一下';
+            else msgEl.textContent = '💪 继续努力！多读几遍经文吧';
+            document.getElementById('scoreDetails').innerHTML = `
+                <p>📊 总题数: ${totalQuestions} 题 | 总答案框: ${totalInputs} 个</p>
+                <p>📋 问题统计: ✅${qCorrect} ⚠️${qPartial} ❌${qIncorrect}</p>
+                <p>📝 答案框: ✅${correctInputs} ⚠️${partialInputs} ❌${incorrectInputs}</p>
+            `;
+            document.getElementById('scoreModal').classList.add('show');
+            saveProgress();
+        }
+
+        function closeScoreModal() { document.getElementById('scoreModal').classList.remove('show'); }
+
+        function calculateSimilarity(text1, text2) {
+            const clean1 = text1.replace(/[\s\.,;:!?，。；：！？、""''（）【】《》]/g, '');
+            const clean2 = text2.replace(/[\s\.,;:!?，。；：！？、""''（）【】《》]/g, '');
+            if (!clean1 || !clean2) return 0;
+            const dp = Array(clean1.length + 1).fill(null).map(() => Array(clean2.length + 1).fill(0));
+            for (let i = 1; i <= clean1.length; i++)
+                for (let j = 1; j <= clean2.length; j++)
+                    dp[i][j] = clean1[i-1] === clean2[j-1] ? dp[i-1][j-1] + 1 : Math.max(dp[i-1][j], dp[i][j-1]);
+            return dp[clean1.length][clean2.length] / Math.max(clean1.length, clean2.length);
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('kids_L8_S2');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    document.querySelectorAll('.answer-input').forEach(input => {
+                        const q = input.dataset.question;
+                        const ref = input.dataset.reference || 'main';
+                        const savedAnswer = data.answers?.[`q${q}_${ref}`];
+                        if (savedAnswer) input.value = savedAnswer;
+                    });
+                    const appInput = document.querySelector('.application-input');
+                    if (appInput && data.application) appInput.value = data.application;
+                } catch (e) {}
+            }
+        }
+
+        function saveProgress() {
+            const data = { answers: {}, application: '', timestamp: new Date().toISOString() };
+            document.querySelectorAll('.answer-input').forEach(input => {
+                const q = input.dataset.question;
+                const ref = input.dataset.reference || 'main';
+                data.answers[`q${q}_${ref}`] = input.value;
+            });
+            const appInput = document.querySelector('.application-input');
+            if (appInput) data.application = appInput.value;
+            localStorage.setItem('kids_L8_S2', JSON.stringify(data));
+            showToast('✓ 进度已保存');
+        }
+
+        function updateProgress() {
+            let totalFields = 0, filledFields = 0;
+            document.querySelectorAll('.answer-input').forEach(input => {
+                totalFields++; if (input.value.trim()) filledFields++;
+            });
+            const appInput = document.querySelector('.application-input');
+            if (appInput) { totalFields++; if (appInput.value.trim()) filledFields++; }
+            document.getElementById('progressDisplay').textContent = (totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0) + '%';
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message; toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>

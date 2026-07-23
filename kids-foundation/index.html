@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>建立根基 Kids - 目录</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #fda085 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .theme-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .theme-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .theme-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .theme-icon.gospel { background: linear-gradient(135deg, #f5576c, #f093fb); }
+        .theme-icon.lordship { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .theme-icon.repentance { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .theme-icon.devotion { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .theme-icon.spirit { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+        .theme-icon.mission { background: linear-gradient(135deg, #fccb90, #d57eeb); }
+        .theme-icon.discipleship { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .theme-icon.church { background: linear-gradient(135deg, #f7971e, #ffd200); }
+
+        .theme-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .lesson-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .lesson-link {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #555;
+            background: #f8f9fa;
+            transition: all 0.2s;
+            text-align: center;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+
+        .lesson-link:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .lesson-link .lesson-num {
+            font-size: 0.8em;
+            opacity: 0.7;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .theme-grid {
+                grid-template-columns: 1fr;
+            }
+            header {
+                padding: 25px;
+            }
+            h1 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">📚</div>
+            <h1>建立根基 <span style="font-size:0.6em;color:#f5576c;">Kids</span></h1>
+            <p class="subtitle">8个主题 · 16课 · Kids门徒培训课程</p>
+        </header>
+
+        <div class="theme-grid">
+
+            <div class="theme-card">
+                <div class="theme-header">
+                    <div class="theme-icon gospel">✝️</div>
+                    <div class="theme-title">福 音</div>
+                </div>
+                <div class="lesson-links">
+                    <a href="kids_L1_S1.html" class="lesson-link">
+                        <span class="lesson-num">第1课</span> 罪与神的命令
+                    </a>
+                    <a href="kids_L1_S2.html" class="lesson-link">
+                        <span class="lesson-num">第2课</span> 耶稣的救赎
+                    </a>
+                </div>
+            </div>
+
+            <div class="theme-card">
+                <div class="theme-header">
+                    <div class="theme-icon lordship">👑</div>
+                    <div class="theme-title">主 权</div>
+                </div>
+                <div class="lesson-links">
+                    <a href="kids_L2_S1.html" class="lesson-link">
+                        <span class="lesson-num">第1课</span> 耶稣是主
+                    </a>
+                    <a href="kids_L2_S2.html" class="lesson-link">
+                        <span class="lesson-num">第2课</span> 团契与圣洁生活
+                    </a>
+                </div>
+            </div>
+
+            <div class="theme-card">
+                <div class="theme-header">
+                    <div class="theme-icon repentance">🔄</div>
+                    <div class="theme-title">悔 改</div>
+                </div>
+                <div class="lesson-links">
+                    <a href="kids_L3_S1.html" class="lesson-link">
+                        <span class="lesson-num">第1课</span> 真正的转变
+                    </a>
+                    <a href="kids_L3_S2.html" class="lesson-link">
+                        <span class="lesson-num">第2课</span> 悔改与偿还
+                    </a>
+                </div>
+            </div>
+
+            <div class="theme-card">
+                <div class="theme-header">
+                    <div class="theme-icon devotion">📖</div>
+                    <div class="theme-title">灵 修</div>
+                </div>
+                <div class="lesson-links">
+                    <a href="kids_L4_S1.html" class="lesson-link">
+                        <span class="lesson-num">第1课</span> 神的话语
+                    </a>
+                    <a href="kids_L4_S2.html" class="lesson-link">
+                        <span class="lesson-num">第2课</span> 祷告
+                    </a>
+                </div>
+            </div>
+
+            <div class="theme-card">
+                <div class="theme-header">
+                    <div class="theme-icon spirit">🕊️</div>
+                    <div class="theme-title">圣 灵</div>
+                </div>
+                <div class="lesson-links">
+                    <a href="kids_L5_S1.html" class="lesson-link">
+                        <span class="lesson-num">第1课</span> 认识圣灵
+                    </a>
+                    <a href="kids_L5_S2.html" class="lesson-link">
+                        <span class="lesson-num">第2课</span> 圣灵的果子与恩赐
+                    </a>
+                </div>
+            </div>
+
+            <div class="theme-card">
+                <div class="theme-header">
+                    <div class="theme-icon mission">🌍</div>
+                    <div class="theme-title">宣教与使命</div>
+                </div>
+                <div class="lesson-links">
+                    <a href="kids_L6_S1.html" class="lesson-link">
+                        <span class="lesson-num">第1课</span> 分享福音
+                    </a>
+                    <a href="kids_L6_S2.html" class="lesson-link">
+                        <span class="lesson-num">第2课</span> 大使命
+                    </a>
+                </div>
+            </div>
+
+            <div class="theme-card">
+                <div class="theme-header">
+                    <div class="theme-icon discipleship">🎯</div>
+                    <div class="theme-title">门徒与带领</div>
+                </div>
+                <div class="lesson-links">
+                    <a href="kids_L7_S1.html" class="lesson-link">
+                        <span class="lesson-num">第1课</span> 作门徒
+                    </a>
+                    <a href="kids_L7_S2.html" class="lesson-link">
+                        <span class="lesson-num">第2课</span> 基督徒品格
+                    </a>
+                </div>
+            </div>
+
+            <div class="theme-card">
+                <div class="theme-header">
+                    <div class="theme-icon church">🏠</div>
+                    <div class="theme-title">属灵家庭和教会生活</div>
+                </div>
+                <div class="lesson-links">
+                    <a href="kids_L8_S1.html" class="lesson-link">
+                        <span class="lesson-num">第1课</span> 教会——基督的身体
+                    </a>
+                    <a href="kids_L8_S2.html" class="lesson-link">
+                        <span class="lesson-num">第2课</span> 教会带领与圣餐
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            建立根基 Kids · Kids门徒培训课程 · 16课
+        </footer>
+    </div>
+</body>
+</html>

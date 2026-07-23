@@ -1,0 +1,128 @@
+{
+  "lesson_id": "kids_L5_S1",
+  "lesson_title": "认识圣灵",
+  "theme": "圣灵",
+  "answers": {
+    "q1_约 14:16-17": {
+      "reference": "约 14:16-17",
+      "text": "我要求父，父就另外赐给你们一位保惠师（或作：训慰师；下同），叫他永远与你们同在，就是真理的圣灵，乃世人不能接受的；因为不见他，也不认识他。你们却认识他，因他常与你们同在，也要在你们里面。",
+      "has_data": true,
+      "ccb": "我要求父，父就另外赐给你们一位保惠师（或作“训慰师”。下同），叫他永远与你们同在，就是真理的圣灵，乃世人不能接受的；因为不见他，也不认识他。你们却认识他，因他常与你们同在，也要在你们里面。",
+      "has_ccb": true,
+      "csb": "And I will ask the Father, and he will give you another Counselor to be with you forever.He is the Spirit of truth. The world is unable to receive him because it doesn’t see him or know him. But you do know him, because he remains with you and wi...",
+      "has_csb": true,
+      "esv": "And I will ask the Father, and he will give you another advocate to help you and be with you forever— the Spirit of truth. The world cannot accept him, because it neither sees him nor knows him. But you know him, for he lives with you and will be in you.",
+      "has_esv": true
+    },
+    "q2_太 10:19-20": {
+      "reference": "太 10:19-20",
+      "text": "你们被交的时候，不要思虑怎样说话，或说甚么话。到那时候，必赐给你们当说的话；因为不是你们自己说的，乃是你们父的灵在你们里头说的。",
+      "has_data": true,
+      "ccb": "你们被交的时候，不要思虑怎样说话，或说什么话。到那时候，必赐给你们当说的话；因为不是你们自己说的，乃是你们父的灵在你们里头说的。",
+      "has_ccb": true,
+      "csb": "But when they hand you over, don’t worry about how or what you are to speak. For you will be given what to say at that hour,because it isn’t you speaking, but the Spirit of your Father is speaking through you.",
+      "has_csb": true,
+      "esv": "But when they deliver you up, don’t be anxious how or what you will say, for it will be given you in that hour what you will say.",
+      "has_esv": true
+    },
+    "q3_约 14:26": {
+      "reference": "约 14:26",
+      "text": "但保惠师，就是父因我的名所要差来的圣灵，他要将一切的事指教你们，并且要叫你们想起我对你们所说的一切话。",
+      "has_data": true,
+      "ccb": "但保惠师，就是父因我的名所要差来的圣灵，他要将一切的事指教你们，并且要叫你们想起我对你们所说的一切话。",
+      "has_ccb": true,
+      "csb": "But the Counselor, the Holy Spirit, whom the Father will send in my name, will teach you all things and remind you of everything I have told you.",
+      "has_csb": true,
+      "esv": "But the Advocate, the Holy Spirit, whom the Father will send in my name, will teach you all things and will remind you of everything I have said to you.",
+      "has_esv": true
+    },
+    "q4_约 16:13-14": {
+      "reference": "约 16:13-14",
+      "text": "只等真理的圣灵来了，他要引导你们明白（原文作进入）一切的真理；因为他不是凭自己说的，乃是把他所听见的都说出来，并要把将来的事告诉你们。他要荣耀我，因为他要将受于我的告诉你们。",
+      "has_data": true,
+      "ccb": "只等真理的圣灵来了，他要引导你们明白（原文作“进入”）一切的真理；因为他不是凭自己说的，乃是把他所听见的都说出来，并要把将来的事告诉你们。他要荣耀我，因为他要将受于我的告诉你们。",
+      "has_ccb": true,
+      "csb": "但我把真相告诉你们：我离去对你们是有益处的，因为我如果不去，慰助者就不会到你们这里来；如果我去了，我就会派遣他到你们这里来。 不过当那位真理的灵来了，他就会引导你们进入一切真理。那时，他不会凭着自己说话，只把所听到的说出来，并且把那些就要来的事传讲给你们。",
+      "has_csb": true,
+      "esv": "But when he, the Spirit of truth, comes, he will guide you into all the truth. He will not speak on his own; he will speak only what he hears, and he will tell you what is yet to come. He will glorify me because it is from me that he will receive what he will make known to you.",
+      "has_esv": true
+    },
+    "q5_徒 1:8": {
+      "reference": "徒 1:8",
+      "text": "但圣灵降临在你们身上，你们就必得著能力，并要在耶路撒冷、犹太全地，和撒玛利亚，直到地极，作我的见证。",
+      "has_data": true,
+      "ccb": "但圣灵降临在你们身上，你们就必得着能力，并要在耶路撒冷、犹太全地和撒玛利亚，直到地极，作我的见证。”",
+      "has_ccb": true,
+      "csb": "不过圣灵临到你们的时候，你们将得着能力，并且要在 耶路撒冷 ，在 犹太 和 撒玛利亚 全地，直到地极，做我的见证人。”",
+      "has_csb": true,
+      "esv": "But you will receive power when the Holy Spirit comes on you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth.",
+      "has_esv": true
+    },
+    "q6_徒 1:4-5": {
+      "reference": "徒 1:4-5",
+      "text": "耶稣和他们聚集的时候，嘱咐他们说：不要离开耶路撒冷，要等候父所应许的，就是你们听见我说过的。约翰是用水施洗，但不多几日，你们要受圣灵的洗。",
+      "has_data": true,
+      "ccb": "耶稣和他们聚集的时候，嘱咐他们说：“不要离开耶路撒冷，要等候父所应许的，就是你们听见我说过的。约翰是用水施洗，但不多几日，你们要受圣灵的洗。”",
+      "has_ccb": true,
+      "csb": "While he was with them, he commanded them not to leave Jerusalem, but to wait for the Father’s promise. “Which,” he said, “you have heard me speak about;for John baptized with water, but you will be baptized with the Holy Spirit in a few days.”",
+      "has_csb": true,
+      "esv": "Being assembled together with them, he commanded them,\n“Don’t depart from Jerusalem, but wait for the promise of the Father, which you heard from me.",
+      "has_esv": true
+    },
+    "q7_太 3:11": {
+      "reference": "太 3:11",
+      "text": "我是用水给你们施洗，叫你们悔改。但那在我以后来的，能力比我更大，我就是给他提鞋也不配。他要用圣灵与火给你们施洗。",
+      "has_data": true,
+      "ccb": "我是用水给你们施洗，叫你们悔改。但那在我以后来的，能力比我更大，我就是给他提鞋也不配。他要用圣灵与火给你们施洗。",
+      "has_ccb": true,
+      "csb": "“I baptize you with water for repentance, but the one who is coming after me is more powerful than I. I am not worthy to remove his sandals. He himself will ...",
+      "has_csb": true,
+      "esv": "I indeed baptize you in water for repentance, but he who comes after me is mightier than I, whose shoes I am not worthy to carry. He will baptize you in the Holy Spirit.",
+      "has_esv": true
+    },
+    "q8_徒 2:1-6": {
+      "reference": "徒 2:1-6",
+      "text": "五旬节到了，门徒都聚集在一处。忽然，从天上有响声下来，好像一阵大风吹过，充满了他们所坐的屋子，又有舌头如火燄显现出来，分开落在他们各人头上。他们就都被圣灵充满，按著圣灵所赐的口才说起别国的话来。那时，有虔诚的犹太人从天下各国来，住在耶路撒冷。这声音一响，众人都来聚集，各人听见门徒用众人的乡谈说话，就甚纳闷；",
+      "has_data": true,
+      "ccb": "他们都被圣灵充满，照着圣灵所赐的口才，用别国的语言说起话来。",
+      "has_ccb": true,
+      "csb": "他们都被圣灵充满，就照着圣灵所赐的的话语开始说出别种语言。",
+      "has_csb": true,
+      "esv": "Now when the day of Pentecost had come, they were all with one accord in one place.",
+      "has_esv": true
+    },
+    "q9_路 11:13": {
+      "reference": "路 11:13",
+      "text": "你们虽然不好，尚且知道拿好东西给儿女；何况天父，岂不更将圣灵给求他的人么？",
+      "has_data": true,
+      "ccb": "你们虽然不好，尚且知道拿好东西给儿女，何况天父，岂不更要把圣灵赐给求祂的人吗？”",
+      "has_ccb": true,
+      "csb": "所以，如果你们做为恶人也知道把好的东西给自己的儿女，更何况天上的父要赐圣灵给求他的人呢！”",
+      "has_csb": true,
+      "esv": "If you then, though you are evil, know how to give good gifts to your children, how much more will your Father in heaven give the Holy Spirit to those who ask him!'",
+      "has_esv": true
+    },
+    "q10_撒上 3:1": {
+      "reference": "撒上 3:1",
+      "text": "童子撒母耳在以利面前事奉耶和华。当那些日子，耶和华的言语稀少，不常有默示。",
+      "has_data": true,
+      "ccb": "童子撒母耳在以利面前侍奉耶和华。当那些日子，耶和华的言语稀少，不常有默示。",
+      "has_ccb": true,
+      "csb": "3:1 The boy Samuel served the Lord in Eli’s presence. In those days the word of the Lord was rare and prophetic visions were not widespread.",
+      "has_csb": true,
+      "esv": "Now the boy Samuel was ministering to the LORD in the presence of Eli. And the word of the LORD was rare in those days; there was no frequent vision.",
+      "has_esv": true
+    },
+    "q11_撒上 3:9-10": {
+      "reference": "撒上 3:9-10",
+      "text": "因此以利对撒母耳说：你仍去睡罢；若再呼唤你，你就说：耶和华啊，请说，仆人敬听！撒母耳就去，仍睡在原处。耶和华又来站著，像前三次呼唤说：撒母耳啊！撒母耳啊！撒母耳回答说：请说，仆人敬听！",
+      "has_data": true,
+      "ccb": "因此以利对撒母耳说：“你仍去睡吧；若再呼唤你，你就说：‘耶和华啊，请说，仆人敬听！’”撒母耳就去，仍睡在原处。耶和华又来站着，像前三次呼唤说：“撒母耳啊！撒母耳啊！”撒母耳回答说：“请说，仆人敬听！”",
+      "has_ccb": true,
+      "csb": "3:9 He told Samuel, “Go and lie down. If he calls you, say, ‘Speak, Lord, for your servant is listening.’” So Samuel went and lay down in his place.3:10 The Lord came, stood there, and called as before, “Samuel, Samuel!” Samuel responded, “Speak, for your servant is listening.”",
+      "has_csb": true,
+      "esv": "Therefore Eli said to Samuel, “Go, lie down, and if he calls you, you shall say, ‘Speak, LORD, for your servant hears.’” So Samuel went and lay down in his place. And the LORD came and stood, calling as at other times, “Samuel! Samuel!” And Samuel said, “Speak, for your servant hears.”",
+      "has_esv": true
+    }
+  }
+}
