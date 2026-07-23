@@ -417,7 +417,7 @@
             if (!text) { showToast('暂无经文数据'); return; }
             document.getElementById('vmTitle').textContent = '📖 ' + ref;
             document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
-            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmText').innerHTML = text;
             document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
             document.getElementById('verseModal').classList.add('show');
         }
@@ -455,7 +455,7 @@
                     refEl.className = 'scripture-ref';
                     div.appendChild(refEl);
                 }
-                if (textEl) textEl.textContent = text;
+                if (textEl) textEl.innerHTML = text;
                 if (refEl) refEl.textContent = '(' + entry.ref + (trans !== 'cuv' ? ' ' + TRANS_NAMES[trans] : '') + ')';
             });
         }
@@ -471,7 +471,7 @@
                 const entry = VERSE_DATA[uid];
                 const trans = currentTranslation;
                 const hasTrans = entry && entry['has_' + trans];
-                textEl.textContent = (hasTrans && entry[trans]) ? entry[trans] : (entry ? entry.text : '');
+                textEl.innerHTML = (hasTrans && entry[trans]) ? entry[trans] : (entry ? entry.text : '');
                 if (btn) btn.textContent = '🙈 隐藏';
                 if (btn) btn.classList.remove('hidden-state');
             } else {
