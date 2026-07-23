@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新起点 得救 | 一对一门徒训练</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>新起点 得救 | 一对一门徒训练</title>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -116,19 +117,9 @@
             box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
         }
 
-        .scripture-text {
-            color: #2c3e50;
-            font-size: 1.05em;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
+        
 
-        .scripture-ref {
-            color: #27ae60;
-            font-weight: 600;
-            font-size: 0.95em;
-            text-align: right;
-        }
+        
 
         /* 导航 */
         .navigation {
@@ -202,63 +193,167 @@
             }
 
             .navigation {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                gap: 8px;
+                justify-content: space-between;
             }
 
             .nav-btn {
-                width: 100%;
+                width: auto;
+                flex: 1;
                 text-align: center;
+                padding: 8px 4px;
+                font-size: 0.9em;
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="breadcrumb">
-                <a href="index.html">一对一</a> &gt; 新起点 得救
-            </div>
-            <h1>新起点 得救</h1>
-            <div class="subtitle">第1课</div>
-        </header>
 
-        <div class="content">
-            <div class="scripture"><div class="scripture-text">原来，神的忿怒从天上显明在一切不虔不义的人身上，就是那些行不义阻挡真理的人。</div><div class="scripture-ref">(罗马书 1:18 和合本)</div></div>
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            border-bottom: 1px solid #eee;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        /* === 经文容器 === */
+        .scripture-container {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6f7ed 100%);
+            border-left: 5px solid #27ae60;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .scripture-text {
+            color: #2c3e50;
+            font-size: 1.05em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .scripture-ref {
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-align: right;
+        }
+        /* 经文控制按钮 */
+        .sc-controls {
+            display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 8px;
+        }
+        .btn-sc {
+            padding: 4px 10px; border: 1px solid #27ae60; border-radius: 12px;
+            background: white; cursor: pointer; font-size: 0.78em; color: #27ae60; transition: all 0.2s;
+        }
+        .btn-sc:hover { background: #27ae60; color: white; }
+        .btn-sc.hidden-state { background: #27ae60; color: white; }
+        /* 内联经文按钮 */
+        .btn-verse-inline {
+            padding: 2px 6px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.75em; margin: 0 2px;
+            vertical-align: middle;
+        }
+        .btn-verse-inline:hover { background: #667eea; color: white; border-color: #667eea; }
+        /* Toast */
+        .bible-toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 10px 24px; border-radius: 20px;
+            font-size: 0.9em; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .bible-toast.show { opacity: 1; }
+        @media (max-width: 768px) {
+            .translation-bar { justify-content: center; }
+        }
+
+    </style>
+<link href="css/multilang.css" rel="stylesheet"/></head>
+<body>
+<div class="container">
+<header>
+<div class="breadcrumb">
+<a href="index.html">一对一</a> &gt; 新起点 得救
+            </div>
+<h1>新起点 得救</h1>
+<div class="subtitle">第1课</div>
+</header>
+
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+<div class="content">
+<div class="scripture-container" data-id="e21e77c4" data-ref="罗马书 1:18 <button class="btn-verse-inline" onclick="showVerseDisplay('罗马书 1:18')">📖</button> 和合本"></div>
 <p>你相信天地间有神吗？神的忿怒是什么意思？在神的忿怒之下的那些人结局会怎么样？我们在神的忿怒之下吗？我们需被救吗？如果需要被救，那么我们要怎样才能获救？</p>
-<div class="scripture"><div class="scripture-text">神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。</div><div class="scripture-ref">(约翰福音 3:16 和合本)</div></div>
+<div class="scripture-container" data-id="02d207ff" data-ref="约翰福音 3:16 <button class="btn-verse-inline" onclick="showVerseDisplay('约翰福音 3:16')">📖</button> 和合本"></div>
 <p>世人指的是哪些人？ 真的有一位神爱世人吗？我怎么感觉不到神的存在？ 神还有独生子？神的独生子是谁？我怎么感觉不到他的存在？ 我为什么要信他？灭亡是什么意思？真的有永生这回事吗？</p>
 <h3>罪使我们与神隔绝</h3>
 <p>圣经启示我们，天地万物并不是自然就有的，有一位神，他是这一切的创造主。可是，如果有神，那为什么我看不见他，也感觉不到他呢？</p>
-<div class="scripture"><div class="scripture-text">耶和华的膀臂并非缩短，不能拯救，<br>耳朵并非发沉，不能听见，<br>但你们的罪孽使你们与神隔绝；<br>你们的罪恶使他掩面不听你们。</div><div class="scripture-ref">(以赛亚书 59:1-2 和合本)</div></div>
+<div class="scripture-container" data-id="3cfb1fff" data-ref="以赛亚书 59:1-2 <button class="btn-verse-inline" onclick="showVerseDisplay('以赛亚书 59:1-2')">📖</button> 和合本"></div>
 <p><strong>答案：</strong> 我们罪使我们与神隔绝。</p>
 <p>神是圣洁的，人不是；神是良善的，人不是；神是公义的，人不是。世界上所有的人都犯了罪，因此都与神隔绝了。</p>
 <h3>按照神的标准，罪是什么？</h3>
 <p>圣经启示，在神圣洁公义的标准里“罪”不单指人行为上犯的罪，例如奸淫掳掠，故意杀人等等违背人类的法律的罪行。圣经启示，罪还包含人灵魂（也就是人心）所犯的罪。人的灵魂（人心）犯的罪并绝大部分情况下是不违背人类的法律的，但却因为得罪了圣洁公义的神，因此触犯了神的律法，惹神发怒，并且使犯罪的人成为违背神律法的罪犯，因此被称为罪人。</p>
 <p>罪可以是一个念头或一个动机，例如嫉妒、仇恨、骄傲、贪婪和淫念等等。我们来看看耶稣是如何解释神的律法，以此启示何为罪的：</p>
-<div class="scripture"><div class="scripture-text">“你们听见有吩咐古人的话，说：‘不可杀人’；又说：‘凡杀人的难免受审判。’只是我告诉你们，凡（有古卷在凡字下加：无缘无故地）向弟兄动怒的，难免受审判；凡骂弟兄是拉加的，难免公会的审判；凡骂弟兄是魔利的，难免地狱的火。</div><div class="scripture-ref">(马太福音 5:21-22 和合本)</div></div>
+<div class="scripture-container" data-id="cb057e71" data-ref="马太福音 5:21-22 <button class="btn-verse-inline" onclick="showVerseDisplay('马太福音 5:21-22')">📖</button> 和合本"></div>
 <p>耶稣把发怒的罪与杀人的罪同列，以此启示，人向人无缘无故的发怒相当于犯了杀人罪，成了“杀人犯”，将来被神审判的时候会被定罪，难免地狱的火！</p>
-<div class="scripture"><div class="scripture-text">“你们听见有话说：‘不可奸淫。’只是我告诉你们，凡看见妇女就动淫念的，这人心里已经与她犯奸淫了。若是你的右眼叫你跌倒，就剜出来丢掉，宁可失去百体中的一体，不叫全身丢在地狱里。若是右手叫你跌倒，就砍下来丢掉，宁可失去百体中的一体，不叫全身下入地狱。”</div><div class="scripture-ref">(马太福音 5:27-30 和合本)</div></div>
+<div class="scripture-container" data-id="f5c94a2f" data-ref="马太福音 5:27-30 <button class="btn-verse-inline" onclick="showVerseDisplay('马太福音 5:27-30')">📖</button> 和合本"></div>
 <p>耶稣把淫念的罪与奸淫罪同列，以此启示，当然人动了淫念，就相当于犯了奸淫罪，将来被神审判的时候会被定罪，刑法就是全身下入地狱！</p>
 <p>新约圣经对罪以及罪的后果有如下启示：</p>
-<div class="scripture"><div class="scripture-text">因为罪的工价乃是死；</div><div class="scripture-ref">(罗马书 6:23 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">因为世人都犯了罪，亏缺了神的荣耀；</div><div class="scripture-ref">(罗马书 3:23 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">神就照着自己的形像造人，乃是照着他的形像造男造女。</div><div class="scripture-ref">(创世记 1:27 和合本)</div></div>
+<div class="scripture-container" data-id="05f6340c" data-ref="罗马书 6:23 <button class="btn-verse-inline" onclick="showVerseDisplay('罗马书 6:23')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="2ce6f0cb" data-ref="罗马书 3:23 <button class="btn-verse-inline" onclick="showVerseDisplay('罗马书 3:23')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="be4e81f2" data-ref="创世记 1:27 <button class="btn-verse-inline" onclick="showVerseDisplay('创世记 1:27')">📖</button> 和合本"></div>
 <p>原来神对罪的算法不单是计算人违背了多少律法，还要计算人失职的罪，也就是亏欠了多少的神的荣耀。人本来就是神按照自己的荣耀形象所造，为要彰显神荣耀的存在，如今却因为犯罪，亏缺了神的荣耀，导致自己全然败坏，走向死亡！然而神，却没有放弃人，反而赐下救赎的恩典，使我们藉着主耶稣基督的恩典，不至灭亡，反得永生。</p>
-<div class="scripture"><div class="scripture-text">惟有神的恩赐，在我们的主基督耶稣里，乃是永生。</div><div class="scripture-ref">(罗马书 6:23 和合本)</div></div>
+<div class="scripture-container" data-id="05f6340c" data-ref="罗马书 6:23 <button class="btn-verse-inline" onclick="showVerseDisplay('罗马书 6:23')">📖</button> 和合本"></div>
 <h3>神是如何救罪人脱离罪，脱离祂公义的忿怒的？</h3>
 <p><strong>解决方案：耶稣基督的牺牲与代罪！</strong></p>
-<div class="scripture"><div class="scripture-text">耶和华却定意将他压伤，使他受痛苦。<br>耶和华以他为赎罪祭。<br>他必看见后裔，并且延长年日。<br>耶和华所喜悦的事必在他手中亨通。</div><div class="scripture-ref">(以赛亚书 53:10 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">神使那无罪的，替我们成为罪，好叫我们在他里面成为神的义。</div><div class="scripture-ref">(哥林多后书 5:21 和合本)</div></div>
+<div class="scripture-container" data-id="10e1f3a2" data-ref="以赛亚书 53:10 <button class="btn-verse-inline" onclick="showVerseDisplay('以赛亚书 53:10')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="11c7935f" data-ref="哥林多后书 5:21 <button class="btn-verse-inline" onclick="showVerseDisplay('哥林多后书 5:21')">📖</button> 和合本"></div>
 <p>神的公义要求罪必须付出代价。因为神是圣洁公义的，他不能不惩罚罪。然而，他同时又是慈爱和怜悯的，渴望拯救罪人脱离他公义的审判和永恒的灭亡。那么，神如何才能在赦免并拯救罪人的同时，又不违背他自身的公义原则呢？</p>
 <p>圣经启示，神解决这一困境的方式是：让他的独生子耶稣成为赎罪祭，为我们的罪受了审判，担当了我们本该承受的刑罚。更因耶稣本身无罪，神在第三天使他从死里复活，将他的义赐予我们，使我们在基督里被神算为义人</p>
 <h3>耶稣基督十字架的救恩：我们得救并与神和好。</h3>
-<div class="scripture"><div class="scripture-text">惟有基督在我们还作罪人的时候为我们死，神的爱就在此向我们显明了。</div><div class="scripture-ref">(罗马书 5:8 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">我们藉这爱子的血得蒙救赎，过犯得以赦免，乃是照他丰富的恩典。</div><div class="scripture-ref">(以弗所书 1:7 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">你们从前远离神的人，如今却在基督耶稣里，靠着他的血，已经得亲近了。</div><div class="scripture-ref">(以弗所书 2:13 和合本)</div></div>
-<p>这几处经文深刻揭示了神对罪人的伟大救恩。首先，<strong>惟有基督在我们还作罪人的时候为我们死，神的爱就在此向我们显明了</strong>（罗马书 5:8）。这强调了神主动的、无条件的爱，即使在我们悖逆和远离他的时候，他仍差遣独生爱子耶稣基督为我们付上罪的代价。 其次，藉着耶稣基督在十字架上所流的宝血，我们<strong>得蒙救赎，过犯得以赦免，乃是照他丰富的恩典</strong>（以弗所书 1:7）。这救赎不仅是罪的赦免，更是将我们从罪的权势下释放出来。 最后，我们从前因罪与神隔绝，<strong>远离神的人，如今却在基督耶稣里，靠着他的血，已经得亲近了</strong>（以弗所书 2:13）。耶稣的死与复活，彻底解决了罪的问题，使我们得以与圣洁公义的神和好，恢复了亲密的父子关系，并得享永生。这正是神所赐的奇异恩典，你愿意凭信心领受吗？</p>
+<div class="scripture-container" data-id="86f2f0a9" data-ref="罗马书 5:8 <button class="btn-verse-inline" onclick="showVerseDisplay('罗马书 5:8')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="a87d1ea0" data-ref="以弗所书 1:7 <button class="btn-verse-inline" onclick="showVerseDisplay('以弗所书 1:7')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="6a69ce25" data-ref="以弗所书 2:13 <button class="btn-verse-inline" onclick="showVerseDisplay('以弗所书 2:13')">📖</button> 和合本"></div>
+<p>这几处经文深刻揭示了神对罪人的伟大救恩。首先，<strong>惟有基督在我们还作罪人的时候为我们死，神的爱就在此向我们显明了</strong>（罗马书 5:8 <button class="btn-verse-inline" onclick="showVerseDisplay('罗马书 5:8')">📖</button>）。这强调了神主动的、无条件的爱，即使在我们悖逆和远离他的时候，他仍差遣独生爱子耶稣基督为我们付上罪的代价。 其次，藉着耶稣基督在十字架上所流的宝血，我们<strong>得蒙救赎，过犯得以赦免，乃是照他丰富的恩典</strong>（以弗所书 1:7 <button class="btn-verse-inline" onclick="showVerseDisplay('以弗所书 1:7')">📖</button>）。这救赎不仅是罪的赦免，更是将我们从罪的权势下释放出来。 最后，我们从前因罪与神隔绝，<strong>远离神的人，如今却在基督耶稣里，靠着他的血，已经得亲近了</strong>（以弗所书 2:13 <button class="btn-verse-inline" onclick="showVerseDisplay('以弗所书 2:13')">📖</button>）。耶稣的死与复活，彻底解决了罪的问题，使我们得以与圣洁公义的神和好，恢复了亲密的父子关系，并得享永生。这正是神所赐的奇异恩典，你愿意凭信心领受吗？</p>
 <h3>罪人的回应：凭信心领受神的恩典</h3>
-<div class="scripture"><div class="scripture-text">你若口里认耶稣为主，心里信神叫他从死里复活，就必得救。<br>因为，人心里相信就可以称义，口里承认就可以得救。</div><div class="scripture-ref">(罗马书 10:9-10 和合本)</div></div>
+<div class="scripture-container" data-id="424de8e2" data-ref="罗马书 10:9-10 <button class="btn-verse-inline" onclick="showVerseDisplay('罗马书 10:9-10')">📖</button> 和合本"></div>
 <p>这段经文清楚指出，我们得救的关键在于信心的转向。当我们放弃靠自己的努力来拯救自己，转而将全部的信心放在耶稣基督在十字架上为我们完成的救赎工作时，我们就得救了。救恩完全是出于神的恩典，是基于耶稣的牺牲，而不是我们自身的任何行为或功劳。我们无法通过弥补过失或行善来赢得神的认可。只有当我们深刻认识到自己因罪而惹神忿怒，正走向永恒灭亡的悲惨境地，并承认自己无力自救时，我们才能真正愿意悔改，转离罪恶，归向主，接受耶稣基督作我们生命的主宰和救主。那时，我们便能凭信心领受神白白的救恩。</p>
 <h3>个人应用</h3>
 <ul>
@@ -273,22 +368,169 @@
 <h3>得救的祷告</h3>
 <p>天父，我承认我犯了罪，亏缺了你的荣耀。我承认是我的罪惹你发怒。我承认是我的罪使我与你隔绝。我知道你爱我，在我还做罪人的时候，就差遣你的独生儿子耶稣，为我的罪付出了代价。我相信耶稣为我的罪被钉死在十字架上替我受了审判承担了刑罚。我相信你已经让他从死里复活，要把祂的义赐给我。</p>
 <p>主耶稣，我为我的罪感到痛悔，求你赦免我的罪，洁净我。我要转离圣经上所说的一切罪，接受你成为我的救主和生命的主。请帮助我，让我一生一世爱你，服事你，顺服你。奉耶稣的名祷告。阿们！</p>
-<div class="scripture"><div class="scripture-text">若有人在基督里，他就是新造的人，旧事已过，都变成新的了。</div><div class="scripture-ref">(哥林多后书 5:17 和合本)</div></div>
+<div class="scripture-container" data-id="c921445c" data-ref="哥林多后书 5:17 <button class="btn-verse-inline" onclick="showVerseDisplay('哥林多后书 5:17')">📖</button> 和合本"></div>
 <p>祝贺你！当你真心地向神作了以上祷告，圣经应许，神要更新你，使你成为新造的人！</p>
-<hr>
-        </div>
-
-        <div class="navigation">
-            <div>
-                <a href="intro.html" class="nav-btn">← 上一课</a>
-            </div>
-            <div>
-                <a href="index.html" class="nav-btn home">📚 目录</a>
-            </div>
-            <div>
-                <a href="chapter_2.html" class="nav-btn">下一课 →</a>
-            </div>
+<hr/>
+</div>
+<div class="navigation">
+<div>
+<a class="nav-btn" href="intro.html">← 上一课</a>
+</div>
+<div>
+<a class="nav-btn home" href="index.html">📚 目录</a>
+</div>
+<div>
+<a class="nav-btn" href="chapter_2.html">下一课 →</a>
+</div>
+</div>
+</div>
+<script>
+            document.addEventListener('DOMContentLoaded', () => {
+                });
+        </script>
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
         </div>
     </div>
+
+    <script>
+        // ====== 多译本支持 ======
+        const VERSE_DATA = {"e21e77c4": {"ref": "罗马书 1:18", "text": "原来，神的忿怒从天上显明在一切不虔不义的人身上，就是那些行不义阻挡真理的人。", "ccb": "原来，上帝的烈怒从天上显明在一切不虔不义的人身上，就是那些行不义阻挡真理的人。", "csb": "要知道，人用不公义抵挡真理，神的震怒就从天上显明在人的一切不敬虔和不公义上。", "esv": "For the wrath of God is revealed from heaven against all ungodliness and unrighteousness of men, who by their unrighteousness suppress the truth.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "02d207ff": {"ref": "约翰福音 3:16", "text": "“神爱世人，甚至将他的独生子赐给<i>他们</i>，叫一切信他的，不致灭亡，反得永生。", "ccb": "“因为上帝爱世人，甚至将祂的独生子赐给他们，叫一切信祂的人不致灭亡，反得永生。", "csb": "“神爱世人，甚至赐下他的独生子，好让所有信他的人不至于灭亡，反得永恒的生命，", "esv": "“For God so loved the world,  that he gave his only Son, that whoever believes in him should not perish but have eternal life.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "3cfb1fff": {"ref": "以赛亚书 59:1-2", "text": "耶和华的膀臂并非缩短，不能拯救，耳朵并非发沉，不能听见，<br/> 但你们的罪孽使你们与神隔绝；你们的罪恶使他掩面不听你们。<br/>", "ccb": "耶和华的臂膀并非太短以致不能拯救，耳朵并非太背以致听不见。你们的罪恶使你们与上帝隔绝，你们的罪恶使祂掩面不听你们的祈求。", "csb": "看哪！不是耶和华的手臂缩短了不能拯救，\n也不是耶和华的耳朵发沉不能听见； 而是你们的罪孽使你们与你们的神隔绝，\n是你们的罪恶使他向你们隐藏了脸，不垂听你们。", "esv": "Behold, the LORD's hand is not shortened, that it cannot save, or his ear dull, that it cannot hear;  but your iniquities have made a separation between you and your God, and your sins have hidden his face from you so that he does not hear.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "cb057e71": {"ref": "马太福音 5:21-22", "text": "“你们听见有吩咐古人的话，说：『不可杀人』；<i>又说</i>：『凡杀人的难免受审判。』 只是我告诉你们，凡向弟兄动怒的，难免受审判；凡骂弟兄是拉加的，难免公会<i>的审判</i><sup>〔有古卷在“凡”字下添“无缘无故地”五字〕</sup>；凡骂弟兄是魔利的，难免地狱的火。", "ccb": "“你们听过吩咐古人的话：‘不可杀人，杀人的要受审判。’但我告诉你们，凡向弟兄发怒的，要受审判；凡骂弟兄是废物的，要受公会审判；凡骂弟兄是蠢货的，难免地狱的火。", "csb": "“你们听过那吩咐古人的话：‘ 不可杀人。 杀人的，当遭受审判。’ 但是我告诉你们：所有向他弟兄发怒的，当遭受审判；骂他弟兄‘废物’的，当遭受议会的审判；骂‘蠢货’的，当遭受烈火的地狱。", "esv": " “You have heard that it was said to those of old, ‘You shall not murder; and whoever murders will be liable to judgment.’ But I say to you that everyone who is angry with his brother  will be liable to judgment; whoever insults  his brother will be liable to the council; and whoever says, ‘You fool!’ will be liable to the hell  of fire.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "f5c94a2f": {"ref": "马太福音 5:27-30", "text": "「你们听见有话说：『不可奸淫。』只是我告诉你们，凡看见妇女就动淫念的，这人心里已经与她犯奸淫了。若是你的右眼叫你跌倒，就剜出来丢掉，宁可失去百体中的一体，不叫全身丢在地狱里。若是右手叫你跌倒，就砍下来丢掉，宁可失去百体中的一体，不叫全身下入地狱。」", "ccb": "“你们听过这样的话：‘不可通奸。’但我告诉你们，凡看见妇女就动淫念的，他在心里已经与她通奸了。如果你的右眼叫你犯罪，就剜出来丢掉！宁可失去身体的一部分，也比整个人被丢进地狱好。如果你的右手叫你犯罪，就砍下来丢掉！宁可失去身体的一部分，也比整个人下地狱好。", "csb": "“你们听过那吩咐古人的话：‘不可通奸。’但是我告诉你们：凡看女人而对她动淫念的，这个人心里已经与她通奸了。如果你的右眼使你绊倒，就把它剜出来丢掉；宁可失去身体的一部分，也不使整个身体被丢进地狱。如果你的右手使你绊倒，就把它砍下来丢掉；宁可失去身体的一部分，也不使整个身体被丢进地狱。”", "esv": "\"You have heard that it was said, 'You shall not commit adultery.' But I say to you that everyone who looks at a woman with lustful intent has already committed adultery with her in his heart. If your right eye causes you to sin, tear it out and throw it away. For it is better that you lose one of your members than that your whole body be thrown into hell. And if your right hand causes you to sin, cut it off and throw it away. For it is better that you lose one of your members than that your whole body go into hell.\"", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "05f6340c": {"ref": "罗马书 6:23", "text": "因为罪的工价乃是死；惟有神的恩赐，在我们的主基督耶稣里，乃是永生。", "ccb": "因为罪的代价是死亡，而上帝藉着我们的主基督耶稣赐下的礼物则是永生。", "csb": "因为罪的工价就是死；但神的恩赐，在我们的主基督耶稣里，却是永恒的生命。", "esv": " For the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "2ce6f0cb": {"ref": "罗马书 3:23", "text": "因为世人都犯了罪，亏缺了神的荣耀；", "ccb": "因为世人都犯了罪，亏缺了上帝的荣耀，", "csb": "要知道，每个人都犯了罪，亏缺了神的荣耀；", "esv": "for all have sinned and fall short of the glory of God,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "be4e81f2": {"ref": "创世记 1:27", "text": "神就照着自己的形像造人，乃是照着他的形像造男造女。", "ccb": "于是，上帝照着自己的形象创造了人，就是照着上帝的形象创造了人，造了男人和女人。", "csb": "于是，神照着自己的形象创造人，\n照着神的形象创造了人，\n他创造了男人和女人。", "esv": "So God created man in his own image, in the image of God he created him; male and female he created them.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "10e1f3a2": {"ref": "以赛亚书 53:10", "text": "耶和华却定意<sup>〔或作“喜悦”〕</sup>将他压伤，使他受痛苦。耶和华以他为赎罪祭<sup>〔或作“他献本身为赎罪祭”〕</sup>。他必看见后裔，并且延长年日。耶和华所喜悦的事必在他手中亨通。<br/>", "ccb": "然而，耶和华定意将他压伤，使他受痛苦。耶和华让他作赎罪祭。他必看见自己的后裔，并且长寿。耶和华的旨意必在他手中实现。", "csb": "原来，耶和华的意愿是要压伤他，使他受痛楚。\n当他把自己的性命作为赎罪祭时，\n他就必看见后裔，并且年日延绵；\n耶和华所喜悦的必在他手中兴盛。", "esv": "Yet it was the will of the LORD to crush him; he has put him to grief;  when his soul makes  an offering for guilt, he shall see his offspring; he shall prolong his days; the will of the LORD shall prosper in his hand.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "11c7935f": {"ref": "哥林多后书 5:21", "text": "神使那无罪的<sup>〔“无罪”原文作“不知罪”〕</sup>，替我们成为罪，好叫我们在他里面成为神的义。", "ccb": "上帝使无罪的基督担当我们的罪，使我们可以藉着祂被上帝称为义人。", "csb": "神使那位没有罪的替我们成为罪，好使我们在他里面成为神的义。", "esv": " For our sake he made him to be sin who knew no sin, so that in him we might become the righteousness of God.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "86f2f0a9": {"ref": "罗马书 5:8", "text": "惟有基督在我们还作罪人的时候为我们死，神的爱就在此向我们显明了。", "ccb": "但基督在我们还做罪人的时候为我们死，上帝的爱就这样显明了。", "csb": "但是，当我们还是罪人的时候，基督就替我们死了。神的爱就在此向我们显明了。", "esv": "but God shows his love for us in that while we were still sinners, Christ died for us.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "a87d1ea0": {"ref": "以弗所书 1:7", "text": "我们借这爱子的血得蒙救赎，过犯得以赦免，乃是照他丰富的恩典。", "ccb": "我们藉着爱子的血蒙救赎，过犯得到赦免，这都是出于上帝丰富的恩典。", "csb": "在他里面，我们藉着他的血，得蒙救赎、过犯得到赦免，都是出于神恩典的丰盛。", "esv": " In him we have redemption through his blood, the forgiveness of our trespasses, according to the riches of his grace,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "6a69ce25": {"ref": "以弗所书 2:13", "text": "你们从前远离<i>神</i>的人，如今却在基督耶稣里，靠着他的血，已经得亲近了。", "ccb": "你们从前远离上帝的人，如今在基督耶稣里，靠着祂的血已经得亲近了。", "csb": "但如今，在基督耶稣里，你们这些从前在远处的人，藉着基督的血，已经被带到近处了。", "esv": "But now in Christ Jesus you who once were far off have been brought near by the blood of Christ.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "424de8e2": {"ref": "罗马书 10:9-10", "text": "你若口里认耶稣为主，心里信神叫他从死里复活，就必得救。 因为，人心里相信就可以称义，口里承认就可以得救。", "ccb": "你若口里承认耶稣是主，心里相信上帝叫祂从死里复活，就必得救。因为人心里相信，就可以被称为义人；口里承认，就可以得救。", "csb": "你如果口里承认耶稣是主，心里相信神使他从死人中复活，就将得救。 就是说，人心里相信以致称义，口里承认以致救恩，", "esv": "because, if you confess with your mouth that Jesus is Lord and believe in your heart that God raised him from the dead, you will be saved. For with the heart one believes and is justified, and with the mouth one confesses and is saved.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "c921445c": {"ref": "哥林多后书 5:17", "text": "若有人在基督里，他就是新造的人，旧事已过，都变成新的了。", "ccb": "因此，若有人在基督里，他就是新造的人，旧事已过，都变成新的了。", "csb": "因此，如果有人在基督里，他就是新造的人；旧的已经过去，看哪，一切都成为新的了！", "esv": "Therefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        const REF_LOOKUP = {};
+        for (const [id, entry] of Object.entries(VERSE_DATA)) {
+            if (entry.ref && entry.has_data) REF_LOOKUP[entry.ref] = entry;
+        }
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        let currentTranslation = localStorage.getItem('one2one_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = REF_LOOKUP[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
+        }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('one2one_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+            updateAllScriptures();
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { showToast('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        function updateAllScriptures() {
+            document.querySelectorAll('.scripture-container').forEach(div => {
+                const id = div.dataset.id;
+                const entry = VERSE_DATA[id];
+                if (!entry) return;
+                const trans = currentTranslation;
+                const hasTrans = entry['has_' + trans];
+                const text = (hasTrans && entry[trans]) ? entry[trans] : (entry.text || '暂无译文');
+                // Create elements on first render
+                let textEl = div.querySelector('.scripture-text');
+                let refEl = div.querySelector('.scripture-ref');
+                if (!textEl) {
+                    div.innerHTML = '';
+                    const ctrl = document.createElement('div');
+                    ctrl.className = 'sc-controls';
+                    const btn1 = document.createElement('button');
+                    btn1.className = 'btn-sc';
+                    btn1.textContent = '📖 经文';
+                    btn1.onclick = function() { showVerseDisplay(entry.ref); };
+                    ctrl.appendChild(btn1);
+                    const btn2 = document.createElement('button');
+                    btn2.className = 'btn-sc btn-toggle';
+                    btn2.textContent = '🙈 隐藏';
+                    btn2.onclick = function() { toggleScripture(id); };
+                    ctrl.appendChild(btn2);
+                    div.appendChild(ctrl);
+                    textEl = document.createElement('div');
+                    textEl.className = 'scripture-text';
+                    div.appendChild(textEl);
+                    refEl = document.createElement('div');
+                    refEl.className = 'scripture-ref';
+                    div.appendChild(refEl);
+                }
+                if (textEl) textEl.textContent = text;
+                if (refEl) refEl.textContent = '(' + entry.ref + (trans !== 'cuv' ? ' ' + TRANS_NAMES[trans] : '') + ')';
+            });
+        }
+
+        function toggleScripture(uid) {
+            const div = document.querySelector('.scripture-container[data-id="' + uid + '"]');
+            if (!div) return;
+            const textEl = div.querySelector('.scripture-text');
+            const btn = div.querySelector('.btn-toggle');
+            if (!textEl) return;
+            if (div.classList.contains('hidden-state')) {
+                div.classList.remove('hidden-state');
+                const entry = VERSE_DATA[uid];
+                const trans = currentTranslation;
+                const hasTrans = entry && entry['has_' + trans];
+                textEl.textContent = (hasTrans && entry[trans]) ? entry[trans] : (entry ? entry.text : '');
+                if (btn) btn.textContent = '🙈 隐藏';
+                if (btn) btn.classList.remove('hidden-state');
+            } else {
+                div.classList.add('hidden-state');
+                textEl.textContent = '💡 思考这段经文...';
+                if (btn) btn.textContent = '👁️ 显示';
+                if (btn) btn.classList.add('hidden-state');
+            }
+        }
+
+        function showToast(msg) {
+            var existing = document.querySelector('.bible-toast');
+            if (existing) existing.remove();
+            var toast = document.createElement('div');
+            toast.className = 'bible-toast';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(function() { toast.classList.add('show'); }, 10);
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() { toast.remove(); }, 300);
+            }, 2000);
+        }
+
+        // Init on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+            // Render all scripture containers
+            updateAllScriptures();
+            // Init hidden-state containers
+            document.querySelectorAll('.scripture-container.hidden-state').forEach(div => {
+                const textEl = div.querySelector('.scripture-text');
+                if (textEl) textEl.textContent = '💡 思考这段经文...';
+                const btn = div.querySelector('.btn-toggle');
+                if (btn) { btn.textContent = '👁️ 显示'; btn.classList.add('hidden-state'); }
+            });
+        });
+
+    </script>
 </body>
 </html>

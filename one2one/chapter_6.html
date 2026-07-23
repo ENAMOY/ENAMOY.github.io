@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新关系 教会 | 一对一门徒训练</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>新关系 教会 | 一对一门徒训练</title>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -116,19 +117,9 @@
             box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
         }
 
-        .scripture-text {
-            color: #2c3e50;
-            font-size: 1.05em;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
+        
 
-        .scripture-ref {
-            color: #27ae60;
-            font-weight: 600;
-            font-size: 0.95em;
-            text-align: right;
-        }
+        
 
         /* 导航 */
         .navigation {
@@ -202,51 +193,155 @@
             }
 
             .navigation {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                gap: 8px;
+                justify-content: space-between;
             }
 
             .nav-btn {
-                width: 100%;
+                width: auto;
+                flex: 1;
                 text-align: center;
+                padding: 8px 4px;
+                font-size: 0.9em;
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="breadcrumb">
-                <a href="index.html">一对一</a> &gt; 新关系 教会
-            </div>
-            <h1>新关系 教会</h1>
-            <div class="subtitle">第6课</div>
-        </header>
 
-        <div class="content">
-            <div class="scripture"><div class="scripture-text">西门彼得回答说：“你是基督，是永生神的儿子。”<br>耶稣对他说：“西门巴约拿，你是有福的！因为这不是属血肉的指示你的，乃是我在天上的父指示的。我还告诉你，你是彼得，我要把我的教会建造在这磐石上，阴间的权柄不能胜过他。”</div><div class="scripture-ref">(马太福音 16:16-18 和合本)</div></div>
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            border-bottom: 1px solid #eee;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        /* === 经文容器 === */
+        .scripture-container {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6f7ed 100%);
+            border-left: 5px solid #27ae60;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .scripture-text {
+            color: #2c3e50;
+            font-size: 1.05em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .scripture-ref {
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-align: right;
+        }
+        /* 经文控制按钮 */
+        .sc-controls {
+            display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 8px;
+        }
+        .btn-sc {
+            padding: 4px 10px; border: 1px solid #27ae60; border-radius: 12px;
+            background: white; cursor: pointer; font-size: 0.78em; color: #27ae60; transition: all 0.2s;
+        }
+        .btn-sc:hover { background: #27ae60; color: white; }
+        .btn-sc.hidden-state { background: #27ae60; color: white; }
+        /* 内联经文按钮 */
+        .btn-verse-inline {
+            padding: 2px 6px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.75em; margin: 0 2px;
+            vertical-align: middle;
+        }
+        .btn-verse-inline:hover { background: #667eea; color: white; border-color: #667eea; }
+        /* Toast */
+        .bible-toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 10px 24px; border-radius: 20px;
+            font-size: 0.9em; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .bible-toast.show { opacity: 1; }
+        @media (max-width: 768px) {
+            .translation-bar { justify-content: center; }
+        }
+
+    </style>
+<link href="css/multilang.css" rel="stylesheet"/></head>
+<body>
+<div class="container">
+<header>
+<div class="breadcrumb">
+<a href="index.html">一对一</a> &gt; 新关系 教会
+            </div>
+<h1>新关系 教会</h1>
+<div class="subtitle">第6课</div>
+</header>
+
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+<div class="content">
+<div class="scripture-container" data-id="18d12e58" data-ref="马太福音 16:16-18 <button class="btn-verse-inline" onclick="showVerseDisplay('马太福音 16:16-18')">📖</button> 和合本"></div>
 <p>借着圣灵的启示，彼得说出了耶稣真实的身份：神的儿子。</p>
 <p>耶稣说这个真理是一块基石，他要把教会建立在这个基石之上。 耶稣还描述了他要建立的是一个怎样的教会，这是一个得胜的教会，能胜过黑暗的权势。</p>
 <p><strong>耶稣和保罗用“教会”来指称神的百姓。</strong> 教会从来都不是指宗教建筑物。</p>
 <p>委身于教会这个属灵家庭有四大好处：</p>
 <h3>属灵的友谊</h3>
 <p>每个人都需要真正的朋友，但是很少有人能找到真正的朋友。 寻找真正的朋友，最好的地方是教会，是在神的百姓中间。 真正的朋友总是为我们的益处着想，无论我们的环境是好是坏，他们都和我们在一起。 真正的朋友决不会使我们远离神，相反，他们会激励我们活出圣洁的生活。</p>
-<div class="scripture"><div class="scripture-text">朋友乃时常亲爱，弟兄为患难而生。</div><div class="scripture-ref">(箴言 17:17 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">滥交朋友的，自取败坏，但有一朋友比弟兄更亲密。</div><div class="scripture-ref">(箴言 18:24 和合本)</div></div>
+<div class="scripture-container" data-id="ad2c06ab" data-ref="箴言 17:17 <button class="btn-verse-inline" onclick="showVerseDisplay('箴言 17:17')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="490d334b" data-ref="箴言 18:24 <button class="btn-verse-inline" onclick="showVerseDisplay('箴言 18:24')">📖</button> 和合本"></div>
 <h3>团契相交</h3>
 <p>如果把一块煤从燃烧的火中取走，它就会逐渐冷却。如果把它放回一堆熊熊燃烧的火中，它又会重新燃烧起来。 基督徒也是一样，如果一个基督徒停止聚会，断开了跟其他热心基督徒的联结，他的灵里面也会逐渐冷淡。 如果他持续委身在团契当中，那么他就能一直为主火热。</p>
-<div class="scripture"><div class="scripture-text">都恒心遵守使徒的教训，彼此交接，擘饼，祈祷……<br>信的人都在一处，凡物公用；又卖了田产，家业，照各人所需用的分给各人。<br>他们天天同心合意恒切地在殿里，且在家中擘饼，存着欢喜、诚实的心用饭……</div><div class="scripture-ref">(使徒行传 2:42,44-46 和合本)</div></div>
+<div class="scripture-container" data-id="cdf81770" data-ref="使徒行传 2:42 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 2:42')">📖</button>,44-46 和合本"></div>
 <p>初代教会的信徒们不仅在信仰教义上彼此相交，更在生活上彼此关心、互相帮助，真实活出了团契的生命。 他们常常在一起学习圣经、祷告、分享资源，彼此服事和支持，建立了紧密又充满爱的属灵家庭，这正是团契的美好写照。</p>
-<div class="scripture"><div class="scripture-text">你们和不信的原不相配，不要同负一轭。义和不义有甚么相交呢？光明和黑暗有甚么相通呢？</div><div class="scripture-ref">(哥林多后书 6:14 和合本)</div></div>
+<div class="scripture-container" data-id="eeeb4d7d" data-ref="哥林多后书 6:14 <button class="btn-verse-inline" onclick="showVerseDisplay('哥林多后书 6:14')">📖</button> 和合本"></div>
 <p>这节经文提醒我们，在属灵的团契中，基督徒需要彼此联结，而不应与不信主的人在信仰和生活目标上同负一轭。 只有在与同样追求属灵生命的弟兄姊妹一同追求主、互相勉励时，我们才能得到真正的造就和守望，也更能保持属灵的火热。</p>
 <h3>敬拜神</h3>
-<div class="scripture"><div class="scripture-text">时候将到，如今就是了，那真正拜父的，要用心灵和诚实拜他，因为父要这样的人拜他。神是个灵，所以拜他的必须用心灵和诚实拜他。</div><div class="scripture-ref">(约翰福音 4:23-24 和合本)</div></div>
+<div class="scripture-container" data-id="23f43a9e" data-ref="约翰福音 4:23-24 <button class="btn-verse-inline" onclick="showVerseDisplay('约翰福音 4:23-24')">📖</button> 和合本"></div>
 <p>这段经文出自耶稣与撒玛利亚妇人的对话。当时的人普遍认为，敬拜神要在特定的圣地、用特定的仪式。但耶稣在这里揭示了敬拜的核心：真正的敬拜不在于外在的地点、传统或形式，而在于内心对神的真实态度。 “心灵”表示我们要用发自内心的情感、思想、意志来亲近神，而不是只停留在嘴唇和外表。“诚实”原文可作“真理”，意思是我们的敬拜要根据神的启示、神的话语来进行，是合乎神心意而非凭个人想象。</p>
 <p>神是灵，不被时空、形式所限制。他在寻找用心灵和真理（诚实）来敬拜他的人，这样的敬拜才蒙悦纳。真正的敬拜意味着我们愿意谦卑、真实、全心全意把神当作我们生命的主，顺服祂、尊荣祂，并把自己完全献上。 在教会中，我们一起敬拜，是用心灵表达对神的热爱与敬畏，用神的话语和真理引导我们的敬拜。无论是唱诗、祷告、聆听讲道，还是日常生活的每一选择，都是敬拜神的方式。让我们一同学习做神所喜悦的敬拜者，让敬拜成为我们生命的中心和动力。</p>
 <h3>共赴大使命——带门徒</h3>
 <p>耶稣在升天之前，把“去使万民作门徒”的使命托付给教会。完成这份使命，不是个人可以单独完成的，而是需要我们彼此相连、共同委身、一起服事。在新的关系里，神把我们连结在基督的身体里，彼此成为肢体、一起成长，也一同参与建立祂的教会。</p>
-<div class="scripture"><div class="scripture-text">所以你们要去，使万民作我的门徒，奉父、子、圣灵的名给他们施洗。<br>凡我所吩咐你们的，都教训他们遵守，我就常与你们同在，直到世界的末了。</div><div class="scripture-ref">(马太福音 28:19-20 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">他所赐的，有使徒，有先知，有传福音的，有牧师和教师，为要成全圣徒，各尽其职，建立基督的身体。</div><div class="scripture-ref">(以弗所书 4:11-12 和合本)</div></div>
+<div class="scripture-container" data-id="2bb1e245" data-ref="马太福音 28:19-20 <button class="btn-verse-inline" onclick="showVerseDisplay('马太福音 28:19-20')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="9ca77b25" data-ref="以弗所书 4:11-12 <button class="btn-verse-inline" onclick="showVerseDisplay('以弗所书 4:11-12')">📖</button> 和合本"></div>
 <p>大使命呼召我们每一个基督徒都委身于教会生活，发挥神赐予的恩赐和职分，各尽其职，彼此相爱和建造。我们需要主动加入教会、参加小组或服事团队，在真实关系中体验互相扶持、彼此守望、携手拓展神的国度。这样的新关系，远超过宗教活动，而是我们一生一起同心合意兴旺福音，荣耀神，带门徒，建教会的门徒旅程。</p>
 <p>让我们回应大使命，也回应神的新关系，把自己全然献上，委身教会，积极参与，彼此成全，让教会成为这个世界的光，见证耶稣的荣耀！</p>
 <p>在新生命的新关系中，大使命是我们彼此的责任，我们一起成长、一起委身、一起回应神的托付。 鼓励你积极参与教会、团契和门徒训练，在关系中践行大使命，一起扩展神的国度！</p>
@@ -257,20 +352,167 @@
 <li>你在教会生活和服事中最喜欢或正在参与哪些具体事工？</li>
 <li>当你在信仰和生活中遇到挑战时，你身边有哪些基督徒可以成为你的属灵伙伴，支持和守望你？</li>
 </ul>
-<hr>
-        </div>
-
-        <div class="navigation">
-            <div>
-                <a href="chapter_5.html" class="nav-btn">← 上一课</a>
-            </div>
-            <div>
-                <a href="index.html" class="nav-btn home">📚 目录</a>
-            </div>
-            <div>
-                <a href="chapter_7.html" class="nav-btn">下一课 →</a>
-            </div>
+<hr/>
+</div>
+<div class="navigation">
+<div>
+<a class="nav-btn" href="chapter_5.html">← 上一课</a>
+</div>
+<div>
+<a class="nav-btn home" href="index.html">📚 目录</a>
+</div>
+<div>
+<a class="nav-btn" href="chapter_7.html">下一课 →</a>
+</div>
+</div>
+</div>
+<script>
+            document.addEventListener('DOMContentLoaded', () => {
+                });
+        </script>
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
         </div>
     </div>
+
+    <script>
+        // ====== 多译本支持 ======
+        const VERSE_DATA = {"18d12e58": {"ref": "马太福音 16:16-18", "text": "<e>西门‧彼得</e>回答说：“你是基督，是永生神的儿子。” 耶稣对他说：“<e>西门‧巴‧约拿</e>，你是有福的！因为这不是属血肉<i>的</i>指示你的，乃是我在天上的父指示的。 我还告诉你，你是<e>彼得</e>，我要把我的教会建造在这磐石上；阴间的权柄不能胜过他<sup>〔“权柄”原文作“门”〕</sup>。", "ccb": "西门·彼得回答说：“你是基督，是永生上帝的儿子。”耶稣对他说：“西门·巴·约拿，你是有福的！因为这不是属血肉的指示你的，乃是我在天上的父指示的。我还告诉你，你是彼得，我要把我的教会建造在这磐石上；阴间的权柄不能胜过他。", "csb": "西门彼得 回答说：“你是基督，是永生神的儿子！” 耶稣对他说：“ 约拿 的儿子 西门 ，你是蒙福的，因为这不是任何人启示你的，而是我在天上的父启示你的。 我还告诉你：你是 彼得 ，我要在这磐石上建立我的教会，阴间的门不能胜过它。", "esv": "Simon Peter replied, “You are the Christ, the Son of the living God.” And Jesus answered him,  “Blessed are you, Simon Bar-Jonah! For flesh and blood has not revealed this to you, but my Father who is in heaven. And I tell you, you are Peter, and on this rock  I will build my church, and the gates of hell  shall not prevail against it.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "ad2c06ab": {"ref": "箴言 17:17", "text": "朋友乃时常亲爱，弟兄为患难而生。<br/>", "ccb": "朋友时刻关怀，兄弟为患难而生。", "csb": "朋友会时时关爱，\n兄弟为患难而生。", "esv": " A friend loves at all times, and a brother is born for adversity.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "490d334b": {"ref": "箴言 18:24", "text": "滥交朋友的，自取败坏；但有一朋友比弟兄更亲密。", "ccb": "滥交朋友的，自取败坏；但有一朋友比弟兄更亲密。", "csb": "朋友太多的人，会受损害；\n但有一知己，比兄弟更亲密。", "esv": "A man of many companions may come to ruin, but there is a friend who sticks closer than a brother.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "cdf81770": {"ref": "使徒行传 2:42,44-46", "text": "都恒心遵守使徒的教训，彼此交接，擘饼，祈祷。信的人都在一处，凡物公用；并且卖了田产、家业，照各人所需用的分给各人。他们天天同心合意恒切地在殿里，且在家中擘饼，存着欢喜、诚实的心用饭。", "ccb": "他们都恒心遵守使徒的教导，彼此团契，擘饼，祈祷。... 信的人都在一处，凡物公用，并且卖了田产、家业，照各人所需用的分给各人。他们天天同心合意恒切地在殿里，且在家中擘饼，存着欢喜、诚实的心用饭，", "csb": "他们恒心持守使徒们的教训，彼此团契、掰饼、祷告。所有信了的人都在一处，凡物公用。他们变卖财产和财物，按照各人的需要分给大家。他们同心合意，天天在圣殿里恒切地相聚，又一家一家地掰饼，怀着喜乐和真诚的心用饭。", "esv": "And they devoted themselves to the apostles' teaching and the fellowship, to the breaking of bread and the prayers. And all who believed were together and had all things in common. And they were selling their possessions and belongings and distributing the proceeds to all, as any had need. And day by day, attending the temple together and breaking bread in their homes, they received their food with glad and generous hearts.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "eeeb4d7d": {"ref": "哥林多后书 6:14", "text": "你们和不信的原不相配，不要同负一轭。义和不义有什么相交呢？光明和黑暗有什么相通呢？", "ccb": "你们和不信的原不相配，不要同负一轭。义和不义有什么相交呢？光明和黑暗有什么相通呢？", "csb": "你们不可与不信的人同负一轭。公义和罪恶到底有什么相通呢？光明与黑暗有什么相合呢？", "esv": " Do not be unequally yoked with unbelievers. For what partnership has righteousness with lawlessness? Or what fellowship has light with darkness?", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "23f43a9e": {"ref": "约翰福音 4:23-24", "text": "时候将到，如今就是了，那真正拜父的，要用心灵和诚实拜他，因为父要这样的人拜他。” 神是个灵<sup>〔或无“个”字〕</sup>，所以拜他的必须用心灵和诚实拜他。", "ccb": "时候将到，如今就是了，那真正拜父的，要用心灵和诚实拜祂，因为父要这样的人拜祂。上帝是个灵，所以拜祂的必须用心灵和诚实拜祂。”", "csb": "然而，时候就要到了，现在就是了！那时真正敬拜的人，要在灵里和真理中敬拜父，因为父就是想要这样的人来敬拜他。 神是灵，敬拜他的人必须在灵里和真理中敬拜。”", "esv": "But the hour is coming, and is now here, when the true worshipers will worship the Father in spirit and truth, for the Father is seeking such people to worship him. God is spirit, and those who worship him must worship in spirit and truth.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "2bb1e245": {"ref": "马太福音 28:19-20", "text": "所以，你们要去，使万民作我的门徒，奉父、子、圣灵的名给他们施洗<sup>〔或作“给他们施洗，归于父子圣灵的名。”〕</sup>。 凡我所吩咐你们的，都教训他们遵守，我就常与你们同在，直到世界的末了。”", "ccb": "所以，你们要去使万民做我的门徒，奉父、子、圣灵的名给他们施洗，教导他们遵守我吩咐你们的一切。记住，我必常与你们同在，一直到世界的末了。”", "csb": "所以你们要去，使万民成为我的门徒；奉父、子、圣灵的名给他们施洗； 凡我所吩咐你们的，都教导他们遵守。看哪，我就天天都与你们同在，直到这世代的终结。”", "esv": " Go therefore and make disciples of all nations, baptizing them in  the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "9ca77b25": {"ref": "以弗所书 4:11-12", "text": "他所赐的，有使徒，有先知，有传福音的，有牧师和教师， 为要成全圣徒，各尽其职，建立基督的身体，", "ccb": "祂所赐的，有使徒，有先知，有传福音的，有牧师和教师，为要成全圣徒，各尽其职，建立基督的身体，", "csb": "他赐下一些人做使徒，一些人做先知传道，一些人做传福音者，一些人做牧人或教师， 为了要装备圣徒去做服事的工作，以建立基督的身体；", "esv": "And he gave the apostles, the prophets, the evangelists, the shepherds  and teachers,  to equip the saints for the work of ministry, for building up the body of Christ,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        const REF_LOOKUP = {};
+        for (const [id, entry] of Object.entries(VERSE_DATA)) {
+            if (entry.ref && entry.has_data) REF_LOOKUP[entry.ref] = entry;
+        }
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        let currentTranslation = localStorage.getItem('one2one_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = REF_LOOKUP[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
+        }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('one2one_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+            updateAllScriptures();
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { showToast('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        function updateAllScriptures() {
+            document.querySelectorAll('.scripture-container').forEach(div => {
+                const id = div.dataset.id;
+                const entry = VERSE_DATA[id];
+                if (!entry) return;
+                const trans = currentTranslation;
+                const hasTrans = entry['has_' + trans];
+                const text = (hasTrans && entry[trans]) ? entry[trans] : (entry.text || '暂无译文');
+                // Create elements on first render
+                let textEl = div.querySelector('.scripture-text');
+                let refEl = div.querySelector('.scripture-ref');
+                if (!textEl) {
+                    div.innerHTML = '';
+                    const ctrl = document.createElement('div');
+                    ctrl.className = 'sc-controls';
+                    const btn1 = document.createElement('button');
+                    btn1.className = 'btn-sc';
+                    btn1.textContent = '📖 经文';
+                    btn1.onclick = function() { showVerseDisplay(entry.ref); };
+                    ctrl.appendChild(btn1);
+                    const btn2 = document.createElement('button');
+                    btn2.className = 'btn-sc btn-toggle';
+                    btn2.textContent = '🙈 隐藏';
+                    btn2.onclick = function() { toggleScripture(id); };
+                    ctrl.appendChild(btn2);
+                    div.appendChild(ctrl);
+                    textEl = document.createElement('div');
+                    textEl.className = 'scripture-text';
+                    div.appendChild(textEl);
+                    refEl = document.createElement('div');
+                    refEl.className = 'scripture-ref';
+                    div.appendChild(refEl);
+                }
+                if (textEl) textEl.textContent = text;
+                if (refEl) refEl.textContent = '(' + entry.ref + (trans !== 'cuv' ? ' ' + TRANS_NAMES[trans] : '') + ')';
+            });
+        }
+
+        function toggleScripture(uid) {
+            const div = document.querySelector('.scripture-container[data-id="' + uid + '"]');
+            if (!div) return;
+            const textEl = div.querySelector('.scripture-text');
+            const btn = div.querySelector('.btn-toggle');
+            if (!textEl) return;
+            if (div.classList.contains('hidden-state')) {
+                div.classList.remove('hidden-state');
+                const entry = VERSE_DATA[uid];
+                const trans = currentTranslation;
+                const hasTrans = entry && entry['has_' + trans];
+                textEl.textContent = (hasTrans && entry[trans]) ? entry[trans] : (entry ? entry.text : '');
+                if (btn) btn.textContent = '🙈 隐藏';
+                if (btn) btn.classList.remove('hidden-state');
+            } else {
+                div.classList.add('hidden-state');
+                textEl.textContent = '💡 思考这段经文...';
+                if (btn) btn.textContent = '👁️ 显示';
+                if (btn) btn.classList.add('hidden-state');
+            }
+        }
+
+        function showToast(msg) {
+            var existing = document.querySelector('.bible-toast');
+            if (existing) existing.remove();
+            var toast = document.createElement('div');
+            toast.className = 'bible-toast';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(function() { toast.classList.add('show'); }, 10);
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() { toast.remove(); }, 300);
+            }, 2000);
+        }
+
+        // Init on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+            // Render all scripture containers
+            updateAllScriptures();
+            // Init hidden-state containers
+            document.querySelectorAll('.scripture-container.hidden-state').forEach(div => {
+                const textEl = div.querySelector('.scripture-text');
+                if (textEl) textEl.textContent = '💡 思考这段经文...';
+                const btn = div.querySelector('.btn-toggle');
+                if (btn) { btn.textContent = '👁️ 显示'; btn.classList.add('hidden-state'); }
+            });
+        });
+
+    </script>
 </body>
 </html>

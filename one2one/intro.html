@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>开始作门徒 | 一对一门徒训练</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>开始作门徒 | 一对一门徒训练</title>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -116,19 +117,9 @@
             box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
         }
 
-        .scripture-text {
-            color: #2c3e50;
-            font-size: 1.05em;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
+        
 
-        .scripture-ref {
-            color: #27ae60;
-            font-weight: 600;
-            font-size: 0.95em;
-            text-align: right;
-        }
+        
 
         /* 导航 */
         .navigation {
@@ -202,65 +193,169 @@
             }
 
             .navigation {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                gap: 8px;
+                justify-content: space-between;
             }
 
             .nav-btn {
-                width: 100%;
+                width: auto;
+                flex: 1;
                 text-align: center;
+                padding: 8px 4px;
+                font-size: 0.9em;
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="breadcrumb">
-                <a href="index.html">一对一</a> &gt; 开始作门徒
-            </div>
-            <h1>开始作门徒</h1>
-            <div class="subtitle">作门徒就是三关系</div>
-        </header>
 
-        <div class="content">
-            <div class="scripture"><div class="scripture-text">耶稣对他们说：“来跟从我，我要叫你们得人如得鱼一样。”</div><div class="scripture-ref">(马可福音 1:17)</div></div>
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            border-bottom: 1px solid #eee;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        /* === 经文容器 === */
+        .scripture-container {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6f7ed 100%);
+            border-left: 5px solid #27ae60;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .scripture-text {
+            color: #2c3e50;
+            font-size: 1.05em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .scripture-ref {
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-align: right;
+        }
+        /* 经文控制按钮 */
+        .sc-controls {
+            display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 8px;
+        }
+        .btn-sc {
+            padding: 4px 10px; border: 1px solid #27ae60; border-radius: 12px;
+            background: white; cursor: pointer; font-size: 0.78em; color: #27ae60; transition: all 0.2s;
+        }
+        .btn-sc:hover { background: #27ae60; color: white; }
+        .btn-sc.hidden-state { background: #27ae60; color: white; }
+        /* 内联经文按钮 */
+        .btn-verse-inline {
+            padding: 2px 6px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.75em; margin: 0 2px;
+            vertical-align: middle;
+        }
+        .btn-verse-inline:hover { background: #667eea; color: white; border-color: #667eea; }
+        /* Toast */
+        .bible-toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 10px 24px; border-radius: 20px;
+            font-size: 0.9em; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .bible-toast.show { opacity: 1; }
+        @media (max-width: 768px) {
+            .translation-bar { justify-content: center; }
+        }
+
+    </style>
+<link href="css/multilang.css" rel="stylesheet"/></head>
+<body>
+<div class="container">
+<header>
+<div class="breadcrumb">
+<a href="index.html">一对一</a> &gt; 开始作门徒
+            </div>
+<h1>开始作门徒</h1>
+<div class="subtitle">作门徒就是三关系</div>
+</header>
+
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+<div class="content">
+<div class="scripture-container" data-id="ff1a2ada" data-ref="马可福音 1:17 <button class="btn-verse-inline" onclick="showVerseDisplay('马可福音 1:17')">📖</button>"></div>
 <p>耶稣呼召门徒，"来跟从我"，这是一个关系的邀请——与他建立紧密的关系，并且一生不断成长。
     在这条门徒之路上，有三种核心关系需要我们不断去建立和深化：</p>
-<hr>
+<hr/>
 <h4>1. 跟随耶稣（与神的关系）</h4>
 <ul>
 <li><strong>相信并接受耶稣基督成为你的救主和生命的主</strong>。放下自我、好行为和靠自己得救的想法，单单信靠基督。</li>
 </ul>
-<div class="scripture"><div class="scripture-text">你们得救是本乎恩，也因着信；这并不是出于自己，而是神所赐的；也不是出于行为，免得有人自夸。</div><div class="scripture-ref">(以弗所书 2:8-9 和合本)</div></div>
+<div class="scripture-container" data-id="71e1352c" data-ref="以弗所书 2:8-9 <button class="btn-verse-inline" onclick="showVerseDisplay('以弗所书 2:8-9')">📖</button> 和合本"></div>
 <ul>
 <li><strong>悔改并离弃一切罪，追求圣洁的生活</strong>。不断地调整自己的心思意念和生活，让神的话语来更新你。</li>
 </ul>
-<div class="scripture"><div class="scripture-text">凡称呼主名的人总要离开不义。</div><div class="scripture-ref">(提摩太后书 2:19)</div></div>
+<div class="scripture-container" data-id="7574e2b8" data-ref="提摩太后书 2:19 <button class="btn-verse-inline" onclick="showVerseDisplay('提摩太后书 2:19')">📖</button>"></div>
 <ul>
 <li><strong>养成灵修习惯</strong>：每日读经、默想、祷告，保持与神持续亲密的交通。</li>
 </ul>
-<div class="scripture"><div class="scripture-text">这律法书不可离开你的口，总要昼夜思想，好使你谨守遵行这书上所写的一切话。如此，你的道路就可以亨通，凡事顺利。</div><div class="scripture-ref">(约书亚记 1:8)</div></div>
-<hr>
+<div class="scripture-container" data-id="9e88c6c0" data-ref="约书亚记 1:8 <button class="btn-verse-inline" onclick="showVerseDisplay('约书亚记 1:8')">📖</button>"></div>
+<hr/>
 <h4>2. 得人如鱼（与未信之人的关系）</h4>
 <ul>
 <li><strong>回应耶稣"得人如得鱼"的呼召</strong>：靠着圣灵的能力，主动向身边的人传扬福音，分享神的爱与救恩。用生命见证基督，以神的话语和真实的生命经历，带领人认识救主。</li>
 <li><strong>积极参与大使命</strong>：不仅自己做主的门徒，也要回应主的托付，带领他人成为门徒。</li>
 </ul>
-<div class="scripture"><div class="scripture-text">天上地下所有的权柄都赐给我了，所以你们要去使万民作我的门徒，奉父、子、圣灵的名给他们施洗，凡我所吩咐你们的，都教训他们遵守。我就常与你们同在，直到世界的末了。</div><div class="scripture-ref">(马太福音 28:18-20)</div></div>
+<div class="scripture-container" data-id="196fa0e5" data-ref="马太福音 28:18-20 <button class="btn-verse-inline" onclick="showVerseDisplay('马太福音 28:18-20')">📖</button>"></div>
 <p>这是主耶稣升天前给门徒的大使命。作为跟随基督的人，我们不仅自己活出门徒的生命,更要承接这份使命,帮助更多人认识主、跟随主,使他们也成为主的门徒。</p>
-<hr>
+<hr/>
 <h4>3. 团契相交（与信徒的关系）</h4>
 <ul>
 <li><strong>积极参加教会聚会、主日敬拜和团契</strong>，活在神家中，与其他信徒建立真实的关系，彼此相助、彼此勉励。</li>
 </ul>
-<div class="scripture"><div class="scripture-text">又要彼此相顾，激发爱心，勉励行善。你们不可停止聚会，好像那些停止惯了的人，倒要彼此劝勉。</div><div class="scripture-ref">(希伯来书 10:24-25)</div></div>
+<div class="scripture-container" data-id="fd9f6b91" data-ref="希伯来书 10:24-25 <button class="btn-verse-inline" onclick="showVerseDisplay('希伯来书 10:24-25')">📖</button>"></div>
 <ul>
 <li><strong>与教会分享自己的生命</strong>：在主内的安全与接纳中，彼此分享、代祷、承担与服侍，共同在基督里深化联系。</li>
 </ul>
-<div class="scripture"><div class="scripture-text">你们要彼此认罪，互相代求，使你们可以得医治。义人祈祷所发的力量是大有功效的。</div><div class="scripture-ref">(雅各书 5:16 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">各人要照所得的恩赐彼此服侍，作神百般恩赐的好管家。</div><div class="scripture-ref">(彼得前书 4:10 和合本)</div></div>
-<hr>
+<div class="scripture-container" data-id="105c097e" data-ref="雅各书 5:16 <button class="btn-verse-inline" onclick="showVerseDisplay('雅各书 5:16')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="00d755fc" data-ref="彼得前书 4:10 <button class="btn-verse-inline" onclick="showVerseDisplay('彼得前书 4:10')">📖</button> 和合本"></div>
+<hr/>
 <p><strong>耶稣的呼召包含三层关系：</strong></p>
 <ul>
 <li>跟随耶稣（与神的关系）：引导人真实信靠、亲近、跟随主，持续悔改与更新；</li>
@@ -268,20 +363,167 @@
 <li>团契相交（与信徒的关系）：帮助门徒委身教会生活，在肢体相连、彼此扶持中成长成为基督的身体。</li>
 </ul>
 <p>带门徒，就是帮助人从这三大关系持续扎根、成长，成为跟随基督、荣耀基督、影响他人的主门徒！</p>
-<hr>
-        </div>
-
-        <div class="navigation">
-            <div>
-                <a href="preface.html" class="nav-btn">← 上一课</a>
-            </div>
-            <div>
-                <a href="index.html" class="nav-btn home">📚 目录</a>
-            </div>
-            <div>
-                <a href="chapter_1.html" class="nav-btn">下一课 →</a>
-            </div>
+<hr/>
+</div>
+<div class="navigation">
+<div>
+<a class="nav-btn" href="preface.html">← 上一课</a>
+</div>
+<div>
+<a class="nav-btn home" href="index.html">📚 目录</a>
+</div>
+<div>
+<a class="nav-btn" href="chapter_1.html">下一课 →</a>
+</div>
+</div>
+</div>
+<script>
+            document.addEventListener('DOMContentLoaded', () => {
+                });
+        </script>
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
         </div>
     </div>
+
+    <script>
+        // ====== 多译本支持 ======
+        const VERSE_DATA = {"ff1a2ada": {"ref": "马可福音 1:17", "text": "耶稣对他们说：“来跟从我，我要叫你们得人如得鱼一样。”", "ccb": "耶稣对他们说：“来跟从我！我要使你们成为得人的渔夫。”", "csb": "耶稣就对他们说：“来跟从我！我将要使你们成为得人的渔夫。”", "esv": "And Jesus said to them, “Follow me, and I will make you become fishers of men.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "71e1352c": {"ref": "以弗所书 2:8-9", "text": "你们从前远离<i>神</i>的人，如今却在基督耶稣里，靠着他的血，已经得亲近了。", "ccb": "你们得救是靠恩典，凭信心。这不是出于你们自己，而是上帝的礼物；也不是由于你们的行为，以免有人自夸。", "csb": "但如今，在基督耶稣里，你们这些从前在远处的人，藉着基督的血，已经被带到近处了。", "esv": "But now in Christ Jesus you who once were far off have been brought near by the blood of Christ.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "7574e2b8": {"ref": "提摩太后书 2:19", "text": "你在许多见证人面前听见我所教训的，也要交托那忠心能教导别人的人。", "ccb": "凡自称是主的人，都必须离弃罪恶。", "csb": "你要把那些在许多见证人面前从我所听见的，交托给那些忠心可靠、又有能力教导别人的人。", "esv": "and what you have heard from me in the presence of many witnesses entrust to faithful men,  who will be able to teach others also.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "9e88c6c0": {"ref": "约书亚记 1:8", "text": "这律法书不可离开你的口，总要昼夜思想，好使你谨守遵行这书上所写的一切话。如此，你的道路就可以亨通，凡事顺利。", "ccb": "你要日夜思想这部律法书，不可离口，以便谨慎遵行书上的一切记载。这样，你的道路必亨通，凡事顺利。", "csb": "不要让这律法书离开你的口，而要昼思夜想，好使你谨守遵行其中所记的一切。这样你的道路才会顺利，你才会通达。", "esv": "This Book of the Law shall not depart from your mouth, but you shall meditate on it day and night, so that you may be careful to do according to all that is written in it. For then you will make your way prosperous, and then you will have good success.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "196fa0e5": {"ref": "马太福音 28:18-20", "text": "所以，你们要去，使万民作我的门徒，奉父、子、圣灵的名给他们施洗<sup>〔或作“给他们施洗，归于父子圣灵的名。”〕</sup>。 凡我所吩咐你们的，都教训他们遵守，我就常与你们同在，直到世界的末了。”", "ccb": "耶稣上前对门徒说：“天上地下所有的权柄都交给我了。所以，你们要去使万民做我的门徒，奉父、子、圣灵的名给他们施洗，教导他们遵守我吩咐你们的一切。记住，我必常与你们同在，一直到世界的末了。”", "csb": "所以你们要去，使万民成为我的门徒；奉父、子、圣灵的名给他们施洗； 凡我所吩咐你们的，都教导他们遵守。看哪，我就天天都与你们同在，直到这世代的终结。”", "esv": " Go therefore and make disciples of all nations, baptizing them in  the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "fd9f6b91": {"ref": "希伯来书 10:24-25", "text": "又要彼此相顾，激发爱心，勉励行善。 你们不可停止聚会，好像那些停止惯了的人，倒要彼此劝勉，既知道<sup>〔原文作“看见”〕</sup>那日子临近，就更当如此。", "ccb": "我们要设法彼此相顾，激发爱心，勉励行善。不要停止聚会，像那些停止惯了的人一样，要互相鼓励，特别是看见主再来的日子近了。", "csb": "让我们彼此看顾，好激励爱心和美好的工作。 你们不要放弃自己的聚会，像某些人所习惯的那样，而要彼此鼓励；你们既然看见那日子临近，就更应该这样。", "esv": "And let us consider how to stir up one another to love and good works,  not neglecting to meet together, as is the habit of some, but encouraging one another, and all the more as you see the Day drawing near.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "105c097e": {"ref": "雅各书 5:16", "text": "所以你们要彼此认罪，互相代求，使你们可以得医治。义人祈祷所发的力量是大有功效的。", "ccb": "所以，你们要彼此认罪，互相代祷，以便得到医治。义人的祷告有极大的力量和功效。", "csb": "所以你们当彼此认罪，彼此代求，好使你们得痊愈。义人所做的祈祷是大有力量的。", "esv": "Therefore, confess your sins to one another and pray for one another, that you may be healed. The prayer of a righteous person has great power as it is working.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "00d755fc": {"ref": "彼得前书 4:10", "text": "各人要照所得的恩赐彼此服事，作神百般恩赐的好管家。", "ccb": "你们要作上帝恩赐的好管家，利用各自所得的恩赐彼此服侍。", "csb": "每个人要照着自己所领受的恩赐来彼此服事，做神各种恩典的好管家。", "esv": " As each has received a gift, use it to serve one another, as good stewards of God's varied grace:", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        const REF_LOOKUP = {};
+        for (const [id, entry] of Object.entries(VERSE_DATA)) {
+            if (entry.ref && entry.has_data) REF_LOOKUP[entry.ref] = entry;
+        }
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        let currentTranslation = localStorage.getItem('one2one_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = REF_LOOKUP[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
+        }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('one2one_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+            updateAllScriptures();
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { showToast('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        function updateAllScriptures() {
+            document.querySelectorAll('.scripture-container').forEach(div => {
+                const id = div.dataset.id;
+                const entry = VERSE_DATA[id];
+                if (!entry) return;
+                const trans = currentTranslation;
+                const hasTrans = entry['has_' + trans];
+                const text = (hasTrans && entry[trans]) ? entry[trans] : (entry.text || '暂无译文');
+                // Create elements on first render
+                let textEl = div.querySelector('.scripture-text');
+                let refEl = div.querySelector('.scripture-ref');
+                if (!textEl) {
+                    div.innerHTML = '';
+                    const ctrl = document.createElement('div');
+                    ctrl.className = 'sc-controls';
+                    const btn1 = document.createElement('button');
+                    btn1.className = 'btn-sc';
+                    btn1.textContent = '📖 经文';
+                    btn1.onclick = function() { showVerseDisplay(entry.ref); };
+                    ctrl.appendChild(btn1);
+                    const btn2 = document.createElement('button');
+                    btn2.className = 'btn-sc btn-toggle';
+                    btn2.textContent = '🙈 隐藏';
+                    btn2.onclick = function() { toggleScripture(id); };
+                    ctrl.appendChild(btn2);
+                    div.appendChild(ctrl);
+                    textEl = document.createElement('div');
+                    textEl.className = 'scripture-text';
+                    div.appendChild(textEl);
+                    refEl = document.createElement('div');
+                    refEl.className = 'scripture-ref';
+                    div.appendChild(refEl);
+                }
+                if (textEl) textEl.textContent = text;
+                if (refEl) refEl.textContent = '(' + entry.ref + (trans !== 'cuv' ? ' ' + TRANS_NAMES[trans] : '') + ')';
+            });
+        }
+
+        function toggleScripture(uid) {
+            const div = document.querySelector('.scripture-container[data-id="' + uid + '"]');
+            if (!div) return;
+            const textEl = div.querySelector('.scripture-text');
+            const btn = div.querySelector('.btn-toggle');
+            if (!textEl) return;
+            if (div.classList.contains('hidden-state')) {
+                div.classList.remove('hidden-state');
+                const entry = VERSE_DATA[uid];
+                const trans = currentTranslation;
+                const hasTrans = entry && entry['has_' + trans];
+                textEl.textContent = (hasTrans && entry[trans]) ? entry[trans] : (entry ? entry.text : '');
+                if (btn) btn.textContent = '🙈 隐藏';
+                if (btn) btn.classList.remove('hidden-state');
+            } else {
+                div.classList.add('hidden-state');
+                textEl.textContent = '💡 思考这段经文...';
+                if (btn) btn.textContent = '👁️ 显示';
+                if (btn) btn.classList.add('hidden-state');
+            }
+        }
+
+        function showToast(msg) {
+            var existing = document.querySelector('.bible-toast');
+            if (existing) existing.remove();
+            var toast = document.createElement('div');
+            toast.className = 'bible-toast';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(function() { toast.classList.add('show'); }, 10);
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() { toast.remove(); }, 300);
+            }, 2000);
+        }
+
+        // Init on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+            // Render all scripture containers
+            updateAllScriptures();
+            // Init hidden-state containers
+            document.querySelectorAll('.scripture-container.hidden-state').forEach(div => {
+                const textEl = div.querySelector('.scripture-text');
+                if (textEl) textEl.textContent = '💡 思考这段经文...';
+                const btn = div.querySelector('.btn-toggle');
+                if (btn) { btn.textContent = '👁️ 显示'; btn.classList.add('hidden-state'); }
+            });
+        });
+
+    </script>
 </body>
 </html>

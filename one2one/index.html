@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>一对一门徒训练课程</title>
-    <style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>一对一门徒训练课程</title>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -39,6 +41,7 @@
             font-size: 1.2em;
             opacity: 0.9;
         }
+
         .chapters {
             background: white;
             border-radius: 15px;
@@ -108,69 +111,99 @@
                 font-size: 1.1em;
             }
         }
-    </style>
-</head>
+    
+        .home-btn {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+        }
+        .home-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+</style>
+<link href="css/multilang.css" rel="stylesheet"/></head>
 <body>
-        <div class="container">
+<div class="container">
+<header>
+<a href="../index.html" class="home-btn"><i class="fas fa-home"></i> 返回主页</a>
+<h1>📖 一对一</h1>
+<div class="subtitle">个人跟进及带门徒</div>
+</header>
 
-        <header>
-            <h1>📖 一对一</h1>
-            <div class="subtitle">个人跟进及带门徒</div>
-        </header>
-
-        <div class="chapters">
-            
-            <a href="preface.html" class="chapter-item">
-                <div class="chapter-title">前言</div>
-                
-            </a>
-        
-            <a href="intro.html" class="chapter-item">
-                <div class="chapter-title">开始作门徒</div>
-                <div class="chapter-subtitle">三关系</div>
-            </a>
-        
-            <a href="chapter_1.html" class="chapter-item">
-                <div class="chapter-title">新起点 得救</div>
-                <div class="chapter-subtitle">第1课</div>
-            </a>
-        
-            <a href="chapter_2.html" class="chapter-item">
-                <div class="chapter-title">新主人 主权</div>
-                <div class="chapter-subtitle">第2课</div>
-            </a>
-        
-            <a href="chapter_3.html" class="chapter-item">
-                <div class="chapter-title">新方向 悔改</div>
-                <div class="chapter-subtitle">第3课</div>
-            </a>
-        
-            <a href="chapter_4.html" class="chapter-item">
-                <div class="chapter-title">新生命 洗礼</div>
-                <div class="chapter-subtitle">第4课</div>
-            </a>
-        
-            <a href="chapter_5.html" class="chapter-item">
-                <div class="chapter-title">新操练 灵修</div>
-                <div class="chapter-subtitle">第5课</div>
-            </a>
-        
-            <a href="chapter_6.html" class="chapter-item">
-                <div class="chapter-title">新关系 教会</div>
-                <div class="chapter-subtitle">第6课</div>
-            </a>
-        
-            <a href="chapter_7.html" class="chapter-item">
-                <div class="chapter-title">新使命 带门徒</div>
-                <div class="chapter-subtitle">第7课</div>
-            </a>
-        
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
         </div>
 
-        <footer>
-            <p>耶稣对他们说:"来跟从我,我要叫你们得人如得鱼一样。"</p>
-            <p>(马可福音 1:17)</p>
-        </footer>
-    </div>
+<div class="chapters">
+<a class="chapter-item" href="preface.html">
+<div class="chapter-title">前言</div>
+</a>
+<a class="chapter-item" href="intro.html">
+<div class="chapter-title">开始作门徒</div>
+<div class="chapter-subtitle">三关系</div>
+</a>
+<a class="chapter-item" href="chapter_1.html">
+<div class="chapter-title">新起点 得救</div>
+<div class="chapter-subtitle">第1课</div>
+</a>
+<a class="chapter-item" href="chapter_2.html">
+<div class="chapter-title">新主人 主权</div>
+<div class="chapter-subtitle">第2课</div>
+</a>
+<a class="chapter-item" href="chapter_3.html">
+<div class="chapter-title">新方向 悔改</div>
+<div class="chapter-subtitle">第3课</div>
+</a>
+<a class="chapter-item" href="chapter_4.html">
+<div class="chapter-title">新生命 洗礼</div>
+<div class="chapter-subtitle">第4课</div>
+</a>
+<a class="chapter-item" href="chapter_5.html">
+<div class="chapter-title">新操练 灵修</div>
+<div class="chapter-subtitle">第5课</div>
+</a>
+<a class="chapter-item" href="chapter_6.html">
+<div class="chapter-title">新关系 教会</div>
+<div class="chapter-subtitle">第6课</div>
+</a>
+<a class="chapter-item" href="chapter_7.html">
+<div class="chapter-title">新使命 带门徒</div>
+<div class="chapter-subtitle">第7课</div>
+</a>
+</div>
+<footer>
+<p>耶稣对他们说:"来跟从我,我要叫你们得人如得鱼一样。"</p>
+<p>(马可福音 1:17)</p>
+</footer>
+</div>
+<script>=> {
+                });
+        </script>    <script>
+        let currentTranslation = localStorage.getItem('one2one_translation') || 'cuv';
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+        });
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('one2one_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+        }
+    </script>
 </body>
 </html>

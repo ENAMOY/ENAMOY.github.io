@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新主人 主权 | 一对一门徒训练</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>新主人 主权 | 一对一门徒训练</title>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -116,19 +117,9 @@
             box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
         }
 
-        .scripture-text {
-            color: #2c3e50;
-            font-size: 1.05em;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
+        
 
-        .scripture-ref {
-            color: #27ae60;
-            font-weight: 600;
-            font-size: 0.95em;
-            text-align: right;
-        }
+        
 
         /* 导航 */
         .navigation {
@@ -202,52 +193,156 @@
             }
 
             .navigation {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                gap: 8px;
+                justify-content: space-between;
             }
 
             .nav-btn {
-                width: 100%;
+                width: auto;
+                flex: 1;
                 text-align: center;
+                padding: 8px 4px;
+                font-size: 0.9em;
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="breadcrumb">
-                <a href="index.html">一对一</a> &gt; 新主人 主权
-            </div>
-            <h1>新主人 主权</h1>
-            <div class="subtitle">第2课</div>
-        </header>
 
-        <div class="content">
-            <div class="scripture"><div class="scripture-text">故此，以色列全家当确实知道，<br>你们钉在十字架上的这位耶稣，<br>神已经立他为主，为基督了。</div><div class="scripture-ref">(使徒行传 2:36 和合本)</div></div>
-<p>使徒行传 2:36 明确指出，神已立耶稣为主，为基督。这意味着我们不仅要接受耶稣作我们的救主，让他拯救我们脱离罪的捆绑和永恒的灭亡，更要让他作我们生命中至高无上的主宰。</p>
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            border-bottom: 1px solid #eee;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        /* === 经文容器 === */
+        .scripture-container {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6f7ed 100%);
+            border-left: 5px solid #27ae60;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .scripture-text {
+            color: #2c3e50;
+            font-size: 1.05em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .scripture-ref {
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-align: right;
+        }
+        /* 经文控制按钮 */
+        .sc-controls {
+            display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 8px;
+        }
+        .btn-sc {
+            padding: 4px 10px; border: 1px solid #27ae60; border-radius: 12px;
+            background: white; cursor: pointer; font-size: 0.78em; color: #27ae60; transition: all 0.2s;
+        }
+        .btn-sc:hover { background: #27ae60; color: white; }
+        .btn-sc.hidden-state { background: #27ae60; color: white; }
+        /* 内联经文按钮 */
+        .btn-verse-inline {
+            padding: 2px 6px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.75em; margin: 0 2px;
+            vertical-align: middle;
+        }
+        .btn-verse-inline:hover { background: #667eea; color: white; border-color: #667eea; }
+        /* Toast */
+        .bible-toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 10px 24px; border-radius: 20px;
+            font-size: 0.9em; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .bible-toast.show { opacity: 1; }
+        @media (max-width: 768px) {
+            .translation-bar { justify-content: center; }
+        }
+
+    </style>
+<link href="css/multilang.css" rel="stylesheet"/></head>
+<body>
+<div class="container">
+<header>
+<div class="breadcrumb">
+<a href="index.html">一对一</a> &gt; 新主人 主权
+            </div>
+<h1>新主人 主权</h1>
+<div class="subtitle">第2课</div>
+</header>
+
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+<div class="content">
+<div class="scripture-container" data-id="ef02c8de" data-ref="使徒行传 2:36 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 2:36')">📖</button> 和合本"></div>
+<p>使徒行传 2:36 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 2:36')">📖</button> 明确指出，神已立耶稣为主，为基督。这意味着我们不仅要接受耶稣作我们的救主，让他拯救我们脱离罪的捆绑和永恒的灭亡，更要让他作我们生命中至高无上的主宰。</p>
 <p>神是宇宙万物的创造者和管理者，他为我们的生命设立了属灵的法则。当我们让耶稣作我们生命的主，顺服他的旨意时，我们才能真正活出神创造我们的目的，并享受他所预备的丰盛生命和恩典。</p>
 <p>将主权交给耶稣，是否意味着失去自由？绝非如此！当我们顺服耶稣的主权，我们确实会放弃那些被罪捆绑的“自由”——例如撒谎、欺骗、自私、仇恨等。然而，我们因此获得了真正的自由：从罪的辖制中得释放，活出诚实、正直、勤劳、忠诚、慷慨和爱等美德的自由。这才是神所赐予的真自由。</p>
 <h3>尊主权与得救</h3>
-<div class="scripture"><div class="scripture-text">你若口里认耶稣为主，心里信　神叫他从死里复活，就必得救。</div><div class="scripture-ref">(罗马书 10:9 和合本)</div></div>
-<p>罗马书 10:9 清楚指出，得救不仅是相信耶稣为我们成就的救赎，更包括口里承认他为主。这意味着我们必须将生命的最高主权交给耶稣，让他掌管我们的一切。当我们真心承认耶稣是主，并愿意顺服他时，我们就脱离了罪和死亡的辖制，进入了神所赐的救恩。</p>
+<div class="scripture-container" data-id="90ab4fab" data-ref="罗马书 10:9 <button class="btn-verse-inline" onclick="showVerseDisplay('罗马书 10:9')">📖</button> 和合本"></div>
+<p>罗马书 10:9 <button class="btn-verse-inline" onclick="showVerseDisplay('罗马书 10:9')">📖</button> 清楚指出，得救不仅是相信耶稣为我们成就的救赎，更包括口里承认他为主。这意味着我们必须将生命的最高主权交给耶稣，让他掌管我们的一切。当我们真心承认耶稣是主，并愿意顺服他时，我们就脱离了罪和死亡的辖制，进入了神所赐的救恩。</p>
 <h3>尊主权要求顺服</h3>
-<div class="scripture"><div class="scripture-text">“你们为什么称呼我‘主啊，主啊’却不遵我的话行呢？</div><div class="scripture-ref">(路加福音 6:46 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">“凡称呼我‘主啊，主啊’的人不能都进天国；惟独遵行我天父旨意的人才能进去。</div><div class="scripture-ref">(马太福音 7:21 和合本)</div></div>
+<div class="scripture-container" data-id="14de1ddc" data-ref="路加福音 6:46 <button class="btn-verse-inline" onclick="showVerseDisplay('路加福音 6:46')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="6ca2cece" data-ref="马太福音 7:21 <button class="btn-verse-inline" onclick="showVerseDisplay('马太福音 7:21')">📖</button> 和合本"></div>
 <p>任何人宣称耶稣是主，他就该照着耶稣说的去做。</p>
 <p>单是理性上的接受和空泛的承认是不够的。</p>
 <p>如果我们说耶稣是主，那么从我们的生活方式上应该能够看出来他真正是我们的主。</p>
 <h3>尊主权从内心开始</h3>
-<div class="scripture"><div class="scripture-text">只要心里奉主基督为圣，尊他为主。</div><div class="scripture-ref">(彼得前书 3:15 和修版)</div></div>
+<div class="scripture-container" data-id="8cbae827" data-ref="彼得前书 3:15 <button class="btn-verse-inline" onclick="showVerseDisplay('彼得前书 3:15')">📖</button> 和修版"></div>
 <p>尊主权不在于遵守一系列的宗教规条和传统，而是要在心里让耶稣做主。</p>
 <p>尊主权是从我们内心的顺服开始。</p>
 <p>如果我们真心愿意让他做主，那么我们外在的行为上最终会表现出来。</p>
 <h3>尊主权就是遵他而行</h3>
-<div class="scripture"><div class="scripture-text">你们既然接受了主基督耶稣，就当遵他而行。</div><div class="scripture-ref">(歌罗西书 2:6 和合本)</div></div>
+<div class="scripture-container" data-id="4749ccae" data-ref="歌罗西书 2:6 <button class="btn-verse-inline" onclick="showVerseDisplay('歌罗西书 2:6')">📖</button> 和合本"></div>
 <p>承认耶稣是主，是我们基督徒生命的开端。我们必须持续活在他的主权之下。尊主权并非一时的经历，而是我们一生之久在他里面行事为人的持续过程。我们对耶稣的认识越深，就越能甘心顺服他。</p>
 <h3>爱主才能尊主权</h3>
-<div class="scripture"><div class="scripture-text">以色列啊，你要听！耶和华我们神是独一的主。<br>你要尽心、尽性、尽力爱耶和华你的神。</div><div class="scripture-ref">(申命记 6:4,5 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">“夫子，律法上的诫命，哪一条是最大的呢？”<br>耶稣对他说：“你要尽心、尽性、尽意爱主－你的　神。这是诫命中的第一，且是最大的。</div><div class="scripture-ref">(马太福音 22:36-38 和合本)</div></div>
+<div class="scripture-container" data-id="16d9bcf1" data-ref="申命记 6:4,5 和合本"></div>
+<div class="scripture-container" data-id="b3df7b94" data-ref="马太福音 22:36-38 <button class="btn-verse-inline" onclick="showVerseDisplay('马太福音 22:36-38')">📖</button> 和合本"></div>
 <p>尊耶稣为主，核心在于与他建立一份真实、深入且亲密的爱之关系。</p>
 <p>他深切渴望我们能认识他那丰盛而完全的爱，并以爱来回应他。</p>
 <p>我们之所以让耶稣作主，其根本原因正是出于对神的爱。 因为爱，我们甘心乐意地顺服；也正因为爱，顺服便成为一种享受。</p>
@@ -259,20 +354,167 @@
 <li>你如何管理和使用金钱？你是否将金钱的主权交给耶稣，并按他的心意奉献和使用？</li>
 <li>你如何安排和使用你的时间？你是否将时间的主权交给耶稣，并寻求他的引导来优先处理重要的事？</li>
 </ul>
-<hr>
-        </div>
-
-        <div class="navigation">
-            <div>
-                <a href="chapter_1.html" class="nav-btn">← 上一课</a>
-            </div>
-            <div>
-                <a href="index.html" class="nav-btn home">📚 目录</a>
-            </div>
-            <div>
-                <a href="chapter_3.html" class="nav-btn">下一课 →</a>
-            </div>
+<hr/>
+</div>
+<div class="navigation">
+<div>
+<a class="nav-btn" href="chapter_1.html">← 上一课</a>
+</div>
+<div>
+<a class="nav-btn home" href="index.html">📚 目录</a>
+</div>
+<div>
+<a class="nav-btn" href="chapter_3.html">下一课 →</a>
+</div>
+</div>
+</div>
+<script>
+            document.addEventListener('DOMContentLoaded', () => {
+                });
+        </script>
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
         </div>
     </div>
+
+    <script>
+        // ====== 多译本支持 ======
+        const VERSE_DATA = {"ef02c8de": {"ref": "使徒行传 2:36", "text": "“故此，<e>以色列</e>全家当确实地知道，你们钉在十字架上的这位耶稣，神已经立他为主，为基督了。”", "ccb": "“所以，以色列全体人民应当确实知道，这位被你们钉在十字架上的耶稣，上帝已经立祂为主、为基督了。”", "csb": "“因此， 以色列 全家都当确实知道：被你们钉上十字架的这位耶稣，神已经委任他为主、为基督了。”", "esv": "Let all the house of Israel therefore know for certain that God has made him both Lord and Christ, this Jesus whom you crucified.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "90ab4fab": {"ref": "罗马书 10:9", "text": "你若口里认耶稣为主，心里信神叫他从死里复活，就必得救。 因为，人心里相信就可以称义，口里承认就可以得救。", "ccb": "你若口里承认耶稣是主，心里相信上帝叫祂从死里复活，就必得救。", "csb": "你如果口里承认耶稣是主，心里相信神使他从死人中复活，就将得救。 就是说，人心里相信以致称义，口里承认以致救恩，", "esv": "because, if you confess with your mouth that Jesus is Lord and believe in your heart that God raised him from the dead, you will be saved. For with the heart one believes and is justified, and with the mouth one confesses and is saved.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "14de1ddc": {"ref": "路加福音 6:46", "text": "“你们为什么称呼我『主啊，主啊』却不遵我的话行呢？", "ccb": "“你们为什么称呼我‘主啊，主啊’，却不遵行我的话呢？", "csb": "“你们为什么称呼我‘主啊，主啊！’却不遵行我所说的话呢？", "esv": " “Why do you call me ‘Lord, Lord,’ and not do what I tell you?", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "6ca2cece": {"ref": "马太福音 7:21", "text": "“凡称呼我『主啊，主啊』的人不能都进天国；惟独遵行我天父旨意的人才能进去。", "ccb": "“凡称呼我‘主啊，主啊’的人不都能进天国，只有遵行我天父旨意的人才能进去。", "csb": "“不是每一个称呼我‘主啊，主啊’的人，都能进入天国；只有遵行我天父旨意的人，才能进去。", "esv": " “Not everyone who says to me, ‘Lord, Lord,’ will enter the kingdom of heaven, but the one who does the will of my Father who is in heaven.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "8cbae827": {"ref": "彼得前书 3:15", "text": "只要心里尊主基督为圣。有人问你们心中盼望的缘由，就要常作准备，以温柔、敬畏的心回答各人；", "ccb": "只要心里尊基督为主，尊祂为圣。有人问你们心中盼望的缘由，就要常作准备，以温柔、敬畏的心回答各人；", "csb": "只要你们心里尊主基督为圣，无论谁要你们对你们里面的盼望做个交代，你们都要随时预备好答复他；", "esv": "but in your hearts honor Christ the Lord as holy, always being prepared to make a defense to anyone who asks you for a reason for the hope that is in you; yet do it with gentleness and respect,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "4749ccae": {"ref": "歌罗西书 2:6", "text": "你们既然接受了主基督耶稣，就当遵他而行，", "ccb": "你们既然接受了基督耶稣为主，就要在祂里面而行。", "csb": "所以，你们怎样接受了主基督耶稣，就应当怎样在他里面行事，", "esv": " Therefore, as you received Christ Jesus the Lord, so walk in him,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "16d9bcf1": {"ref": "申命记 6:4,5", "text": "“<e>以色列</e>啊，你要听！耶和华──我们神是独一的主。 你要尽心、尽性、尽力爱耶和华──你的神。", "ccb": "“以色列啊，你要听！耶和华我们的上帝是独一的主。你要全心、全情、全力爱耶和华你的上帝。", "csb": "以色列 啊，你要听：耶和华是我们的神，耶和华是唯一的！ 你要全心、全灵、全力爱耶和华你的神。", "esv": "“Hear, O Israel: The LORD our God, the LORD is one. You shall love the LORD your God with all your heart and with all your soul and with all your might.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "b3df7b94": {"ref": "马太福音 22:36-38", "text": "“夫子，律法上的诫命，哪一条是最大的呢？” 耶稣对他说：“你要尽心、尽性、尽意爱主──你的神。 这是诫命中的第一，且是最大的。", "ccb": "“老师，律法中哪一条诫命最重要呢？”耶稣回答说：“‘你要全心、全情、全意爱主——你的上帝’，这是第一条也是最重要的诫命。", "csb": "“老师，律法中最大的诫命是哪一条呢？” 耶稣对他说：“ ‘你要以全心、全灵、全意爱主——你的 神 ’ ， 这是最大的，也是最重要的诫命。", "esv": "“Teacher, which is the great commandment in the Law?” And he said to him,  “You shall love the Lord your God with all your heart and with all your soul and with all your mind. This is the great and first commandment.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        const REF_LOOKUP = {};
+        for (const [id, entry] of Object.entries(VERSE_DATA)) {
+            if (entry.ref && entry.has_data) REF_LOOKUP[entry.ref] = entry;
+        }
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        let currentTranslation = localStorage.getItem('one2one_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = REF_LOOKUP[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
+        }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('one2one_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+            updateAllScriptures();
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { showToast('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        function updateAllScriptures() {
+            document.querySelectorAll('.scripture-container').forEach(div => {
+                const id = div.dataset.id;
+                const entry = VERSE_DATA[id];
+                if (!entry) return;
+                const trans = currentTranslation;
+                const hasTrans = entry['has_' + trans];
+                const text = (hasTrans && entry[trans]) ? entry[trans] : (entry.text || '暂无译文');
+                // Create elements on first render
+                let textEl = div.querySelector('.scripture-text');
+                let refEl = div.querySelector('.scripture-ref');
+                if (!textEl) {
+                    div.innerHTML = '';
+                    const ctrl = document.createElement('div');
+                    ctrl.className = 'sc-controls';
+                    const btn1 = document.createElement('button');
+                    btn1.className = 'btn-sc';
+                    btn1.textContent = '📖 经文';
+                    btn1.onclick = function() { showVerseDisplay(entry.ref); };
+                    ctrl.appendChild(btn1);
+                    const btn2 = document.createElement('button');
+                    btn2.className = 'btn-sc btn-toggle';
+                    btn2.textContent = '🙈 隐藏';
+                    btn2.onclick = function() { toggleScripture(id); };
+                    ctrl.appendChild(btn2);
+                    div.appendChild(ctrl);
+                    textEl = document.createElement('div');
+                    textEl.className = 'scripture-text';
+                    div.appendChild(textEl);
+                    refEl = document.createElement('div');
+                    refEl.className = 'scripture-ref';
+                    div.appendChild(refEl);
+                }
+                if (textEl) textEl.textContent = text;
+                if (refEl) refEl.textContent = '(' + entry.ref + (trans !== 'cuv' ? ' ' + TRANS_NAMES[trans] : '') + ')';
+            });
+        }
+
+        function toggleScripture(uid) {
+            const div = document.querySelector('.scripture-container[data-id="' + uid + '"]');
+            if (!div) return;
+            const textEl = div.querySelector('.scripture-text');
+            const btn = div.querySelector('.btn-toggle');
+            if (!textEl) return;
+            if (div.classList.contains('hidden-state')) {
+                div.classList.remove('hidden-state');
+                const entry = VERSE_DATA[uid];
+                const trans = currentTranslation;
+                const hasTrans = entry && entry['has_' + trans];
+                textEl.textContent = (hasTrans && entry[trans]) ? entry[trans] : (entry ? entry.text : '');
+                if (btn) btn.textContent = '🙈 隐藏';
+                if (btn) btn.classList.remove('hidden-state');
+            } else {
+                div.classList.add('hidden-state');
+                textEl.textContent = '💡 思考这段经文...';
+                if (btn) btn.textContent = '👁️ 显示';
+                if (btn) btn.classList.add('hidden-state');
+            }
+        }
+
+        function showToast(msg) {
+            var existing = document.querySelector('.bible-toast');
+            if (existing) existing.remove();
+            var toast = document.createElement('div');
+            toast.className = 'bible-toast';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(function() { toast.classList.add('show'); }, 10);
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() { toast.remove(); }, 300);
+            }, 2000);
+        }
+
+        // Init on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+            // Render all scripture containers
+            updateAllScriptures();
+            // Init hidden-state containers
+            document.querySelectorAll('.scripture-container.hidden-state').forEach(div => {
+                const textEl = div.querySelector('.scripture-text');
+                if (textEl) textEl.textContent = '💡 思考这段经文...';
+                const btn = div.querySelector('.btn-toggle');
+                if (btn) { btn.textContent = '👁️ 显示'; btn.classList.add('hidden-state'); }
+            });
+        });
+
+    </script>
 </body>
 </html>

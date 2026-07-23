@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新生命 洗礼 | 一对一门徒训练</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>新生命 洗礼 | 一对一门徒训练</title>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -116,19 +117,9 @@
             box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
         }
 
-        .scripture-text {
-            color: #2c3e50;
-            font-size: 1.05em;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
+        
 
-        .scripture-ref {
-            color: #27ae60;
-            font-weight: 600;
-            font-size: 0.95em;
-            text-align: right;
-        }
+        
 
         /* 导航 */
         .navigation {
@@ -202,57 +193,161 @@
             }
 
             .navigation {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                gap: 8px;
+                justify-content: space-between;
             }
 
             .nav-btn {
-                width: 100%;
+                width: auto;
+                flex: 1;
                 text-align: center;
+                padding: 8px 4px;
+                font-size: 0.9em;
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="breadcrumb">
-                <a href="index.html">一对一</a> &gt; 新生命 洗礼
-            </div>
-            <h1>新生命 洗礼</h1>
-            <div class="subtitle">第4课</div>
-        </header>
 
-        <div class="content">
-            <div class="scripture"><div class="scripture-text">彼得说：“你们各人要悔改，奉耶稣基督的名受洗，叫你们的罪得赦，就必领受所赐的圣灵。”</div><div class="scripture-ref">(使徒行传 2:38 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">于是领受他话的人就受了洗，那一天门徒约添了三千人。</div><div class="scripture-ref">(使徒行传 2:41 和合本)</div></div>
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            border-bottom: 1px solid #eee;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        /* === 经文容器 === */
+        .scripture-container {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6f7ed 100%);
+            border-left: 5px solid #27ae60;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .scripture-text {
+            color: #2c3e50;
+            font-size: 1.05em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .scripture-ref {
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-align: right;
+        }
+        /* 经文控制按钮 */
+        .sc-controls {
+            display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 8px;
+        }
+        .btn-sc {
+            padding: 4px 10px; border: 1px solid #27ae60; border-radius: 12px;
+            background: white; cursor: pointer; font-size: 0.78em; color: #27ae60; transition: all 0.2s;
+        }
+        .btn-sc:hover { background: #27ae60; color: white; }
+        .btn-sc.hidden-state { background: #27ae60; color: white; }
+        /* 内联经文按钮 */
+        .btn-verse-inline {
+            padding: 2px 6px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.75em; margin: 0 2px;
+            vertical-align: middle;
+        }
+        .btn-verse-inline:hover { background: #667eea; color: white; border-color: #667eea; }
+        /* Toast */
+        .bible-toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 10px 24px; border-radius: 20px;
+            font-size: 0.9em; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .bible-toast.show { opacity: 1; }
+        @media (max-width: 768px) {
+            .translation-bar { justify-content: center; }
+        }
+
+    </style>
+<link href="css/multilang.css" rel="stylesheet"/></head>
+<body>
+<div class="container">
+<header>
+<div class="breadcrumb">
+<a href="index.html">一对一</a> &gt; 新生命 洗礼
+            </div>
+<h1>新生命 洗礼</h1>
+<div class="subtitle">第4课</div>
+</header>
+
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+<div class="content">
+<div class="scripture-container" data-id="71123660" data-ref="使徒行传 2:38 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 2:38')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="0b424d86" data-ref="使徒行传 2:41 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 2:41')">📖</button> 和合本"></div>
 <p>人们听完讲道后，问彼得应当怎样行。彼得给他们的答案分为三步：悔改、受洗、领受圣灵。数千人照做，加入了门徒的行列。 圣经中的模式是，凡是受洗的人都会加入门徒的行列，都要积极地参与教会生活。</p>
 <h3>水洗礼</h3>
 <p>水洗礼是我们在众人面前公开承认耶稣在十字架上为我们完成救赎的重要行动。洗礼本身并不能使我们得救，但当我们相信福音、悔改归向神之后，藉着受洗来表达我们愿意顺服神、信靠主耶稣的心志。</p>
 <p>圣经用多个比喻帮助我们理解水洗礼的意义，其中最重要的之一是“埋葬与复活”。保罗曾将基督徒的洗礼比喻为一种葬礼：</p>
-<div class="scripture"><div class="scripture-text">这样，我们可以说什么呢？我们可以仍在罪中，叫恩典显多吗？<br>断乎不可！我们在罪上死了的人，岂可仍在罪中活着呢？<br>岂不知我们这受洗归入基督耶稣的人，是受洗归入他的死吗？<br>所以我们藉着洗礼归入死，和他一同埋葬，原是叫我们一举一动有新生的样式，像基督藉着父的荣耀从死里复活一样。</div><div class="scripture-ref">(罗马书 6:1-4 和合本)</div></div>
+<div class="scripture-container" data-id="113f0547" data-ref="罗马书 6:1-4 <button class="btn-verse-inline" onclick="showVerseDisplay('罗马书 6:1-4')">📖</button> 和合本"></div>
 <p>圣经明确教导，水洗礼代表我们与基督一同经历死、埋葬和复活的属灵实际。当一个信徒受洗时，这不仅是外在的仪式，更是表明他/她因信与基督联合——和基督一同向罪死去，也与基督一同从死里复活，开始过一个新生命。不再被旧生命所辖制，而是借着圣灵活出合乎神心意的新样式。</p>
 <p>洗礼见证了我们过去的旧人（属罪的本性）已经与基督同钉十字架，如今不再作罪的奴仆，乃是在基督里得着自由。这是过去真实发生的救恩事实的标志，也是信徒一生追求属灵成长的起点。新生命并不单单靠行为努力，而是时刻信靠与基督联合、顺服圣灵的引导。基督如何借着父的荣耀复活，我们也应靠着圣灵的大能，每天活出讨神喜悦的生活。</p>
 <p>因此，水洗礼是对恩典的回应，是顺服信心的宣告，也是对世界和罪表明决心离弃、归于基督的记号，标志着信徒新生命的开始。</p>
 <h3>圣灵的洗</h3>
-<div class="scripture"><div class="scripture-text">然而我将真情告诉你们，我去是与你们有益的；我若不去，保惠师就不到你们这里来，我若去，就差他来。<br>只等真理的圣灵来了，他要引导你们明白（原文作进入）一切的真理，因为他不是凭自己说的，乃是把他所听见的都说出来，并要把将来的事告诉你们。</div><div class="scripture-ref">(约翰福音 16:7,13 和合本)</div></div>
+<div class="scripture-container" data-id="e937f2f3" data-ref="约翰福音 16:7,13 和合本"></div>
 <p>圣灵的洗是每一位基督徒必须经历的属灵里程碑。 耶稣亲口宣告，唯有祂离世升天，保惠师——圣灵——才能降临，带领信徒进入一切的真理，使我们能够真实认识神并顺服跟随祂。 没有圣灵的同在和能力，基督徒的生命无法得力、不能得胜，更不能真正明白神的心意或活出复活的新生命。 光有自己的热情、善意和努力，是完全不够的。 圣灵的洗就是圣灵全面充满和掌管的经历，是信徒得着从神而来超自然生活力量的关键。 每一个真正重生的人，都需要也必须渴慕圣灵的洗，因为这是与神建立亲密关系、并活出基督丰盛生命的绝对必要。</p>
-<div class="scripture"><div class="scripture-text">但圣灵降临在你们身上，你们就必得着能力，并要在耶路撒冷、犹太全地和撒玛利亚，直到地极，作我的见证。</div><div class="scripture-ref">(使徒行传 1:8 和合本)</div></div>
+<div class="scripture-container" data-id="16661415" data-ref="使徒行传 1:8 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 1:8')">📖</button> 和合本"></div>
 <p>耶稣清楚地告诉门徒，传福音、作见证、活出得胜的生命，都绝不能靠人的血气、意志或宗教热心，唯有靠圣灵的能力。 圣灵的洗带来属天的能力，让我们成为有果效的见证人，能过圣洁生活、结出属灵果子，靠主突破罪和软弱，勇敢见证神的真理。 因此，领受圣灵的洗不是可有可无，而是每一位跟随基督者不可缺少的属灵经历。 我们都需要谦卑、渴慕、恒切祷告，愿意完全敞开，让圣灵充满和掌管我们——如此，我们才能活出真正不一样的新生命，成就神在我们身上的美好旨意。</p>
 <h3>领受圣灵的洗</h3>
 <p>领受圣灵的洗是每一个基督徒信仰旅程中的重要步骤，不仅仅是五旬节时彼得所讲听众的特权，也是神为历世历代所有信他的人所应许的。圣经明确地告诉我们，这恩典不仅临到当时的人，也临到我们和所有主所召来的人。</p>
-<div class="scripture"><div class="scripture-text">彼得说：“你们各人要悔改，奉耶稣基督的名受洗，叫你们的罪得赦，就必领受所赐的圣灵。<br>因为这应许是给你们和你们的儿女，并一切在远方的人，就是主我们神所召来的人。”</div><div class="scripture-ref">(使徒行传 2:38-39 和合本)</div></div>
+<div class="scripture-container" data-id="9006e581" data-ref="使徒行传 2:38-39 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 2:38-39')">📖</button> 和合本"></div>
 <p>如何领受圣灵的洗？首先，我们需要有信心地来到神面前，求祂将圣灵赐给我们。这不是靠我们自己的功劳或行为，而是单单凭信心和对神应许的依靠。</p>
-<div class="scripture"><div class="scripture-text">你们虽不好，尚且知道拿好东西给儿女，何况天父岂不更将圣灵给求他的人吗？</div><div class="scripture-ref">(路加福音 11:13 和合本)</div></div>
+<div class="scripture-container" data-id="d706a1f0" data-ref="路加福音 11:13 <button class="btn-verse-inline" onclick="showVerseDisplay('路加福音 11:13')">📖</button> 和合本"></div>
 <p>其次，在新约教会的实际行动中，常常有信徒藉着教会肢体的按手来领受圣灵的洗，这是一种顺服、谦卑和彼此代祷的操练。</p>
-<div class="scripture"><div class="scripture-text">于是使徒按手在他们头上，他们就受了圣灵。</div><div class="scripture-ref">(使徒行传 8:17 和合本)</div></div>
+<div class="scripture-container" data-id="77dfba1e" data-ref="使徒行传 8:17 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 8:17')">📖</button> 和合本"></div>
 <p>无论你是自己独自祷告，还是请教会的同工或弟兄姐妹为你按手祷告，都可以凭信领受这圣灵的恩典。重要的是对神的话有信心、向神敞开、渴慕祂的灵充满你，使你可以得着属天的能力，活出新的生命。</p>
 <h3>属灵恩赐</h3>
 <p>当我们领受圣灵的洗时，常常会亲身经历到属灵恩赐的赐下。圣经记载显示，属灵恩赐是真实存在、可以感受和辨识的，例如说方言、说预言等。圣灵感动的工作绝非虚无缥缈，而是具体可见、生命被更新的表现。我们不要轻忽属灵恩赐的真实性，无论是初信还是多年跟随主，神都乐意把真实的属灵恩赐赐给我们，让我们与祂有更深的连结，为造就自己，也造就教会。</p>
-<div class="scripture"><div class="scripture-text">他们就都被圣灵充满，按着圣灵所赐的口才，说起别国的话来。</div><div class="scripture-ref">(使徒行传 2:4 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">保罗按手在他们头上，圣灵便降在他们身上，他们就说方言又说预言。</div><div class="scripture-ref">(使徒行传 19:6 和合本)</div></div>
+<div class="scripture-container" data-id="813c1390" data-ref="使徒行传 2:4 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 2:4')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="ee6e7e1f" data-ref="使徒行传 19:6 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 19:6')">📖</button> 和合本"></div>
 <h3>得能力成为见证人</h3>
-<div class="scripture"><div class="scripture-text">但圣灵降临在你们身上，你们就必得着能力，并要在耶路撒冷、犹太全地和撒玛利亚，直到地极，作我的见证。</div><div class="scripture-ref">(使徒行传 1:8 和合本)</div></div>
+<div class="scripture-container" data-id="16661415" data-ref="使徒行传 1:8 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 1:8')">📖</button> 和合本"></div>
 <p>耶稣应许，圣灵要充满我们，使我们不再软弱惧怕，而是刚强勇敢、大有能力地为主复活作见证。唯有圣灵的能力，才能叫我们突破自我，真实见证复活的基督，无论身处何地，勇敢传扬祂的福音。 你渴望得着这样的能力吗？让我们谦卑祈求，敞开迎接圣灵的充满，让主在我们生命中显出大能，使我们成为得胜、有果效的见证人！</p>
 <h3>个人应用</h3>
 <ul>
@@ -262,20 +357,167 @@
 <li>你愿意谦卑寻求，让弟兄姐妹为你祷告领受圣灵吗？</li>
 <li>你愿意持续追求圣灵的带领，让自己的生命不断被更新吗？</li>
 </ul>
-<hr>
-        </div>
-
-        <div class="navigation">
-            <div>
-                <a href="chapter_3.html" class="nav-btn">← 上一课</a>
-            </div>
-            <div>
-                <a href="index.html" class="nav-btn home">📚 目录</a>
-            </div>
-            <div>
-                <a href="chapter_5.html" class="nav-btn">下一课 →</a>
-            </div>
+<hr/>
+</div>
+<div class="navigation">
+<div>
+<a class="nav-btn" href="chapter_3.html">← 上一课</a>
+</div>
+<div>
+<a class="nav-btn home" href="index.html">📚 目录</a>
+</div>
+<div>
+<a class="nav-btn" href="chapter_5.html">下一课 →</a>
+</div>
+</div>
+</div>
+<script>
+            document.addEventListener('DOMContentLoaded', () => {
+                });
+        </script>
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
         </div>
     </div>
+
+    <script>
+        // ====== 多译本支持 ======
+        const VERSE_DATA = {"71123660": {"ref": "使徒行传 2:38", "text": "彼得说：「你们各人要悔改，奉耶稣基督的名受洗，叫你们的罪得赦，就必领受所赐的圣灵。」", "ccb": "彼得说：“你们都要悔改，奉耶稣基督的名受洗，使你们的罪得到赦免，你们就必领受所赐的圣灵。", "csb": "彼得对他们说：“你们应当悔改，每一个人都当奉耶稣基督的名受洗，使你们的罪得赦免，你们就将领受所赐的圣灵。”", "esv": "And Peter said to them, \"Repent and be baptized every one of you in the name of Jesus Christ for the forgiveness of your sins, and you will receive the gift of the Holy Spirit.\"", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "0b424d86": {"ref": "使徒行传 2:41", "text": "于是领受他话的人就受了洗。那一天，门徒约添了三千人。", "ccb": "于是，那些接受他话的人都受了洗，那一天门徒增加了约三千人。", "csb": "于是，接受他话的人就受了洗；那一天大约增加了三千人。", "esv": "So those who received his word were baptized, and there were added that day about three thousand souls.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "113f0547": {"ref": "罗马书 6:1-4", "text": "这样，怎么说呢？我们可以仍在罪中，叫恩典显多吗？断乎不可！我们在罪上死了的人，岂可仍在罪中活着呢？岂不知我们这受洗归入基督耶稣的人是受洗归入他的死吗？所以，我们藉着洗礼归入死，和他一同埋葬，原是叫我们一举一动有新生的样式，像基督藉着父的荣耀从死里复活一样。", "ccb": "这样，我们该怎么说呢？我们可以继续犯罪，好叫恩典增多吗？绝不可以！我们这些向罪死了的人，怎能继续活在罪中呢？难道你们不知道，我们受洗归入基督耶稣的人，就是受洗归入祂的死吗？所以，我们藉着洗礼归入死，与祂同葬，为的是要我们过新生命的生活，像基督藉着父的荣耀从死里复活一样。", "csb": "那么，我们怎么说呢？我们可以留在罪中，好让恩典增多吗？绝对不可！我们向罪死了的人，怎么能继续活在罪中呢？难道你们不明白，所有受洗归入基督耶稣的人，就是受洗归入了他的死吗？所以，我们藉着洗礼归入死，与他一同埋葬，好使我们也能以生命的新样式行事为人，就像基督藉着父的荣耀从死人中复活那样。", "esv": "What shall we say then? Are we to continue in sin that grace may abound? By no means! How can we who died to sin still live in it? Do you not know that all of us who have been baptized into Christ Jesus were baptized into his death? We were buried therefore with him by baptism into death, in order that, just as Christ was raised from the dead by the glory of the Father, we too might walk in newness of life.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "e937f2f3": {"ref": "约翰福音 16:7,13", "text": "然而，我将真情告诉你们，我去是与你们有益的；我若不去，保惠师就不到你们这里来；我若去，就差他来。 只等真理的圣灵来了，他要引导你们明白<sup>〔原文作“进入”〕</sup>一切的真理；因为他不是凭自己说的，乃是把他所听见的都说出来，并要把将来的事告诉你们。", "ccb": "然而，我把真情告诉你们，我去对你们是有益的。如果我不去，保惠师就不会到你们这里来；如果我去，就会差祂到你们这里来。... 但真理的灵来了，祂要引导你们明白一切的真理。因为祂不是凭自己说的，而是把祂所听见的都说出来，并且把将来的事告诉你们。", "csb": "但我把真相告诉你们：我离去对你们是有益处的，因为我如果不去，慰助者就不会到你们这里来；如果我去了，我就会派遣他到你们这里来。 不过当那位真理的灵来了，他就会引导你们进入一切真理。那时，他不会凭着自己说话，只把所听到的说出来，并且把那些就要来的事传讲给你们。", "esv": "Nevertheless, I tell you the truth: it is to your advantage that I go away, for if I do not go away, the Helper will not come to you. But if I go, I will send him to you. When the Spirit of truth comes, he will guide you into all the truth, for he will not speak on his own authority, but whatever he hears he will speak, and he will declare to you the things that are to come.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "16661415": {"ref": "使徒行传 1:8", "text": "但圣灵降临在你们身上，你们就必得着能力，并要在<e>耶路撒冷</e>、<e>犹太</e>全地，和<e>撒马利亚</e>，直到地极，作我的见证。”", "ccb": "但圣灵降临在你们身上，你们就必得着能力，并要在耶路撒冷、犹太全地和撒玛利亚，直到地极，作我的见证。”", "csb": "不过圣灵临到你们的时候，你们将得着能力，并且要在 耶路撒冷 ，在 犹太 和 撒玛利亚 全地，直到地极，做我的见证人。”", "esv": "But you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "9006e581": {"ref": "使徒行传 2:38-39", "text": "彼得说：「你们各人要悔改，奉耶稣基督的名受洗，叫你们的罪得赦，就必领受所赐的圣灵。因为这应许是给你们和你们的儿女，并一切在远方的人，就是主我们神所召来的。」", "ccb": "彼得说：“你们都要悔改，奉耶稣基督的名受洗，使你们的罪得到赦免，你们就必领受所赐的圣灵。因为这应许是给你们和你们的儿女，并一切在远方的人，就是主——我们的上帝所召来的。”", "csb": "彼得对他们说：“你们应当悔改，每一个人都当奉耶稣基督的名受洗，使你们的罪得赦免，你们就将领受所赐的圣灵。因为这应许是给你们和你们的儿女，以及所有远处的人，就是主我们的神所召来的人。”", "esv": "And Peter said to them, \"Repent and be baptized every one of you in the name of Jesus Christ for the forgiveness of your sins, and you will receive the gift of the Holy Spirit. For the promise is for you and for your children and for all who are far off, everyone whom the Lord our God calls to himself.\"", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "d706a1f0": {"ref": "路加福音 11:13", "text": "你们虽然不好，尚且知道拿好东西给儿女；何况天父，岂不更将圣灵给求他的人吗？”", "ccb": "你们虽然不好，尚且知道拿好东西给儿女，何况天父，岂不更要把圣灵赐给求祂的人吗？”", "csb": "所以，如果你们做为恶人也知道把好的东西给自己的儿女，更何况天上的父要赐圣灵给求他的人呢！”", "esv": "If you then, who are evil, know how to give good gifts to your children, how much more will the heavenly Father give the Holy Spirit to those who ask him!”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "77dfba1e": {"ref": "使徒行传 8:17", "text": "于是使徒按手在他们<i>头</i>上，他们就受了圣灵。", "ccb": "于是使徒按手在他们头上，他们就领受了圣灵。", "csb": "于是 彼得 和 约翰 按手在他们身上，他们就领受了圣灵。", "esv": "Then they laid their hands on them and they received the Holy Spirit.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "813c1390": {"ref": "使徒行传 2:4", "text": "他们就都被圣灵充满，按着圣灵所赐的口才说起别国的话来。", "ccb": "他们都被圣灵充满，照着圣灵所赐的口才，用别国的语言说起话来。", "csb": "他们都被圣灵充满，就照着圣灵所赐的的话语开始说出别种语言。", "esv": "And they were all filled with the Holy Spirit and began to speak in other tongues as the Spirit gave them utterance.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "ee6e7e1f": {"ref": "使徒行传 19:6", "text": "保罗按手在他们头上，圣灵便降在他们身上，他们就说方言，又说预言（或作：又讲道）。", "ccb": "保罗按手在他们头上，圣灵便降在他们身上，他们就说方言，又说预言。", "csb": "保罗按手在他们身上，圣灵就临到了他们，他们就说起语言，又说预言。", "esv": "And when Paul had laid his hands on them, the Holy Spirit came on them, and they began speaking in tongues and prophesying.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        const REF_LOOKUP = {};
+        for (const [id, entry] of Object.entries(VERSE_DATA)) {
+            if (entry.ref && entry.has_data) REF_LOOKUP[entry.ref] = entry;
+        }
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        let currentTranslation = localStorage.getItem('one2one_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = REF_LOOKUP[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
+        }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('one2one_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+            updateAllScriptures();
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { showToast('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        function updateAllScriptures() {
+            document.querySelectorAll('.scripture-container').forEach(div => {
+                const id = div.dataset.id;
+                const entry = VERSE_DATA[id];
+                if (!entry) return;
+                const trans = currentTranslation;
+                const hasTrans = entry['has_' + trans];
+                const text = (hasTrans && entry[trans]) ? entry[trans] : (entry.text || '暂无译文');
+                // Create elements on first render
+                let textEl = div.querySelector('.scripture-text');
+                let refEl = div.querySelector('.scripture-ref');
+                if (!textEl) {
+                    div.innerHTML = '';
+                    const ctrl = document.createElement('div');
+                    ctrl.className = 'sc-controls';
+                    const btn1 = document.createElement('button');
+                    btn1.className = 'btn-sc';
+                    btn1.textContent = '📖 经文';
+                    btn1.onclick = function() { showVerseDisplay(entry.ref); };
+                    ctrl.appendChild(btn1);
+                    const btn2 = document.createElement('button');
+                    btn2.className = 'btn-sc btn-toggle';
+                    btn2.textContent = '🙈 隐藏';
+                    btn2.onclick = function() { toggleScripture(id); };
+                    ctrl.appendChild(btn2);
+                    div.appendChild(ctrl);
+                    textEl = document.createElement('div');
+                    textEl.className = 'scripture-text';
+                    div.appendChild(textEl);
+                    refEl = document.createElement('div');
+                    refEl.className = 'scripture-ref';
+                    div.appendChild(refEl);
+                }
+                if (textEl) textEl.textContent = text;
+                if (refEl) refEl.textContent = '(' + entry.ref + (trans !== 'cuv' ? ' ' + TRANS_NAMES[trans] : '') + ')';
+            });
+        }
+
+        function toggleScripture(uid) {
+            const div = document.querySelector('.scripture-container[data-id="' + uid + '"]');
+            if (!div) return;
+            const textEl = div.querySelector('.scripture-text');
+            const btn = div.querySelector('.btn-toggle');
+            if (!textEl) return;
+            if (div.classList.contains('hidden-state')) {
+                div.classList.remove('hidden-state');
+                const entry = VERSE_DATA[uid];
+                const trans = currentTranslation;
+                const hasTrans = entry && entry['has_' + trans];
+                textEl.textContent = (hasTrans && entry[trans]) ? entry[trans] : (entry ? entry.text : '');
+                if (btn) btn.textContent = '🙈 隐藏';
+                if (btn) btn.classList.remove('hidden-state');
+            } else {
+                div.classList.add('hidden-state');
+                textEl.textContent = '💡 思考这段经文...';
+                if (btn) btn.textContent = '👁️ 显示';
+                if (btn) btn.classList.add('hidden-state');
+            }
+        }
+
+        function showToast(msg) {
+            var existing = document.querySelector('.bible-toast');
+            if (existing) existing.remove();
+            var toast = document.createElement('div');
+            toast.className = 'bible-toast';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(function() { toast.classList.add('show'); }, 10);
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() { toast.remove(); }, 300);
+            }, 2000);
+        }
+
+        // Init on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+            // Render all scripture containers
+            updateAllScriptures();
+            // Init hidden-state containers
+            document.querySelectorAll('.scripture-container.hidden-state').forEach(div => {
+                const textEl = div.querySelector('.scripture-text');
+                if (textEl) textEl.textContent = '💡 思考这段经文...';
+                const btn = div.querySelector('.btn-toggle');
+                if (btn) { btn.textContent = '👁️ 显示'; btn.classList.add('hidden-state'); }
+            });
+        });
+
+    </script>
 </body>
 </html>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新方向 悔改 | 一对一门徒训练</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>新方向 悔改 | 一对一门徒训练</title>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -116,19 +117,9 @@
             box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
         }
 
-        .scripture-text {
-            color: #2c3e50;
-            font-size: 1.05em;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
+        
 
-        .scripture-ref {
-            color: #27ae60;
-            font-weight: 600;
-            font-size: 0.95em;
-            text-align: right;
-        }
+        
 
         /* 导航 */
         .navigation {
@@ -202,39 +193,143 @@
             }
 
             .navigation {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                gap: 8px;
+                justify-content: space-between;
             }
 
             .nav-btn {
-                width: 100%;
+                width: auto;
+                flex: 1;
                 text-align: center;
+                padding: 8px 4px;
+                font-size: 0.9em;
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="breadcrumb">
-                <a href="index.html">一对一</a> &gt; 新方向 悔改
-            </div>
-            <h1>新方向 悔改</h1>
-            <div class="subtitle">第3课</div>
-        </header>
 
-        <div class="content">
-            <div class="scripture"><div class="scripture-text">彼得说：“你们各人要悔改，奉耶稣基督的名受洗，叫你们的罪得赦，就必领受所赐的圣灵。”</div><div class="scripture-ref">(使徒行传 2:38 和合本)</div></div>
+        /* === 译本选择条 === */
+        .translation-bar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            border-bottom: 1px solid #eee;
+        }
+        .translation-bar .tl-label { font-size: 0.9em; color: #888; margin-right: 4px; }
+        .translation-bar button {
+            padding: 6px 16px; border: 2px solid #e0e0e0; border-radius: 20px;
+            background: white; cursor: pointer; font-size: 0.85em; color: #666; transition: all 0.2s;
+        }
+        .translation-bar button:hover { border-color: #667eea; color: #667eea; }
+        .translation-bar button.active {
+            background: #667eea; color: white; border-color: #667eea;
+        }
+        /* === 经文弹窗 === */
+        .verse-modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .verse-modal-overlay.show { display: flex; }
+        .verse-modal {
+            background: white; border-radius: 15px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .verse-modal h3 { color: #667eea; margin-bottom: 4px; }
+        .verse-modal .vm-ref { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+        .verse-modal .vm-text { line-height: 2; color: #333; font-size: 1.05em; }
+        .verse-modal .vm-trans { color: #888; font-size: 0.85em; margin-top: 12px; text-align: right; }
+        .verse-modal .btn-close { margin-top: 16px; padding: 8px 24px; background: #667eea;
+            color: white; border: none; border-radius: 8px; cursor: pointer; float: right; }
+        /* === 经文容器 === */
+        .scripture-container {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6f7ed 100%);
+            border-left: 5px solid #27ae60;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .scripture-text {
+            color: #2c3e50;
+            font-size: 1.05em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .scripture-ref {
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-align: right;
+        }
+        /* 经文控制按钮 */
+        .sc-controls {
+            display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 8px;
+        }
+        .btn-sc {
+            padding: 4px 10px; border: 1px solid #27ae60; border-radius: 12px;
+            background: white; cursor: pointer; font-size: 0.78em; color: #27ae60; transition: all 0.2s;
+        }
+        .btn-sc:hover { background: #27ae60; color: white; }
+        .btn-sc.hidden-state { background: #27ae60; color: white; }
+        /* 内联经文按钮 */
+        .btn-verse-inline {
+            padding: 2px 6px; border: 1px solid #ddd; border-radius: 4px;
+            background: #f8f9fa; cursor: pointer; font-size: 0.75em; margin: 0 2px;
+            vertical-align: middle;
+        }
+        .btn-verse-inline:hover { background: #667eea; color: white; border-color: #667eea; }
+        /* Toast */
+        .bible-toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 10px 24px; border-radius: 20px;
+            font-size: 0.9em; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .bible-toast.show { opacity: 1; }
+        @media (max-width: 768px) {
+            .translation-bar { justify-content: center; }
+        }
+
+    </style>
+<link href="css/multilang.css" rel="stylesheet"/></head>
+<body>
+<div class="container">
+<header>
+<div class="breadcrumb">
+<a href="index.html">一对一</a> &gt; 新方向 悔改
+            </div>
+<h1>新方向 悔改</h1>
+<div class="subtitle">第3课</div>
+</header>
+
+        <div class="translation-bar">
+            <span class="tl-label">🌐 圣经译本:</span>
+            <button class="tl-btn active" data-trans="cuv" onclick="setTranslation('cuv')">和合本</button>
+            <button class="tl-btn" data-trans="ccb" onclick="setTranslation('ccb')">当代译本</button>
+            <button class="tl-btn" data-trans="csb" onclick="setTranslation('csb')">标准译本</button>
+            <button class="tl-btn" data-trans="esv" onclick="setTranslation('esv')">ESV</button>
+        </div>
+
+<div class="content">
+<div class="scripture-container" data-id="71123660" data-ref="使徒行传 2:38 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 2:38')">📖</button> 和合本"></div>
 <p>开着车在单行道上逆向狂奔真是愚蠢，更别提有多危险了。有的人这样做，是因为他们不知道自己弄错了方向；而有的人这样做则是因为叛逆，寻求刺激。 在属灵的事情上也是一样，无论是因为无知还是因为叛逆，我们都是在一条险象丛生的单行道上逆向行驶，其结果导致与神永远地隔绝。 除非我们调转方向（悔改）开始跟随耶稣，否则我们所走的每一步都是在朝着错误的方向，每一步都在使我们更加远离神。</p>
 <h3>属神的忧伤与属世的忧伤</h3>
-<div class="scripture"><div class="scripture-text">因为依着神的意思忧愁，就生出没有后悔的悔改来，以致得救；但世俗的忧愁是叫人死。</div><div class="scripture-ref">(哥林多后书 7:10 和合本)</div></div>
+<div class="scripture-container" data-id="d1c5cada" data-ref="哥林多后书 7:10 <button class="btn-verse-inline" onclick="showVerseDisplay('哥林多后书 7:10')">📖</button> 和合本"></div>
 <p>圣经告诉我们，有两种不同的忧愁。一种是“依着神的意思忧愁”，当我们因自己的罪恶、因得罪神而发自内心感到忧愁痛悔时，这忧愁会促使我们真心悔改，带来生命的转变，使我们得着救恩。这种忧愁不是指自责或沉溺在情绪里，而是带着转向神的盼望。</p>
-<div class="scripture"><div class="scripture-text">我向你陈明我的罪，不隐瞒我的恶。<br>我说：“我要向耶和华承认我的过犯”，你就赦免我的罪恶。</div><div class="scripture-ref">(诗篇 32:5 和合本)</div></div>
+<div class="scripture-container" data-id="19fbca56" data-ref="诗篇 32:5 <button class="btn-verse-inline" onclick="showVerseDisplay('诗篇 32:5')">📖</button> 和合本"></div>
 <p>另一种是“世俗的忧愁”，这种忧愁只是为自己的失败、犯罪的后果或被人发现而难过。它不带来真实的悔改，也不会令生命有所改变。世俗的忧愁只会带来懊悔、痛苦，甚至绝望，最终叫人灵性死亡。</p>
 <h3>真正的悔改</h3>
-<div class="scripture"><div class="scripture-text">劝勉他们应当悔改归向神，行事与悔改的心相称。</div><div class="scripture-ref">(使徒行传 26:20 和合本)</div></div>
+<div class="scripture-container" data-id="08c611a6" data-ref="使徒行传 26:20 <button class="btn-verse-inline" onclick="showVerseDisplay('使徒行传 26:20')">📖</button> 和合本"></div>
 <p>真正的悔改不仅仅是感到一时的内疚或后悔，而是发自内心认识到自己得罪了神，为此生发出属神的忧伤。这种忧伤不是消极的自责，而是促使人转离罪恶、归向神的动力。正如保罗所说，“因为依着神的意思忧愁，就生出没有后悔的悔改来，以致得救”（参哥林多后书7:10）。 当我们有这样的悔改时，内心会发生真正的转变，愿意承认自己的过犯，并主动回到神面前，寻求祂的赦免。</p>
-<div class="scripture"><div class="scripture-text">你们要结出果子来，与悔改的心相称。</div><div class="scripture-ref">(马太福音 3:8 和合本)</div></div>
+<div class="scripture-container" data-id="5da1e078" data-ref="马太福音 3:8 <button class="btn-verse-inline" onclick="showVerseDisplay('马太福音 3:8')">📖</button> 和合本"></div>
 <p>这种悔改会带来实际生命的果子——我们的思想、行为开始改变，愿意顺服神、追求圣洁，与原来的罪恶生活划清界限。悔改的真实证据，就是我们的生活能结出与悔改心相称的果子，例如谦卑、良善、悔改的行为、以及爱神爱人的实际行动。这是神所悦纳的悔改，也是带来新生命的开始。</p>
 <h3>悔改与饶恕</h3>
 <p>路加福音15:11-24中浪子的比喻深刻描绘了真正的悔改。那悖逆的小儿子在耗尽所有、落魄潦倒之际，圣经说：“他醒悟过来”（路加福音15:17），这不仅仅是人的自觉，更是天父圣灵的光照和感动。悔改的起点在于神主动的介入，使我们认清自己的真实处境。</p>
@@ -242,18 +337,18 @@
 <p>他由衷地转离以前悖逆的道路，决定归回父亲身边。当小儿子还在远处，父亲就看见了他，动了慈心，跑去迎接、拥抱并亲吻他（路加福音15:20）。父亲不仅饶恕了他，还恢复了他儿子的身份，为他披上上好的袍子，戴上戒指，预备筵席庆祝。这极大的接纳，彰显了神无限的信实与慈爱。</p>
 <p>同样，天父也温柔地等待并迎接每一位愿意真实悔改归向他的人。当我们谦卑地承认：“我得罪了天，又得罪了你”，从心底向神悔改时，神就乐意全然饶恕，并将我们恢复为他所爱的儿女。</p>
 <p>真正的悔改，是在神面前承认自己的过犯，愿意离弃罪恶，回到天父那里，领受祂的怜悯与赦免。 愿我们都像浪子一样，在圣灵的光照中谦卑悔改，经历天父奇妙的接纳与赦免。 正如圣经所应许：</p>
-<div class="scripture"><div class="scripture-text">我们若认自己的罪，神是信实的，是公义的，必要赦免我们的罪，洗净我们一切的不义。</div><div class="scripture-ref">(约翰一书 1:9 和合本)</div></div>
-<div class="scripture"><div class="scripture-text">所以，你们当悔改归正，使你们的罪得以涂抹。这样，那安舒的日子就必从主面前来到。</div><div class="scripture-ref">(使徒行传 3:19,20 和合本)</div></div>
+<div class="scripture-container" data-id="1ce23a87" data-ref="约翰一书 1:9 <button class="btn-verse-inline" onclick="showVerseDisplay('约翰一书 1:9')">📖</button> 和合本"></div>
+<div class="scripture-container" data-id="7b355217" data-ref="使徒行传 3:19,20 和合本"></div>
 <p>这段经文告诉我们，当我们悔改归向神时，神会把我们的罪完全涂抹，不再计较，就好像表上的污渍被彻底清除了一样。想象你最喜欢的白衬衫上不小心沾染上无法自己去除的污点——普通的清洗方法根本没有用。可是现在，有一种最强力的去污剂，不但能把污渍彻底洗掉，还能让整件衣服变得焕然一新，没有残留，没有痕迹。 同样地，悔改就是把我们的罪和羞耻带到耶稣面前，让祂成为我们得洗净和更新的唯一方法。当我们认罪悔改，相信并接受耶稣作救主和生命的主宰时，祂不仅涂抹了我们的罪，还除去我们里面的愧疚和羞耻，赐我们一个全新的生命和一颗崭新的心。正如主所应许，安舒的日子，就是与神亲近、心灵安息和喜乐的生活，就会临到我们身上。</p>
 <h3>饶恕他人</h3>
 <p>神已经因为耶稣赦免了我们的罪，所以我们也要学习去饶恕那些冒犯我们、伤害我们的人。神希望我们像祂一样，有宽容和饶恕的心。</p>
-<div class="scripture"><div class="scripture-text">那时彼得进前来，对耶稣说：“主阿，我弟兄得罪我，我当饶恕他几次呢？到七次可以吗？”<br>耶稣说：“我对你说，不是到七次，乃是到七十个七次。”</div><div class="scripture-ref">(马太福音 18:21-22 和合本)</div></div>
+<div class="scripture-container" data-id="c08df99c" data-ref="马太福音 18:21-22 <button class="btn-verse-inline" onclick="showVerseDisplay('马太福音 18:21-22')">📖</button> 和合本"></div>
 <p>彼得以为七次已经够多了，耶稣却说要七十个七次，也就是说，我们要常常去饶恕对我们有亏欠的人。我们自己也曾得罪神很多次，神都乐意赦免我们，所以我们也要饶恕他人。</p>
 <p>如果我们不肯饶恕别人，这样的苦毒和怨恨会像根一样在心里生长，不但让自己痛苦、没有平安，还会影响到身边的人。</p>
-<div class="scripture"><div class="scripture-text">又要谨慎，恐怕有人失了神的恩；恐怕有毒根生出来扰乱你们，因此叫众人沾染污秽。</div><div class="scripture-ref">(希伯来书 12:15 和合本)</div></div>
+<div class="scripture-container" data-id="ccd89e4f" data-ref="希伯来书 12:15 <button class="btn-verse-inline" onclick="showVerseDisplay('希伯来书 12:15')">📖</button> 和合本"></div>
 <p>所以，让神的爱充满我们，去饶恕那些伤害过我们的人吧，这样我们才能经历神真正的自由和喜乐。</p>
 <h3>不再懊悔</h3>
-<div class="scripture"><div class="scripture-text">因为依着神的意思忧愁，就生出没有后悔的悔改来，以致得救；但世俗的忧愁是叫人死。</div><div class="scripture-ref">(哥林多后书 7:10 和合本)</div></div>
+<div class="scripture-container" data-id="d1c5cada" data-ref="哥林多后书 7:10 <button class="btn-verse-inline" onclick="showVerseDisplay('哥林多后书 7:10')">📖</button> 和合本"></div>
 <p>真正的悔改是远离罪恶并转向神。这表示，我们不再依靠自己的好行为，或是努力参加宗教活动来寻求得救，而是单单信靠耶稣基督。过去，我们走错了方向，离神越来越远；如今，我们回转归向神，与祂同行。悔改标志着新生命的开始，让我们脱离以自我为中心的捆绑，进入神所预备的正路，从而能够成就祂在我们生命中的美好计划。真正按着神的意思忧愁，会带来毫无懊悔的悔改，也带下救恩和新的盼望。</p>
 <h3>个人应用</h3>
 <ul>
@@ -263,20 +358,167 @@
 <li>如果你和某人有矛盾或受伤害，你愿意按照神的话语先主动道歉或饶恕他人吗？可以为此祷告并勇敢迈出一步。</li>
 <li>这周你可以怎样用一个实际行动（如读经、祷告、参加教会或帮助别人）来回应本章的信息？写下并计划去做。</li>
 </ul>
-<hr>
-        </div>
-
-        <div class="navigation">
-            <div>
-                <a href="chapter_2.html" class="nav-btn">← 上一课</a>
-            </div>
-            <div>
-                <a href="index.html" class="nav-btn home">📚 目录</a>
-            </div>
-            <div>
-                <a href="chapter_4.html" class="nav-btn">下一课 →</a>
-            </div>
+<hr/>
+</div>
+<div class="navigation">
+<div>
+<a class="nav-btn" href="chapter_2.html">← 上一课</a>
+</div>
+<div>
+<a class="nav-btn home" href="index.html">📚 目录</a>
+</div>
+<div>
+<a class="nav-btn" href="chapter_4.html">下一课 →</a>
+</div>
+</div>
+</div>
+<script>
+            document.addEventListener('DOMContentLoaded', () => {
+                });
+        </script>
+    <div class="verse-modal-overlay" id="verseModal">
+        <div class="verse-modal">
+            <h3 id="vmTitle"></h3>
+            <div class="vm-ref" id="vmRef"></div>
+            <div class="vm-text" id="vmText"></div>
+            <div class="vm-trans" id="vmTrans"></div>
+            <button class="btn-close" onclick="document.getElementById('verseModal').classList.remove('show')">关闭</button>
         </div>
     </div>
+
+    <script>
+        // ====== 多译本支持 ======
+        const VERSE_DATA = {"71123660": {"ref": "使徒行传 2:38", "text": "“故此，<e>以色列</e>全家当确实地知道，你们钉在十字架上的这位耶稣，神已经立他为主，为基督了。”", "ccb": "彼得说：“你们都要悔改，奉耶稣基督的名受洗，使你们的罪得到赦免，你们就必领受所赐的圣灵。", "csb": "“因此， 以色列 全家都当确实知道：被你们钉上十字架的这位耶稣，神已经委任他为主、为基督了。”", "esv": "Let all the house of Israel therefore know for certain that God has made him both Lord and Christ, this Jesus whom you crucified.”", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "d1c5cada": {"ref": "哥林多后书 7:10", "text": "因为依着神的意思忧愁，就生出没有后悔的懊悔来，以致得救；但世俗的忧愁是叫人死。", "ccb": "因为按照上帝的心意忧愁会带来悔改，使人得救，永不后悔；但世俗的忧愁只会带来死亡。", "csb": "因为按神的意思忧伤，就生出悔改通向救恩，是不懊悔的；可是属世界的忧伤，却带来死亡。", "esv": "For godly grief produces a repentance that leads to salvation without regret, whereas worldly grief produces death.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "19fbca56": {"ref": "诗篇 32:5", "text": "我向你陈明我的罪，不隐瞒我的恶。我说：我要向耶和华承认我的过犯，你就赦免我的罪恶。（细拉）", "ccb": "我向你承认我的罪，不再隐瞒我的恶。我说：“我要向耶和华承认我的过犯。”你就赦免了我的罪恶。", "csb": "我向你告白我的罪，没有掩盖我的罪孽；\n我说：“我要为我的过犯向耶和华认罪”，\n你就赦免了我的罪愆。 细拉", "esv": "I acknowledged my sin to you, and I did not cover my iniquity; I said, “I will confess my transgressions to the LORD,” and you forgave the iniquity of my sin. <i>Selah</i>", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "08c611a6": {"ref": "使徒行传 26:20", "text": "先在<e>大马士革</e>，后在<e>耶路撒冷</e>和<e>犹太</e>全地，以及外邦，劝勉他们应当悔改归向神，行事与悔改的心相称。", "ccb": "劝导他们悔改归向上帝，行事为人要与悔改的心相称。", "csb": "我首先在 大马士革 ，然后在 耶路撒冷 、 犹太 全地以及外邦人中，告诫人们要悔改，归向神，行事与悔改的心相称。", "esv": "but declared first to those in Damascus, then in Jerusalem and throughout all the region of Judea, and also to the Gentiles, that they should repent and turn to God, performing deeds in keeping with their repentance.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "5da1e078": {"ref": "马太福音 3:8", "text": "你们要结出果子来，与悔改的心相称。", "ccb": "你们要结出与悔改相称的果子。", "csb": "你们应当结出果子，与悔改的心相称！", "esv": "Bear fruit in keeping with repentance.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "1ce23a87": {"ref": "约翰一书 1:9", "text": "我们若认自己的罪，神是信实的，是公义的，必要赦免我们的罪，洗净我们一切的不义。", "ccb": "我们若认自己的罪，上帝是信实公义的，必赦免我们的罪，洗净我们一切的不义。", "csb": "如果我们承认自己的罪孽，神是信实的、公义的，他就会赦免我们的罪孽，洁净我们脱离一切的不义。", "esv": " If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "7b355217": {"ref": "使徒行传 3:19,20", "text": "所以，你们当悔改归正，使你们的罪得以涂抹， 这样，那安舒的日子就必从主面前来到；主也必差遣所预定给你们的基督（耶稣）降临。", "ccb": "所以，你们要悔改归正，使你们的罪得到涂抹，好叫主赐给你们安舒的日子，", "csb": "所以，你们应当悔改，应当回转，使你们的罪孽被抹去， 这样，更新的日子就会从主面前来到；并且他要将耶稣，就是预先指定给你们的那位基督差来。", "esv": " Repent therefore, and turn back, that your sins may be blotted out, that times of refreshing may come from the presence of the Lord, and that he may send the Christ appointed for you, Jesus,", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "c08df99c": {"ref": "马太福音 18:21-22", "text": "那时，<e>彼得</e>进前来，对耶稣说：“主啊，我弟兄得罪我，我当饶恕他几次呢？到七次可以吗？” 耶稣说：“我对你说，不是到七次，乃是到七十个七次。", "ccb": "那时，彼得进前来问耶稣：“主啊，如果我的弟兄得罪了我，我要饶恕他多少次呢？七次够吗？”耶稣回答说：“我告诉你，不是七次，是七十个七次。", "csb": "那时， 彼得 前来问耶稣：“主啊，如果弟兄对我犯罪，我该饶恕多少次呢？到七次可以吗？” 耶稣对他说：“我告诉你：不是七次，而是七十个七次。", "esv": "Then Peter came up and said to him, “Lord, how often will my brother sin against me, and I forgive him? As many as seven times?” Jesus said to him, “I do not say to you seven times, but seventy-seven times.", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}, "ccd89e4f": {"ref": "希伯来书 12:15", "text": "又要谨慎，恐怕有人失了神的恩；恐怕有毒根生出来扰乱你们，因此叫众人沾染污秽；", "ccb": "你们要谨慎，免得有人失去了上帝的恩典，免得有苦毒的根长起来扰乱你们，玷污许多人。", "csb": "你们要谨慎，免得有人亏缺了神的恩典；免得有苦毒的根长起来搅扰你们，使许多人因此被污秽了；", "esv": "See to it that no one fails to obtain the grace of God; that no “root of bitterness” springs up and causes trouble, and by it many become defiled;", "has_data": true, "has_ccb": true, "has_csb": true, "has_esv": true}};
+        const REF_LOOKUP = {};
+        for (const [id, entry] of Object.entries(VERSE_DATA)) {
+            if (entry.ref && entry.has_data) REF_LOOKUP[entry.ref] = entry;
+        }
+        const TRANS_NAMES = { cuv: '和合本', ccb: '当代译本', csb: '标准译本', esv: 'ESV' };
+        let currentTranslation = localStorage.getItem('one2one_translation') || 'cuv';
+
+        function getVerseText(ref, trans) {
+            const entry = REF_LOOKUP[ref];
+            if (!entry) return null;
+            if (trans === 'cuv') return entry.text;
+            if (entry['has_' + trans] && entry[trans] && entry[trans].trim()) return entry[trans];
+            return entry.text || null;
+        }
+
+        function setTranslation(trans) {
+            currentTranslation = trans;
+            localStorage.setItem('one2one_translation', trans);
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === trans);
+            });
+            updateAllScriptures();
+        }
+
+        function showVerseDisplay(ref) {
+            const text = getVerseText(ref, currentTranslation);
+            if (!text) { showToast('暂无经文数据'); return; }
+            document.getElementById('vmTitle').textContent = '📖 ' + ref;
+            document.getElementById('vmRef').textContent = TRANS_NAMES[currentTranslation] || currentTranslation;
+            document.getElementById('vmText').textContent = text;
+            document.getElementById('vmTrans').textContent = '— ' + (TRANS_NAMES[currentTranslation] || currentTranslation);
+            document.getElementById('verseModal').classList.add('show');
+        }
+
+        function updateAllScriptures() {
+            document.querySelectorAll('.scripture-container').forEach(div => {
+                const id = div.dataset.id;
+                const entry = VERSE_DATA[id];
+                if (!entry) return;
+                const trans = currentTranslation;
+                const hasTrans = entry['has_' + trans];
+                const text = (hasTrans && entry[trans]) ? entry[trans] : (entry.text || '暂无译文');
+                // Create elements on first render
+                let textEl = div.querySelector('.scripture-text');
+                let refEl = div.querySelector('.scripture-ref');
+                if (!textEl) {
+                    div.innerHTML = '';
+                    const ctrl = document.createElement('div');
+                    ctrl.className = 'sc-controls';
+                    const btn1 = document.createElement('button');
+                    btn1.className = 'btn-sc';
+                    btn1.textContent = '📖 经文';
+                    btn1.onclick = function() { showVerseDisplay(entry.ref); };
+                    ctrl.appendChild(btn1);
+                    const btn2 = document.createElement('button');
+                    btn2.className = 'btn-sc btn-toggle';
+                    btn2.textContent = '🙈 隐藏';
+                    btn2.onclick = function() { toggleScripture(id); };
+                    ctrl.appendChild(btn2);
+                    div.appendChild(ctrl);
+                    textEl = document.createElement('div');
+                    textEl.className = 'scripture-text';
+                    div.appendChild(textEl);
+                    refEl = document.createElement('div');
+                    refEl.className = 'scripture-ref';
+                    div.appendChild(refEl);
+                }
+                if (textEl) textEl.textContent = text;
+                if (refEl) refEl.textContent = '(' + entry.ref + (trans !== 'cuv' ? ' ' + TRANS_NAMES[trans] : '') + ')';
+            });
+        }
+
+        function toggleScripture(uid) {
+            const div = document.querySelector('.scripture-container[data-id="' + uid + '"]');
+            if (!div) return;
+            const textEl = div.querySelector('.scripture-text');
+            const btn = div.querySelector('.btn-toggle');
+            if (!textEl) return;
+            if (div.classList.contains('hidden-state')) {
+                div.classList.remove('hidden-state');
+                const entry = VERSE_DATA[uid];
+                const trans = currentTranslation;
+                const hasTrans = entry && entry['has_' + trans];
+                textEl.textContent = (hasTrans && entry[trans]) ? entry[trans] : (entry ? entry.text : '');
+                if (btn) btn.textContent = '🙈 隐藏';
+                if (btn) btn.classList.remove('hidden-state');
+            } else {
+                div.classList.add('hidden-state');
+                textEl.textContent = '💡 思考这段经文...';
+                if (btn) btn.textContent = '👁️ 显示';
+                if (btn) btn.classList.add('hidden-state');
+            }
+        }
+
+        function showToast(msg) {
+            var existing = document.querySelector('.bible-toast');
+            if (existing) existing.remove();
+            var toast = document.createElement('div');
+            toast.className = 'bible-toast';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(function() { toast.classList.add('show'); }, 10);
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() { toast.remove(); }, 300);
+            }, 2000);
+        }
+
+        // Init on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.trans === currentTranslation);
+            });
+            const modal = document.getElementById('verseModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('show');
+                });
+            }
+            // Render all scripture containers
+            updateAllScriptures();
+            // Init hidden-state containers
+            document.querySelectorAll('.scripture-container.hidden-state').forEach(div => {
+                const textEl = div.querySelector('.scripture-text');
+                if (textEl) textEl.textContent = '💡 思考这段经文...';
+                const btn = div.querySelector('.btn-toggle');
+                if (btn) { btn.textContent = '👁️ 显示'; btn.classList.add('hidden-state'); }
+            });
+        });
+
+    </script>
 </body>
 </html>
