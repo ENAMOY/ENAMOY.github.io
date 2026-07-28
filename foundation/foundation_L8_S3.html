@@ -1073,7 +1073,7 @@
                 }
                 
                 const userAnswer = input.value.trim();
-                const standardAnswer = answerInfo.text || '';
+                const standardAnswer = getVerseText(ref, currentTranslation) || answerInfo.text || '';
                 
                 // 清除之前的标记
                 input.classList.remove('correct', 'incorrect', 'partial');
@@ -1147,7 +1147,7 @@
                 questionStats[questionId].total++;
                 
                 const userAnswer = input.value.trim();
-                const standardAnswer = answerInfo.text || '';
+                const standardAnswer = getVerseText(ref, currentTranslation) || answerInfo.text || '';
                 
                 const similarity = calculateSimilarity(userAnswer, standardAnswer);
                 
