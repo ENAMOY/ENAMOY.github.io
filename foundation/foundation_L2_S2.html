@@ -1151,7 +1151,7 @@
         // 加载标准答案
         async function loadStandardAnswers() {
             try {
-                const response = await fetch('data/answers/foundation_L2_S2.json');
+                const response = await fetch('data/answers/foundation_L2_S2.json?v=2');
                 if (!response.ok) {
                     console.warn('未找到答案数据文件');
                     return;
