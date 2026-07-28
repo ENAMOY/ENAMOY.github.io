@@ -1493,7 +1493,8 @@
         showFullHint = function(questionId, ref) {
             const answerKey = 'q' + questionId + '_' + ref;
             const answerInfo = standardAnswers[answerKey];
-            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const hasVerseData = VERSE_DATA[ref] && VERSE_DATA[ref].has_data;
+            if ((!answerInfo || !answerInfo.has_data) && !hasVerseData) { showToast('暂无答案数据'); return; }
             const standardAnswerDiv = document.querySelector('.standard-answer[data-ref="' + ref + '"]');
             if (standardAnswerDiv) {
                 if (standardAnswerDiv.classList.contains('show')) {
@@ -1511,7 +1512,8 @@
         showPartialHint = function(questionId, ref) {
             const answerKey = 'q' + questionId + '_' + ref;
             const answerInfo = standardAnswers[answerKey];
-            if (!answerInfo || !answerInfo.has_data) { showToast('暂无答案数据'); return; }
+            const hasVerseData = VERSE_DATA[ref] && VERSE_DATA[ref].has_data;
+            if ((!answerInfo || !answerInfo.has_data) && !hasVerseData) { showToast('暂无答案数据'); return; }
             const input = document.querySelector('textarea[data-question="' + questionId + '"][data-reference="' + ref + '"]');
             if (!input) return;
             const standardText = getVerseText(ref, currentTranslation) || answerInfo.text;
