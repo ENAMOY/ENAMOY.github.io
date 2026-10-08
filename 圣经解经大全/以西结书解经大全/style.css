@@ -245,3 +245,28 @@ footer {
     break-inside: avoid;
   }
 }
+
+/* 表格样式（md 表格转换） */
+main table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+main th, main td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  text-align: left;
+  line-height: 1.6;
+}
+main th {
+  background: #f5f0e8;
+  font-weight: 600;
+}
+main tr:nth-child(even) td {
+  background: #fafafa;
+}
+main h4 {
+  font-size: 1.15em;
+  margin: 1.4em 0 0.6em;
+  color: #333;
+}
